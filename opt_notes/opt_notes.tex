@@ -39,6 +39,7 @@
 \usepackage{pdfpages}
 
 \usepackage{mathtools}
+\usepackage{booktabs}
 
 \numberwithin{equation}{section}
 
@@ -138,6 +139,10 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\grad}{\nabla}
 \renewcommand{\d}{\mathrm{d}}
+\newcommand{\T}{\top}
+
+
+\newcommand{\diag}{\operatorname{diag}}
 
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
@@ -145,9 +150,10 @@
 \begin{document}
 	{\sffamily \maketitle}
 	
+	\cite{Bertsekas/99} is brilliant textbook for optimization, which is also the main reference of this notes.
 	
 	\tableofcontents
-	
+
 	\section{Derivatives}
 	Let $f:\R^n \to \R$. The \emph{gradient} of $f$ at $x$ is defined as the column vector
 	$$
@@ -169,7 +175,7 @@
 	
 	The \emph{Hessian} of $f:\R^n\to \R$ is the matrix whose $ij$-th entry is equal to $\frac{\partial^2 f}{\partial x_i \partial x_j}$, denoted by $\grad^2 f$.
 	
-	Be careful that, for $f:\R^n \to \R$, $\grad^2 f\neq \grad(\grad f)$, but $\grad^2 f = \grad(\grad f^T)$.
+	Be careful that, for $f:\R^n \to \R$, $\grad^2 f\neq \grad(\grad f)$, but $\grad^2 f = \grad(\grad f^\T)$.
 	\begin{proposition}[chain rule]
 		Let $f:\R^k\to \R^m$ and $g:\R^m\to\R^n$ be smooth functions, and $h=g(f(x))$. Then
 		$$
@@ -179,10 +185,10 @@
 	\end{proposition}
 	Some useful relations:
 	\begin{enumerate}
-		\item $\grad (Ax)=A^T$;
-		\item $\grad (x^T A x)=(A+A^T)x$; in particular, if $Q$ is symmetric, then $\grad(x^T Q x)=2Qx$ and $\grad(\norm{x}^2)=\grad(x^T x)=2x$;
-		\item $\grad(f(Ax))=A^T \grad f(Ax)$;
-		\item $\grad^2(f(Ax))=A^T \grad^2 f(Ax)A$;
+		\item $\grad (Ax)=A^\T$;
+		\item $\grad (x^\T A x)=(A+A^\T)x$; in particular, if $Q$ is symmetric, then $\grad(x^\T Q x)=2Qx$ and $\grad(\norm{x}^2)=\grad(x^\T x)=2x$;
+		\item $\grad(f(Ax))=A^\T \grad f(Ax)$;
+		\item $\grad^2(f(Ax))=A^\T \grad^2 f(Ax)A$;
 	\end{enumerate}
 	The shape of the left hand side would be helpful to memorize the right hand side.
 	
@@ -191,15 +197,15 @@
 		\begin{enumerate}
 			\item we have
 			$$
-			f(x+d)=f(x)+d^T \grad f(x) +\frac{1}{2}d^T\left(\int_0^1\left(\int_0^t \grad^2 f(x+\tau d)\d \tau\right)\d t\right)d.
+			f(x+d)=f(x)+d^\T \grad f(x) +\frac{1}{2}d^\T\left(\int_0^1\left(\int_0^\T \grad^2 f(x+\tau d)\d \tau\right)\d t\right)d.
 			$$
 			\item there exists
 			$$
-			f(x+d)=f(x)+d^T \grad f(x)+\frac{1}{2}d^T \grad^2 f(x+\alpha d)d.
+			f(x+d)=f(x)+d^\T \grad f(x)+\frac{1}{2}d^\T \grad^2 f(x+\alpha d)d.
 			$$
 			\item there holds
 			$$
-			f(x+d)=f(x)+d^T \grad f(x)+\frac{1}{2}d^T \grad^2 f(x)d+o(\norm{d}^2).
+			f(x+d)=f(x)+d^\T \grad f(x)+\frac{1}{2}d^\T \grad^2 f(x)d+o(\norm{d}^2).
 			$$
 		\end{enumerate}
 	\end{theorem}
@@ -226,7 +232,7 @@
 		\begin{enumerate}
 			\item $f$ is convex over $C$ if and only if
 			\begin{equation}
-				f(z)\geq f(x)+(z-x)^T \grad f(x)
+				f(z)\geq f(x)+(z-x)^\T \grad f(x)
 			\end{equation}
 			for all $x,z\in C$.
 			\item $f$ is strictly convex over $C$ if and only if the above inequality is strict whenever $x\neq z$.
@@ -237,13 +243,13 @@
 	\begin{definition}[strongly convex]
 		A function $f:\R^n \to \R$ is called \emph{strongly convex} if for some $\sigma>0$, we have
 		\begin{equation}
-			f(y)\geq f(x)+\grad f(x)^T (y-x)+\frac{\sigma}{2}\norm{x-y}^2
+			f(y)\geq f(x)+\grad f(x)^\T (y-x)+\frac{\sigma}{2}\norm{x-y}^2
 		\end{equation}
 		for all $x,y\in \R^n$.
 	\end{definition}
 	It can be shown that an equivalent definition is that
 	\begin{equation}
-		(\grad f(x)-\grad f(y))^T(x-y)\geq \sigma \norm{x-y}^2
+		(\grad f(x)-\grad f(y))^\T(x-y)\geq \sigma \norm{x-y}^2
 	\end{equation}
 	for all $x,y\in \R^n$.
 	
@@ -262,11 +268,11 @@
 	\end{theorem}
 	The intuition of this theorem is considering
 	$$
-	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^T \Delta x,
+	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x,
 	$$
 	and similarly for second order,
 	$$
-	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^T \Delta x +\frac{1}{2}\Delta x^T \grad^2 f(x^*)\Delta x.
+	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x +\frac{1}{2}\Delta x^\T \grad^2 f(x^*)\Delta x.
 	$$
 	Read rigorous proof to see the reason.
 	\begin{proof}
@@ -274,7 +280,7 @@
 		$$
 		0\leq 
 		\lim_{\alpha\to 0}\frac{f(x^*+\alpha d)-f(x^*)}{\alpha} 
-		= \frac{\d g}{\d \alpha}(0)=d^T \grad f(x^*).
+		= \frac{\d g}{\d \alpha}(0)=d^\T \grad f(x^*).
 		$$
 		The "$\leq$" is because $x^*$ is the local minimum. Replace $d$ by $-d$, then it must be $\grad f(x^*)=0$.
 		
@@ -285,14 +291,14 @@
 		$$
 		Equivalently,
 		$$
-		f(x^*+\alpha d) - f(x^*) = d^T \grad f(x^*)\alpha + \frac{\alpha^2}{2} d^T \grad^2 f(x^*) d + o(\alpha^2).
+		f(x^*+\alpha d) - f(x^*) = d^\T \grad f(x^*)\alpha + \frac{\alpha^2}{2} d^\T \grad^2 f(x^*) d + o(\alpha^2).
 		$$
 		Since $\grad f(x^*)=0$, for $\alpha$ positive and near 0, we have
 		$$
 		0\leq \frac{f(x^*+\alpha d)-f(x^*)}{\alpha^2}= 
-		\frac{1}{2} d^T \grad^2 f(x^*) d + \frac{o(\alpha^2)}{\alpha^2}.
+		\frac{1}{2} d^\T \grad^2 f(x^*) d + \frac{o(\alpha^2)}{\alpha^2}.
 		$$
-		Then let $\alpha\to 0$, we obtain $d^T \grad^2 f(x^*) d\geq 0$, which means $\grad^2 f(x^*) \succeq 0$.
+		Then let $\alpha\to 0$, we obtain $d^\T \grad^2 f(x^*) d\geq 0$, which means $\grad^2 f(x^*) \succeq 0$.
 	\end{proof}
 	
 	\begin{proposition}
@@ -304,7 +310,7 @@
 		\begin{enumerate}
 			\item If $f$ is continuously differentiable, then
 			$$
-			\grad f(x^*)^T(x-x^*)\geq 0
+			\grad f(x^*)^\T(x-x^*)\geq 0
 			$$
 			for all $x\in X$ is a necessary and sufficient condition for $x^*$ to be a global minimum of $f$ over $X$.
 			\item If $X$ is open and $f$ is continuously differentiable over $X$, then $\grad f(x^*)=0$ is a necessary and sufficient condition for $x^*$ to be a global minimum of $f$ over $X$.
@@ -314,15 +320,15 @@
 
 	The intuition of this theorem is also
 	$$
-	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^T \Delta x.
+	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x.
 	$$
 	The proof of this need the first order characterization of convexity,
 	$$
-	f(x)\geq f(x^*) +\grad f(x^*)^T (x-x^*)
+	f(x)\geq f(x^*) +\grad f(x^*)^\T (x-x^*)
 	$$
 	for all $x\in X$.
 	
-	A geometric illustration of $\grad f(x^*)^T(x-x^*)$ is that: $\grad f(x^*)$ is the direction that $f$ increase the most, the condition means that the connection of $x^*$ and all feasible points $x$ in $X$ has angle less than $\frac{\pi}{2}$ with the gradient; in other words, all the direction makes $f$ increase.
+	A geometric illustration of $\grad f(x^*)^\T(x-x^*)$ is that: $\grad f(x^*)$ is the direction that $f$ increase the most, the condition means that the connection of $x^*$ and all feasible points $x$ in $X$ has angle less than $\frac{\pi}{2}$ with the gradient; in other words, all the direction makes $f$ increase.
 	
 	\begin{theorem}[Second Order Sufficient Optimality Conditions]
 		Let $f:\R^n \to \R$ be twice continuously differentiable over an open set $S$. Suppose that a vector $x^*\in S$ satisfies the conditions: (i) $\grad f(x^*)=0$ and (ii) $\grad^2 f(x^*)\succ 0$. Then $x^*$ is a strict unconstrained local minimum of $f$. In particular, there exists scalars $\gamma>0$ and $\epsilon>0$ such that
@@ -332,9 +338,9 @@
 		for all $\norm{x-x^*}<\epsilon$.
 	\end{theorem}
 	\begin{proof}
-		Denote $\lambda$ the smallest eigenvalue of $\grad^2 f(x^*)$. Since $\grad^2 f(x^*)\succ 0$, $\lambda >0$. We have $d^T \grad^2 f(x^*)d \geq \lambda \norm{d}^2$ for all $d\in \R^n$. By the second order Taylor expansion
+		Denote $\lambda$ the smallest eigenvalue of $\grad^2 f(x^*)$. Since $\grad^2 f(x^*)\succ 0$, $\lambda >0$. We have $d^\T \grad^2 f(x^*)d \geq \lambda \norm{d}^2$ for all $d\in \R^n$. By the second order Taylor expansion
 		\begin{align*}
-			f(x^*+d)-f(x^*)&=\grad f(x^*)^T d + \frac{1}{2} d^T \grad^2 f(x^*)d+o(\norm{d}^2)\\
+			f(x^*+d)-f(x^*)&=\grad f(x^*)^\T d + \frac{1}{2} d^\T \grad^2 f(x^*)d+o(\norm{d}^2)\\
 			&\geq \frac{\lambda}{2}\norm{d}^2+o(\norm{d}^2)\\
 			&=\left(\frac{\lambda}{2}+\frac{o(\norm{d}^2)}{\norm{d}^2}\right)\norm{d}^2.
 		\end{align*}
@@ -344,7 +350,153 @@
 		$$
 		Then the proof is complete.
 	\end{proof}
+
+
+
+	\section{Algorithms: Gradient Methods}
+	Optimality conditions often provide the basis for the development and the analysis of the algorithms. The idea of the algorithms rely on an important idea, called \emph{iterative descent}, i.e. $f(x^{k+1})<f(x^k)$. Gradient methods, also called gradient descent methods, implement the idea of iterative descent. The iteration is 
+	\begin{equation}
+		x^{k+1} = x^k + \alpha^k d^k,
+	\end{equation}
+	where $k=0,1,\dots$, $\grad f(x^k)^\T d^k<0$, $\alpha^k\in \R$ and $d^k\in \R^n$. There is a large variety of possibilities for choosing direction $d^k$ and stepsize $\alpha^k$.
+	
+	\subsection{Descent Direction}
+	To make sure $\grad f(x^k)^\T d^k<0$, most gradient methods take the form $d^k =-D^k \grad f(x^k)$, where $D^k$ is a positive definite symmetric matrix. The iteration becomes
+	\begin{equation}
+		x^{k+1} = x^k -\alpha^k D^k \grad f(x^k).
+	\end{equation}
+	Different choice of $D^k$ result in different methods, see Table \ref{table:descent direction}.
+	\begin{table}[]
+		\centering
+		\begin{tabular}{@{}cc@{}}
+			\toprule
+			Name of Method                     & Choice of $D^k$                                                                                                                                 \\ \midrule
+			Steepest Descent                   & $D^k = I$                                                                                                                                       \\
+			Newton's Methods                   & $D^k=\left(\grad^2 f(x^k)\right)^{-1}$                                                                                                          \\
+			Diagonally Scaled Steepest Descent & $D^k=\diag(d_1^k,\dots,d_n^k)$                                                                                                                  \\
+			Modified Newton's Method           & $D^k=\left(\grad^2 f(x^0)\right)^{-1}$                                                                                                          \\
+			Gauss Newton Method                & $D^k=(\grad g(x^k)\grad g(x^k)^\T)^{-1}$\\ \bottomrule
+		\end{tabular}
+	\caption{
+		Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \grad f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form 
+		$f(x)=\frac{1}{2}\norm{g(x)}^2=\frac{1}{2}\sum_{i=1}^m (g_i(x))^2,$
+		where $g=(g_1,\dots,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training.}
+	\label{table:descent direction}
+	\end{table}
+	
+	\subsection{Stepsize}
+	There are a number of rules for choosing the stepsize $\alpha^k$ in a gradient method. We give some that are used widely in practice in Table \ref{table:stepsize}.
+	% Please add the following required packages to your document preamble:
+	% \usepackage{booktabs}
+	\begin{table}[]
+		\centering
+		\begin{tabular}{@{}cc@{}}
+			\toprule
+			Name of Method            & Choice of $\alpha^k$                                       \\ \midrule
+			Minimization Rule         & $\alpha^k = \arg\min_{\alpha\geq 0} f(x^k+\alpha d^k)$     \\
+			Limited Minimization Rule & $\alpha^k = \arg\min_{\alpha\in [0,s]} f(x^k+\alpha d^k)$  \\
+			Armijo Rule               & $\alpha^k=\beta^{m_k}s$                                    \\
+			Constant Stepsize         & $\alpha^k =s$                                              \\
+			Diminishing Stepsize      & $\alpha^k\to 0$, where $\sum_{k=0}^\infty \alpha^k=\infty$ \\ \bottomrule
+		\end{tabular}
+	\caption{Various choice of stepsize $\alpha^k$. In Arimijo rule, first choose fix scalars $s,\beta$ and $\sigma$, with $0<\beta<1$ and $0<\sigma<1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta^m s d^k)\geq -\sigma \beta^m s \grad f(x^k)^\T d^k$. Note that here $\beta^m$ means $\beta$ to the $m$-th power. In diminishing method, we require $\sum_{k=0}^{\infty}\alpha^k=\infty$ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to\bar{x}$, then for large $m,n$, $x^m\approx x^n \approx \bar{x}$, also $x^m\approx x^n -(\sum_{k=n}^{m-1}\alpha^k)\grad f(\bar{x})$, which shows $\grad f(\bar{x})$ must be zero.}
+	\label{table:stepsize}
+	\end{table}
+	
+	
+	
+	\subsection{Mathematical Statements for Convergence Results}
+	There is a common line of proof for the convergence results. The main idea is that the cost function is improved at each iteration and the improvement is ``substantial'' near a non-stationary point, i.e. it is bounded away from zero. We then argue that the algorithm cannot approach a non-stationary point, since in this case the total cost improvement would accumulate to infinity.
+	
+	I use ``Proposition'' instead of ``Theorem'' for the convergence results because in my opinion they are just some theoretic backgrounds (results) we should know in applications of the algorithms.
+	
+	\begin{definition}[gradient related]
+		We say that the direction $\{d^k\}$ is \emph{gradient related} to $\{x^k\}$ if for any subsequence $\{x^k\}_{k\in \mathcal{K}}$ that converges to a non-stationary point, the corresponding subsequence $\{d^k\}_{k\in \mathcal{K}}$ is bounded and satisfies
+		\begin{equation}
+			\limsup_{k\to\infty,k\in \mathcal{K}}\grad f(x^k)^\T d^k<0.
+		\end{equation}
+	\end{definition}
+	
+	\begin{proposition}[Stationary of Limit Points]
+		Let $\{x_k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k + \alpha^k d^k$ and assume that $\{d^k\}$ is gradient related and $\alpha^k$ is chosen by the minimization rule, or the limited minimization rule, or the Armijo rule. Then every limit point of $\{x^k\}$ is a stationary point.
+	\end{proposition}
+	\begin{proof}
+		The key to prove this is noting that if $\{x^k\}$ converges to a non-stationary point, by the assumption of gradient related property of $\{d^k\}$, and by the definition of Armijo rule, we must have for some index $\bar{k}\geq 0$,
+		$$
+		f(x^k)-f(x^k+(\alpha^k/\beta)d^k)<-\sigma(\alpha^k/\beta)\grad f(x^k)^\T d^k,
+		$$
+		for all $k\in \mathcal{K}$ and $k\geq \bar{k}$; in other words, if $\alpha^k\to 0$ there would exist a slight larger $\alpha^k/\beta$ that does not make ``substantial'' movement, which will result in contradiction.
+	
+		For minimization rule, just note that
+		$$
+		f(x^k)-f(x^{k+1})\geq f(x^k)-f(\tilde{x}^{k+1})\geq -\sigma(\tilde{\alpha})\grad f(x^k)^\T d^k,
+		$$
+		where $\{\tilde{x}\}$ is the sequence generated via Armijo rule and $\{\tilde{\alpha}\}$ is the corresponding stepsize. Then repeat the method to reach contradiction.
+	\end{proof}
+
+	\begin{lemma}[Descent Lemma]
+		Let $f:\R^n \to \R$ be continuously differentiable, and let $x$ and $y$ be two vectors in $\R^n$. Suppose that
+		$$
+		\norm{\grad f(x+ty)-\grad f(x)}\leq L t \norm{y}
+		$$
+		for all $t\in [0,1]$, where $L$ is some scalar. Then
+		$$
+		f(x+ty)\leq f(x)+y^\T \grad f(x) +\frac{L}{2}\norm{y}^2.
+		$$
+	\end{lemma}
+	We can interpret this lemma as: if $f$ is Lipschitz continuous then the variation of $f(x)$ is controlled by its slope plus $\frac{L}{2}\norm{y}^2$. In fact, Lipschitz condition requires roughly that the ``curvature'' of $f$ is no more than $L$ at all points and in all directions.
+	
+	\begin{proposition}[Constant Stepsize]
+		Let $\{x^k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$, where $\{d^k\}$ is gradient related. Assume that $f$ is $L$-Lipschitz continuous and that for all $k$ we have $d^k\neq 0$ and 
+		\begin{equation}
+			\epsilon \leq \alpha^k\leq (2-\epsilon)\bar{\alpha}^k, \label{eq:constant stepsize condition}
+		\end{equation}
+		where
+		$$
+		\bar{\alpha}^k =\frac{\abs{\grad f(x^k)^\T d^k}}{L\norm{d^k}^2},
+		$$
+		and $\epsilon\in(0,1]$ is a fixed scalar. Then every limit point of $\{x^k\}$ is a stationary point of $f$.
+	\end{proposition}
+	The intuition of the proof is that by descent lemma, $f(x^k)-f(x^k +\alpha^k d^k)$ is bounded by a quadratic overestimation.
+	\begin{proof}
+		By using descent lemma combined with the right hand side of Eq. (\ref{eq:constant stepsize condition}), we have
+		$$
+		f(x^k)-f(x^k +\alpha^k d^k) \geq \frac{1}{2}\epsilon^2 \abs{\grad f(x^k)^\T d^k}.
+		$$
+	\end{proof}
+	In the case of steepest descent, the condition on stepsize becomes
+	$$
+	\epsilon\leq \alpha^k \leq \frac{2-\epsilon}{L}.
+	$$
+	\begin{proposition}[Diminishing Stepsize]
+		Let $\{x^k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$. Assume that $f$ is $L$-Lipschitz continuous and there exist positive scalars $c_1,c_2$ such that for all $k$ we have
+		\begin{equation}
+			c_1 \norm{\grad f(x^k)}^2 \leq -\grad f(x^k)^\T d^k,\quad \norm{d^k}^2 \leq c_2 \norm{\grad f(x^k)}^2.
+		\end{equation}
+		Suppose also that
+		$$
+		\alpha^k\to 0, \quad \sum_{k=0}^\infty \alpha^k =\infty.
+		$$
+		Then either $f(x^k)\to -\infty$ or else $\{f(x^k)\}$ converges to a finite value and $\grad f(x^k)\to 0$. Furthermore, every limit point of $\{x^k\}$ is a stationary point of $f$.
+	\end{proposition}
+	\begin{proof}
+		Tedious. First use descent lemma to show $\liminf_{k\to\infty}\norm{\grad f(x^k)}=0$. Then separate the sequence into $\norm{\grad f(x^k)}>\epsilon/3$ and $\norm{\grad f(x^k)}\leq \epsilon/3$ to reach contradiction.
+	\end{proof}
+	
+	\begin{theorem}[Capture Theorem]
+		Let $f$ be continuously differentiable and let $\{x^k\}$ be a sequence satisfying $f(x^{k+1})\leq f(x^k)$ for all $k$ and generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$, which is convergent in the sense that every limit point of sequences that it generates is a stationary point of $f$. Assume that there exist scalars $s>0$ and $c>0$ such that for all $k$ there holds
+		$$
+		\alpha^k \leq s,\quad \norm{d^k}\leq c\norm{\grad f(x^k)}.
+		$$
+		Let $x^*$ be a local minimum of $f$, which is the only stationary point of $f$ within some open set. Then there exists an open set $S$ containing $x^*$ such that if $x^{\bar{k}}\in S$ for some $\bar{k}\geq 0$, then $x^k\in S$ for all $k\geq \bar{k}$ and $\lim_{k\to\infty}x^k=x^*$. Furthermore, given any scalar $\bar{\epsilon}>0$, the set $S$ can be chosen so that $\norm{x-x^*}<\bar{\epsilon}$ for all $x\in S$.
+	\end{theorem}
+	
+	\subsection{Rate of Convergence}
+
+
+
+
 	\appendix
 	\bibliographystyle{alpha}
-	\bibliography{references} 
+	\bibliography{opt_bib.bib} 
 \end{document}

@@ -2,3 +2,8 @@
 \contentsline {section}{\numberline {1}Derivatives}{1}{section.1}%
 \contentsline {section}{\numberline {2}Convexity}{2}{section.2}%
 \contentsline {section}{\numberline {3}Main Optimality Conditions}{3}{section.3}%
+\contentsline {section}{\numberline {4}Algorithms: Gradient Methods}{5}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Descent Direction}{6}{subsection.4.1}%
+\contentsline {subsection}{\numberline {4.2}Stepsize}{6}{subsection.4.2}%
+\contentsline {subsection}{\numberline {4.3}Mathematical Statements for Convergence Results}{6}{subsection.4.3}%
+\contentsline {subsection}{\numberline {4.4}Rate of Convergence}{9}{subsection.4.4}%

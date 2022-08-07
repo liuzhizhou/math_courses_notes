@@ -1,3 +1,8 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{Ber99}
+
+\bibitem[Ber99]{Bertsekas/99}
+D.P. Bertsekas.
+\newblock {\em Nonlinear Programming}.
+\newblock Athena Scientific, 1999.
 
 \end{thebibliography}
