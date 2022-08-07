@@ -1,0 +1,28 @@
+\begin{thebibliography}{{Wik}22}
+
+\bibitem[BS02]{brin2002introduction}
+Michael Brin and Garrett Stuck.
+\newblock {\em Introduction to dynamical systems}.
+\newblock Cambridge university press, 2002.
+
+\bibitem[SS05]{Stein:1385521}
+Elias~M Stein and Rami Shakarchi.
+\newblock {\em {Real analysis: measure theory, integration, and Hilbert
+  spaces}}.
+\newblock Princeton lectures in analysis. Princeton Univ. Press, Princeton, NJ,
+  2005.
+
+\bibitem[{Wik}22]{enwiki:1086512997}
+{Wikipedia contributors}.
+\newblock Ergodicity --- {Wikipedia}{,} the free encyclopedia.
+\newblock
+  \url{https://en.wikipedia.org/w/index.php?title=Ergodicity&oldid=1086512997},
+  2022.
+\newblock [Online; accessed 20-May-2022].
+
+\bibitem[Wil55]{williams1955note}
+Robert~F Williams.
+\newblock A note on unstable homeomorphisms.
+\newblock In {\em Proc. Amer. Math. Soc}, volume~6, pages 308--309, 1955.
+
+\end{thebibliography}
