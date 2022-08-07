@@ -1,0 +1,225 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry}
+%% Packages
+%% ========
+
+%% LaTeX Font encoding -- DO NOT CHANGE
+\usepackage[OT1]{fontenc}
+
+%% Babel provides support for languages.  'english' uses British
+%% English hyphenation and text snippets like "Figure" and
+%% "Theorem". Use the option 'ngerman' if your document is in German.
+%% Use 'american' for American English.  Note that if you change this,
+%% the next LaTeX run may show spurious errors.  Simply run it again.
+%% If they persist, remove the .aux file and try again.
+\usepackage[english]{babel}
+
+%% Input encoding 'utf8'. In some cases you might need 'utf8x' for
+%% extra symbols. Not all editors, especially on Windows, are UTF-8
+%% capable, so you may want to use 'latin1' instead.
+\usepackage[utf8]{inputenc}
+
+%% This changes default fonts for both text and math mode to use Herman Zapfs
+%% excellent Palatino font.  Do not change this.
+%\usepackage[sc]{mathpazo}
+
+%% The AMS-LaTeX extensions for mathematical typesetting.  Do not
+%% remove.
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathrsfs}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+%% LaTeX' own graphics handling
+\usepackage{graphicx}
+
+%% This allows you to add .pdf files. It is used to add the
+%% declaration of originality.
+\usepackage{pdfpages}
+
+\usepackage{mathtools}
+
+\numberwithin{equation}{section}
+
+\newtheoremstyle{mystyle}% ⟨name ⟩ 
+{3pt}% ⟨Space above ⟩1 
+{3pt}% ⟨Space below ⟩1
+{}% ⟨Body font ⟩
+{}% ⟨Indent amount ⟩2
+{\sffamily}% ⟨Theorem head font⟩
+{.}% ⟨Punctuation after theorem head ⟩
+{.5em}% ⟨Space after theorem head ⟩3
+{}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+%
+%
+%\newtheoremstyle{break}%
+%{}{}%
+%{}{}%
+%{\bfseries}{}%  % Note that final punctuation is omitted.
+%{\newline}{}
+
+\theoremstyle{mystyle}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{example}[definition]{Example}
+%\tcbuselibrary{theorems}
+\tcbuselibrary{skins,breakable}
+
+
+
+\tcolorboxenvironment{theorem}{
+	enhanced jigsaw,colframe=Salmon!90!Black,interior hidden, breakable,before skip=10pt,after skip=10pt 
+}
+
+\tcolorboxenvironment{proposition}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{Green!70}
+}
+
+\tcolorboxenvironment{definition}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{cyan!40!black}
+}
+
+\tcolorboxenvironment{example}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{green!35!black}
+}
+
+\tcolorboxenvironment{lemma}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{RoyalPurple!55!Aquamarine!100!}
+}
+
+\tcolorboxenvironment{corollary}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{CornflowerBlue!60!Black}
+}
+
+
+
+
+\tcolorboxenvironment{proof}{% `proof' from `amsthm' 
+	blanker,breakable,right=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline east={0.5mm}{1pt}{red!10!white}}
+
+\usepackage[linkcolor=blue,colorlinks=cyan,citecolor=red,filecolor=black]{hyperref}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks = true,
+	linkcolor=NavyBlue,
+	citecolor=OrangeRed,
+	filecolor=orange}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{cd}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\renewcommand{\d}{\mathrm{d}}
+
+
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\title{Notes on Elementary Analysis}
+\author{Liu Zhizhou}
+\date{First Created: August 3, 2022\\
+	Last Modified: \today}
+
+
+
+\begin{document}
+	{\sffamily\bfseries \maketitle}
+	
+	
+	\tableofcontents
+	
+	\section{Integrate on Rational Functions}
+	Functions of the form $R(x)=\frac{P(x)}{Q(x)}$ is called \emph{rational functions}, where $P(x)$ and $Q(x)$ are polynomials. If $\deg(P(x))<\deg(Q(x))$, then it is called a \emph{proper fraction}; otherwise called \emph{improper fraction}. We can always change an improper fraction into a polynomial plus a proper faction.
+	\begin{example}
+		$$\frac{x^5}{1-x^2}$$ can be written as $$\frac{x^5-x^3+x^3}{1-x^2}=\frac{x^3(x^2-1)+x^3}{1-x^2}=-x^3+\frac{x^3-x+x}{1-x^2}=-x^3-x+\frac{x}{1-x^2}.$$
+	\end{example}
+	Therefore, we can only analyze on the integral of proper fraction.
+	\begin{theorem}[decomposition]
+		Assume $R(x)=\frac{P(x)}{Q(x)}$ is a proper fraction, where $Q(x)=(x-a_1)^{\alpha_1}\cdots (x-a_n)^{\alpha_n}(x^2+b_1 x+c_1)^{\beta_1}\cdots (x^2+b_m x+c_m)^{\beta_m}$, where $\{a_i\},\{b_i\},\{c_i\}\subseteq \R$ and $\Delta_i = b_i^2-4c_i<0$; also $\{\alpha_i\},\{\beta_i\}\subseteq \Z_+$. Then $R(x)$ can be decomposed to
+		\begin{align*}
+			R(x)  &=\frac{{A_1}_{\alpha_1}}{(x-a_1)^{\alpha_1}}+\cdots \frac{{A_1}_{1}}{x-a_1}\\
+			&+\dots\\
+			&+\frac{{A_n}_{\alpha_n}}{(x-a_n)^{\alpha_n}}+\cdots \frac{{A_n}_{1}}{x-a_1}\\
+			&+\frac{{B_1}_{\beta_1}x+{C_1}_{\beta_1}}{(x^2+b_1 x+c_1)^{\beta_1}} + \cdots + \frac{{B_1}_{1}x+{C_1}_{1}}{x^2+b_1 x+c_1}\\
+			&+\dots\\
+			&+\frac{{B_m}_{\beta_m}x+{C_m}_{\beta_m}}{(x^2+b_m x+c_m)^{\beta_m}}+ \cdots + \frac{{B_m}_{1}x+{C_m}_{1}}{x^2+b_m x+c_m},\\
+		\end{align*}
+		where $\{{A_i}_j\}, \{{B_i}_j\} \subseteq \R$ and the coefficients are unique. 
+	\end{theorem}
+	\begin{proof}
+		Find the proof in Complex analysis.
+	\end{proof}
+	
+	The theorem told us we can only consider the integral of the form
+	$\frac{A}{(x-a)^k}$ and $ \frac{Bx+C}{(x^2+bx+c)^l},$
+	where $b^2-4c<0$.
+	
+	Recall that $$\int \frac{\d x}{x-a} = \ln \abs{x-a}+c$$ and $$\int\frac{\d x}{(x-a)^k}=\frac{(x-a)^{1-k}}{1-k}+c$$ for $k\geq 2$. Therefore, we only need to investigate $\int  \frac{Bx+C}{(x^2+bx+c)^l} \d x$ where $b^2-4c<0$ and $l\in \Z_{+}$.
+	
+	We have 
+	$$
+	x^2+bx+c=(x+\frac{b}{2})^2+c-\frac{b^2}{4}.
+	$$
+	Let $a^2=c-\frac{b^2}{4}$ and $u=x+\frac{b}{2}$. Then
+	\[
+	\int  \frac{Bx+C}{(x^2+bx+c)^l} \d x = B\int \frac{u}{(a^2+u^2)^l}\d u+(C-\frac{B\cdot b}{2})\int \frac{\d u}{(a^2+u^2)^l}.
+	\]
+	When $u$ in the nominator, the integral is easy, as 
+	$$
+	\int \frac{u}{a^2+u^2}\d u=\frac{1}{2}\ln (a^2+u^2)+c;$$ and for $l\geq 2$, 
+	$$
+	\int \frac{u}{(a^2+u^2)^l}\d u=\frac{1}{2(1-k)}(a^2+u^2)^{1-l}+c.
+	$$ It remains the final step: calculate $$I_l\triangleq \int \frac{\d u}{(a^2+u^2)^l},$$ for $l\in \Z_+$.
+	To get the recurrence relation, use the method of integral by parts, then
+	\begin{align*}
+		I_l =& \frac{u}{(a^2+u^2)^l}+2l\int \frac{u^2}{(a^2+u^2)^{l+1}}\d u\\
+		=&\frac{u}{(a^2+u^2)^l}+2l\int\frac{a^2+u^2-a^2}{(a^2+u^2)^{l+1}}\d u\\
+		=& \frac{u}{(a^2+u^2)^l}+2l I_l - 2la^2 I_{l+1},
+	\end{align*}
+	namely,
+	\begin{equation}
+		I_{l+1}=\frac{1}{2la^2}\frac{u}{(a^2+u^2)^l}+\frac{2l-1}{2la^2}I_l.
+	\end{equation}
+	We then use this recurrence relation to calculate $I_l$, for $l\in \Z_+$. Recall that 
+	$$
+	I_1=\int \frac{\d u}{a^2+u^2} = \frac{1}{a}\arctan{\frac{u}{a}}+c.
+	$$
+	For convenience, I list the following relation that we commonly use:
+	\begin{align}
+		&I_2=\frac{1}{2a^2}\left(\frac{u}{a^2+u^2}+I_1\right);\\
+		&I_3 = \frac{1}{4a^2}\left(\frac{u}{(a^2+u^2)^2}+3I_2\right).
+	\end{align}
+	
+	
+	
+	
+	
+	
+	
+	
+	\appendix
+	\bibliographystyle{alpha}
+	\bibliography{references} 
+\end{document}
