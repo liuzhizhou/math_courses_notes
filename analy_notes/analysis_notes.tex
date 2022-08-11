@@ -1,0 +1,372 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage[top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry}
+%% Packages
+%% ========
+
+%% LaTeX Font encoding -- DO NOT CHANGE
+\usepackage[OT1]{fontenc}
+
+%% Babel provides support for languages.  'english' uses British
+%% English hyphenation and text snippets like "Figure" and
+%% "Theorem". Use the option 'ngerman' if your document is in German.
+%% Use 'american' for American English.  Note that if you change this,
+%% the next LaTeX run may show spurious errors.  Simply run it again.
+%% If they persist, remove the .aux file and try again.
+\usepackage[english]{babel}
+
+%% Input encoding 'utf8'. In some cases you might need 'utf8x' for
+%% extra symbols. Not all editors, especially on Windows, are UTF-8
+%% capable, so you may want to use 'latin1' instead.
+\usepackage[utf8]{inputenc}
+
+%% This changes default fonts for both text and math mode to use Herman Zapfs
+%% excellent Palatino font.  Do not change this.
+%\usepackage[sc]{mathpazo}
+
+%% The AMS-LaTeX extensions for mathematical typesetting.  Do not
+%% remove.
+\usepackage{amsmath,amssymb,amsfonts,amsthm,mathrsfs}
+
+\usepackage[dvipsnames]{xcolor}
+\usepackage{tcolorbox}
+
+%% LaTeX' own graphics handling
+\usepackage{graphicx}
+
+%% This allows you to add .pdf files. It is used to add the
+%% declaration of originality.
+\usepackage{pdfpages}
+
+\usepackage{mathtools}
+
+\numberwithin{equation}{section}
+
+\newtheoremstyle{mystyle}% ⟨name ⟩ 
+{3pt}% ⟨Space above ⟩1 
+{3pt}% ⟨Space below ⟩1
+{}% ⟨Body font ⟩
+{}% ⟨Indent amount ⟩2
+{\sffamily}% ⟨Theorem head font⟩
+{.}% ⟨Punctuation after theorem head ⟩
+{.5em}% ⟨Space after theorem head ⟩3
+{}% ⟨Theorem head spec (can be left empty, meaning ‘normal’)⟩
+%
+%
+%\newtheoremstyle{break}%
+%{}{}%
+%{}{}%
+%{\bfseries}{}%  % Note that final punctuation is omitted.
+%{\newline}{}
+
+\theoremstyle{mystyle}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}[definition]{Theorem}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{corollary}[definition]{Corollary}
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{example}[definition]{Example}
+%\tcbuselibrary{theorems}
+\tcbuselibrary{skins,breakable}
+
+
+
+\tcolorboxenvironment{theorem}{
+	enhanced jigsaw,colframe=Salmon!90!Black,interior hidden, breakable,before skip=10pt,after skip=10pt 
+}
+
+\tcolorboxenvironment{proposition}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{Green!70}
+}
+
+\tcolorboxenvironment{definition}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{cyan!40!black}
+}
+
+\tcolorboxenvironment{example}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{green!35!black}
+}
+
+\tcolorboxenvironment{lemma}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{RoyalPurple!55!Aquamarine!100!}
+}
+
+\tcolorboxenvironment{corollary}{
+	blanker,breakable,left=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline west={1mm}{0pt}{CornflowerBlue!60!Black}
+}
+
+
+
+
+\tcolorboxenvironment{proof}{% `proof' from `amsthm' 
+	blanker,breakable,right=5mm,
+	before skip=10pt,after skip=10pt,
+	borderline east={0.5mm}{1pt}{red!10!white}}
+
+\usepackage[linkcolor=blue,colorlinks=cyan,citecolor=red,filecolor=black]{hyperref}
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks = true,
+	linkcolor=NavyBlue,
+	citecolor=OrangeRed,
+	filecolor=orange}
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{cd}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\K}{\mathbb{K}}
+\renewcommand{\d}{\mathrm{d}}
+
+
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+\title{Notes on Elementary Analysis}
+\author{Liu Zhizhou}
+\date{First Created: August 3, 2022\\
+	Last Modified: \today}
+
+
+
+\begin{document}
+	{\sffamily\bfseries \maketitle}
+	
+	
+	\tableofcontents
+	\part{Elementary Analysis}
+	\section{Integrate on Rational Functions}
+	Functions of the form $R(x)=\frac{P(x)}{Q(x)}$ is called \emph{rational functions}, where $P(x)$ and $Q(x)$ are polynomials. If $\deg(P(x))<\deg(Q(x))$, then it is called a \emph{proper fraction}; otherwise called \emph{improper fraction}. We can always change an improper fraction into a polynomial plus a proper faction.
+	\begin{example}
+		$$\frac{x^5}{1-x^2}$$ can be written as $$\frac{x^5-x^3+x^3}{1-x^2}=\frac{x^3(x^2-1)+x^3}{1-x^2}=-x^3+\frac{x^3-x+x}{1-x^2}=-x^3-x+\frac{x}{1-x^2}.$$
+	\end{example}
+	Therefore, we can only analyze on the integral of proper fraction.
+	\begin{theorem}[decomposition]
+		Assume $R(x)=\frac{P(x)}{Q(x)}$ is a proper fraction, where $Q(x)=(x-a_1)^{\alpha_1}\cdots (x-a_n)^{\alpha_n}(x^2+b_1 x+c_1)^{\beta_1}\cdots (x^2+b_m x+c_m)^{\beta_m}$, where $\{a_i\},\{b_i\},\{c_i\}\subseteq \R$ and $\Delta_i = b_i^2-4c_i<0$; also $\{\alpha_i\},\{\beta_i\}\subseteq \Z_+$. Then $R(x)$ can be decomposed to
+		\begin{align*}
+			R(x)  &=\frac{{A_1}_{\alpha_1}}{(x-a_1)^{\alpha_1}}+\cdots \frac{{A_1}_{1}}{x-a_1}\\
+			&+\dots\\
+			&+\frac{{A_n}_{\alpha_n}}{(x-a_n)^{\alpha_n}}+\cdots \frac{{A_n}_{1}}{x-a_1}\\
+			&+\frac{{B_1}_{\beta_1}x+{C_1}_{\beta_1}}{(x^2+b_1 x+c_1)^{\beta_1}} + \cdots + \frac{{B_1}_{1}x+{C_1}_{1}}{x^2+b_1 x+c_1}\\
+			&+\dots\\
+			&+\frac{{B_m}_{\beta_m}x+{C_m}_{\beta_m}}{(x^2+b_m x+c_m)^{\beta_m}}+ \cdots + \frac{{B_m}_{1}x+{C_m}_{1}}{x^2+b_m x+c_m},\\
+		\end{align*}
+		where $\{{A_i}_j\}, \{{B_i}_j\} \subseteq \R$ and the coefficients are unique. 
+	\end{theorem}
+	\begin{proof}
+		Find the proof in Complex analysis.
+	\end{proof}
+	
+	The theorem told us we can only consider the integral of the form
+	$\frac{A}{(x-a)^k}$ and $ \frac{Bx+C}{(x^2+bx+c)^l},$
+	where $b^2-4c<0$.
+	
+	Recall that $$\int \frac{\d x}{x-a} = \ln \abs{x-a}+c$$ and $$\int\frac{\d x}{(x-a)^k}=\frac{(x-a)^{1-k}}{1-k}+c$$ for $k\geq 2$. Therefore, we only need to investigate $\int  \frac{Bx+C}{(x^2+bx+c)^l} \d x$ where $b^2-4c<0$ and $l\in \Z_{+}$.
+	
+	We have 
+	$$
+	x^2+bx+c=(x+\frac{b}{2})^2+c-\frac{b^2}{4}.
+	$$
+	Let $a^2=c-\frac{b^2}{4}$ and $u=x+\frac{b}{2}$. Then
+	\[
+	\int  \frac{Bx+C}{(x^2+bx+c)^l} \d x = B\int \frac{u}{(a^2+u^2)^l}\d u+(C-\frac{B\cdot b}{2})\int \frac{\d u}{(a^2+u^2)^l}.
+	\]
+	When $u$ in the nominator, the integral is easy, as 
+	$$
+	\int \frac{u}{a^2+u^2}\d u=\frac{1}{2}\ln (a^2+u^2)+c;$$ and for $l\geq 2$, 
+	$$
+	\int \frac{u}{(a^2+u^2)^l}\d u=\frac{1}{2(1-k)}(a^2+u^2)^{1-l}+c.
+	$$ It remains the final step: calculate $$I_l\triangleq \int \frac{\d u}{(a^2+u^2)^l},$$ for $l\in \Z_+$.
+	To get the recurrence relation, use the method of integral by parts, then
+	\begin{align*}
+		I_l =& \frac{u}{(a^2+u^2)^l}+2l\int \frac{u^2}{(a^2+u^2)^{l+1}}\d u\\
+		=&\frac{u}{(a^2+u^2)^l}+2l\int\frac{a^2+u^2-a^2}{(a^2+u^2)^{l+1}}\d u\\
+		=& \frac{u}{(a^2+u^2)^l}+2l I_l - 2la^2 I_{l+1},
+	\end{align*}
+	namely,
+	\begin{equation}
+		I_{l+1}=\frac{1}{2la^2}\frac{u}{(a^2+u^2)^l}+\frac{2l-1}{2la^2}I_l.
+	\end{equation}
+	We then use this recurrence relation to calculate $I_l$, for $l\in \Z_+$. Recall that 
+	$$
+	I_1=\int \frac{\d u}{a^2+u^2} = \frac{1}{a}\arctan{\frac{u}{a}}+c.
+	$$
+	For convenience, I list the following relation that we commonly use:
+	\begin{align}
+		&I_2=\frac{1}{2a^2}\left(\frac{u}{a^2+u^2}+I_1\right);\\
+		&I_3 = \frac{1}{4a^2}\left(\frac{u}{(a^2+u^2)^2}+3I_2\right).
+	\end{align}
+	
+	
+	
+	
+	
+	
+	\part{Functional Analysis}
+	\section{Separability}
+	\begin{definition}[separable]
+		A metric space $(X,d)$ is \emph{separable} if it contains a countable dense set.
+	\end{definition}
+	\begin{lemma}
+		If $(X,d)$ is separable and $Y\subset X$, then $(Y,d)$ is also separable. 
+	\end{lemma}
+	\begin{proof}
+		Suppose $\{x_n\}$ is dense in $X$. Construct the separable set $A$ for $Y$ as following: for each $n,k\in \N$, if $B(x_n,1/k)\cap Y\neq \emptyset$, then choose one point from $B(x_n,1/k)\cap Y$ to $A$.
+	\end{proof}
+	It is a useful strategy to choose $1/k$ and consider a ball $B(x,1/k)$ for a countable sequence. The proof of the following proposition is an example.
+	\begin{proposition}
+		Any compact metric space $(X,d)$ is separable. Furthermore, in any compact metric space there exists a countable subset $(x_j)_{j=1}^\infty$ with the following property: for any $\epsilon>0$, there is an $M(\epsilon)$ such that for every $x\in X$ we have $d(x_j,x)<\epsilon$ for some $1\leq j \leq M(\epsilon)$.
+	\end{proposition}
+	\begin{proof}
+		Consider covering collection of radius $1/n$.
+	\end{proof}
+	
+	
+	\section{Completeness}
+	``Completeness arguments'' usually follow similar lines:
+	\begin{enumerate}
+		\item use the definition of what it means for a sequence to be Cauchy to identify a possible limit;
+		\item show that the original sequence converges to this ``possible limit'' in the appropriate norm;
+		\item check that the ``limit'' lies in the correct space.
+	\end{enumerate}
+	In step two, it is enough to show a subsequence of the Cauchy sequence converges to the limit.
+
+	An example follows in the proof of the following theorem.
+	\begin{theorem}
+		The space $\K^d$
+		\footnote{Be careful that $\K$ does not mean all field of numbers here. Instead, it means either $\R$ or $\mathbb{C}$.}
+		 is complete (with its standard norm
+		 \footnote{The standard norm of $\K^d$ is the Euclid norm, i.e. $l^2$ norm for all $d\in \N_+$. However, the standard norm for $l^p(\K)$ is $l^p$ norm for each $1\leq p\leq \infty$.}).
+	\end{theorem}
+	\begin{proof}
+		If $x^n$ is Cauchy sequence in $\K^d$, then each coordinate is Cauchy in $\K$, which also has a limit in $\K$ since $\K$ is complete. Let $x\in \K^d$ be the limit where $x_j$ is the limit of $x^n_j$. Step 2 is check $x^n\to x$. Step 3 is check $x^n\in \K^d$ which is trivial.
+	\end{proof}
+	With this theorem, we can deduce that any finite dimensional space with any norm $\norm{\cdot}$ is complete, since $(V,\norm{\cdot}_E)\equiv (\K^n, \norm{\cdot}_{l^2})$. Here ``$\equiv$'' means ``isometrically isomorphic to'' and 
+	$$
+	\norm{x}_E\triangleq \left(\sum_{i=1}^n \alpha_i^2\right)^{1/2},
+	$$
+	where $x=\sum_{i=1}^n \alpha_i e_i$ and $(e_i)$ is the basis of $E$.
+	\begin{corollary}
+		Any finite-dimensional normed space $(V,\norm{\cdot})$ is complete.
+	\end{corollary}
+	
+	Here is a different strategy to prove the completeness.
+	\begin{lemma}
+		If $(X,\norm{\cdot})$ is a Banach space and $Y$ is a linear subspace of $X$, then $(Y,\norm{\cdot})$ is a Banach space if and only if $Y$ is closed.
+	\end{lemma}
+	\begin{proof}
+		If $Y$ is complete, then the Cauchy sequence in $Y$ converges in $Y$. If $(y_n)\to y$, then $(y_n)$ is also Cauchy, so $y\in Y$. Contrarily, if $Y$ is closed, since the Cauchy sequence in $Y$ is also a Cauchy sequence in $X$, it converges. Because of closeness, it converges in $Y$.
+	\end{proof}
+	The statement of the following lemma provides a useful test for completeness. If there exists a sequence that does not satisfy the condition, then the space must not be complete.
+	\begin{lemma}
+		If $(X,\norm{\cdot})$ is a normed space with the property that whenever $\sum_{j=1}^\infty \norm{x_j}<\infty$, the sum $\sum_{j=1}^\infty x_j$ converges in $X$, then $X$ is complete.
+	\end{lemma}
+	\begin{proof}
+		Suppose $(y_j)$ is a Cauchy sequence in $X$. Inductively find $n_k$ such that $n_{k+1}>n_k$ and $\norm{y_i-y_j}<2^{-k}$ for $i,j>n_k$. Then set $x_1=y_{n_1}$, $x_j=y_{n_j}-y_{n_{j-1}}$. Use the assumption to show that $y_{n_j}\to y$, where $y=\sum_{j=1}^\infty x_j$.
+	\end{proof}
+
+	\section{Properties Preserved under Isomorphism}
+	To be more specific, the ``isomorphism'' we talking about here is not the ``set-isomorphism''. Instead, it requires more: for $T:X\to Y$, where $X,Y$ are normed spaces, $T$ should have the following properties
+	\begin{enumerate}
+		\item bijectivity;
+		\item linearity;
+		\item norm preserving: there exists $c_1,c_2$ such that $c_1\norm{x}\leq \norm{Tx}\leq c_2\norm{x}$.
+	\end{enumerate}
+	Note that the third property ensures the injectivity, so the procedure to check isomorphism is first check the linearity, then norm preserving, finally surjective.
+	
+	Note that $T$ is automatically continuous by property item 2 and 3.
+	
+	\begin{proposition}
+		If $(X,\norm{\cdot}_X)\backsimeq (Y,\norm{\cdot}_Y)$, then $X$ is separable if and only if $Y$ is separable.
+	\end{proposition}
+	\begin{proof}
+		Assume $X=\overline{\{x_j\}}$, show that $Y=\overline{\{Tx_j\}}$.
+	\end{proof}
+	\begin{proposition}
+		If $(X,\norm{\cdot}_X)\backsimeq (Y,\norm{\cdot}_Y)$, then $(X,\norm{\cdot}_X)$ is complete if and only if $(Y,\norm{\cdot}_Y)$ is complete.
+	\end{proposition}
+	\begin{proof}
+		If $(x_n)$ is Cauchy in $X$, then $(Tx_n)$ is Cauchy in $Y$. Assume $Y$ is complete, then $Tx_n\to y=\triangleq Tx$. Show that $x_n\to x$.
+	\end{proof}
+
+
+	\section{The Contraction Mapping Theorem}
+	In a complete normed space
+	\footnote{The theorem also holds in any complete metric space $(X,d)$ with the obvious changes}
+	$(X,\norm{\cdot})$, the Contraction Mapping Theorem, also known as Banach's Fixed Point Theorem, enables us to find a fixed point of any map that is a contraction.
+	\begin{theorem}[Contraction Mapping Theorem]
+		Let $K$ be a non-empty closed subset of a complete normed space $(X,\norm{\cdot})$ and $f: K\to K$ a contraction, i.e. a map such that
+		$$
+		\norm{f(x)-f(y)}\leq \kappa \norm{x-y}
+		$$
+		for any $x,y\in K$ and some $\kappa<1$. Then $f$ has a unique fixed point in $K$, i.e. there exists a unique $x\in K$ such that $f(x)=x$.
+	\end{theorem}
+	\begin{proof}
+		Choose $x_0\in K$ and set $x_{n+1}=f(x_n)$. Then note that
+		$$
+		\norm{x_{j+1}-x_j}\leq \kappa \norm{x_j-x_{j-1}}\leq \cdots \leq \kappa^j \norm{x_1-x_0}.
+		$$
+		Then use triangle inequality repeatedly, we have
+		$$
+		\norm{x_k-x_j}\leq \sum_{i=j}^{k-1}\norm{x_{i+1}-x_i}\leq \frac{\kappa^j}{1-\kappa}\norm{x_1-x_0}.
+		$$
+		It follows that $(x_n)$ is a Cauchy sequence. By completeness, $x_n\to x$ and by closeness, $x\in K$. Then we have $x=f(x)$ by let $n\to\infty$, where the continuity of $f$ is followed from the contraction. Such $x$ is unique, since if $f(x)=x$ and $f(y)=y$, then $\norm{x-y}=\norm{f(x)-f(y)}\leq \kappa \norm{x-y}$. Since $\kappa<1$, this is not possible.
+	\end{proof}
+	
+	
+	Note that the conclusion of the theorem is no longer valid if we only have $\norm{f(x)-f(y)}<\norm{x-y}$ for any $x\neq y$, unless $K$ is compact.
+	
+	\section{Compactness}
+	There are two kinds of compactness. 
+	\begin{definition}[compact]
+		A subset $K$ of a metric space $(X,d)$ is \emph{compact} if any cover of $K$ by open sets has a finite subcover.
+	\end{definition}
+	\begin{definition}[sequentially compact]
+		If $K$ is a subset of $(X,d)$, then $K$ is \emph{sequentially compact} if any sequence in $K$ has a subsequence that converges and whose limit lies in $K$.
+	\end{definition}
+	
+	Note that compactness implies close and bounded. 
+	\begin{lemma}
+		If $K$ is a compact subset of a metric space $(X,d)$, then $K$ is closed and bounded.
+	\end{lemma}
+	The opposite implication is only valid in finite dimensional space.
+	\begin{theorem}
+		A subset of a finite-dimensional normed space is compact if and only if it is closed and bounded.
+	\end{theorem}
+	\begin{proof}
+		The proof based on the fact that the result is true on $\K^d$ and construct a isometric isomorphism between two spaces.
+	\end{proof}
+	A different characterization of finite-dimensional normed space based on compactness is the following theorem.
+	\begin{theorem}
+		A normed space $X$ is finite-dimensional if and only if its closed unit ball is compact.
+	\end{theorem}
+	The proof based on Riesz's lemma.
+	\begin{lemma}[Riesz's Lemma]
+		Let $(X,\norm{\cdot})$ be a normed space and $Y$ a proper closed subspace of $X$. Then there exists $x\in X$ with $\norm{x}=1$ such that $\norm{x-y}\geq 1/2$ for every $y\in Y$.
+	\end{lemma}
+	Using the theorem, if in infinite dimensional space, a subset is bounded and closed implies compactness, then we can deduce that its closed unit ball is compact, which means the space is finite dimensional. Therefore, we have the following conclusion.
+	\begin{corollary}
+		The equivalence between compactness and closed-bounded is valid and only valid in finite dimensional normed space.
+	\end{corollary}
+	
+	
+	\appendix
+	\bibliographystyle{alpha}
+	\bibliography{references} 
+\end{document}

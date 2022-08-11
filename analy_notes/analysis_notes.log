@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  4 AUG 2022 13:28
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  10 AUG 2022 17:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -765,24 +765,24 @@ File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 (./analysis_notes.aux)
 \openout1 = `analysis_notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 147.
-LaTeX Font Info:    ... okay on input line 147.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 148.
+LaTeX Font Info:    ... okay on input line 148.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -848,7 +848,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package hyperref Info: Link coloring ON on input line 147.
+Package hyperref Info: Link coloring ON on input line 148.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -862,27 +862,27 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count320
 )
-LaTeX Info: Redefining \ref on input line 147.
-LaTeX Info: Redefining \pageref on input line 147.
-LaTeX Info: Redefining \nameref on input line 147.
+LaTeX Info: Redefining \ref on input line 148.
+LaTeX Info: Redefining \pageref on input line 148.
+LaTeX Info: Redefining \nameref on input line 148.
  (./analysis_notes.out) (./analysis_notes.out)
 \@outlinefile=\write6
 \openout6 = `analysis_notes.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 148
+LaTeX Font Info:    Trying to load font information for U+msa on input line 149
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 148
+LaTeX Font Info:    Trying to load font information for U+msb on input line 149
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 14
-8.
+9.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -893,42 +893,49 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 
  [1
 
-{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] (./
-analysis_notes.bbl
+{/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
+ [4] [5] [6] (./analysis_notes.bbl
 
 LaTeX Warning: Empty `thebibliography' environment on input line 3.
 
-) [3] (./analysis_notes.aux)
+) [7] (./analysis_notes.aux)
 Package rerunfilecheck Info: File `analysis_notes.out' has not changed.
-(rerunfilecheck)             Checksum: CF05F1B8B256C4875739D600CCFE8190;207.
+(rerunfilecheck)             Checksum: D07276EDF02FB5A33BF102EECAF29DA0;1303.
  ) 
 Here is how much of TeX's memory you used:
- 26475 strings out of 478994
- 514251 string characters out of 5858184
- 862188 words of memory out of 5000000
- 43491 multiletter control sequences out of 15000+600000
- 414113 words of font info for 70 fonts, out of 8000000 for 9000
+ 26577 strings out of 478994
+ 515754 string characters out of 5858184
+ 866207 words of memory out of 5000000
+ 43552 multiletter control sequences out of 15000+600000
+ 416237 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 112i,11n,116p,427b,1100s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 112i,11n,116p,427b,1097s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
-sr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
-ocal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/loca
-l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/t
-exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/te
-xlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/t
-exlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/te
-xlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texl
-ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texli
-ve/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/t
-exlive/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on analysis_notes.pdf (3 pages, 147409 bytes).
+</usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb><
+/usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></
+usr/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></us
+r/local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi7.pfb></usr/
+local/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/lo
+cal/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/loca
+l/texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/local/
+texlive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/tex
+live/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb></usr/local/texliv
+e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/texlive/2
+021/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/local/texlive/2
+021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/20
+21/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/local/texlive/2021
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texlive/2021/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive/2021/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2021/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2021/texmf-
+dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/te
+xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
+Output written on analysis_notes.pdf (7 pages, 245201 bytes).
 PDF statistics:
- 99 PDF objects out of 1000 (max. 8388607)
- 78 compressed objects within 1 object stream
- 12 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 219 PDF objects out of 1000 (max. 8388607)
+ 186 compressed objects within 2 object streams
+ 49 named destinations out of 1000 (max. 500000)
+ 77 words of extra memory for PDF output out of 10000 (max. 10000000)
 
