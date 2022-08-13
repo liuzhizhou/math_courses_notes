@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  10 AUG 2022 17:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  11 AUG 2022 13:50
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -903,10 +903,10 @@ Package rerunfilecheck Info: File `analysis_notes.out' has not changed.
 (rerunfilecheck)             Checksum: D07276EDF02FB5A33BF102EECAF29DA0;1303.
  ) 
 Here is how much of TeX's memory you used:
- 26577 strings out of 478994
- 515754 string characters out of 5858184
- 866207 words of memory out of 5000000
- 43552 multiletter control sequences out of 15000+600000
+ 26581 strings out of 478994
+ 515814 string characters out of 5858184
+ 865207 words of memory out of 5000000
+ 43554 multiletter control sequences out of 15000+600000
  416237 words of font info for 78 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  112i,11n,116p,427b,1097s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -932,10 +932,10 @@ xmf-dist/fonts/type1/public/amsfonts/cm/cmti7.pfb></usr/local/texlive/2021/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2021/texmf-
 dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/te
 xmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on analysis_notes.pdf (7 pages, 245201 bytes).
+Output written on analysis_notes.pdf (7 pages, 246439 bytes).
 PDF statistics:
- 219 PDF objects out of 1000 (max. 8388607)
- 186 compressed objects within 2 object streams
- 49 named destinations out of 1000 (max. 500000)
+ 221 PDF objects out of 1000 (max. 8388607)
+ 188 compressed objects within 2 object streams
+ 51 named destinations out of 1000 (max. 500000)
  77 words of extra memory for PDF output out of 10000 (max. 10000000)
 

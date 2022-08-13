@@ -245,7 +245,11 @@
 		\item show that the original sequence converges to this ``possible limit'' in the appropriate norm;
 		\item check that the ``limit'' lies in the correct space.
 	\end{enumerate}
-	In step two, it is enough to show a subsequence of the Cauchy sequence converges to the limit.
+	In step two, it is enough to show a subsequence of the Cauchy sequence converges to the limit. This is because of the following lemma.
+	\begin{lemma}
+		Let $(X,d)$ be a metric space and $(x_n)$ is a Cauchy sequence in $X$. If there exists a subsequence $(x_{n_k})$ converges to $x$, then $(x_n)$ must converge to $x$.
+	\end{lemma}
+	Therefore, to consider the convergence of a Cauchy sequence, it is equivalent to consider the convergence of the subsequence.
 
 	An example follows in the proof of the following theorem.
 	\begin{theorem}
@@ -291,6 +295,9 @@
 	Note that the third property ensures the injectivity, so the procedure to check isomorphism is first check the linearity, then norm preserving, finally surjective.
 	
 	Note that $T$ is automatically continuous by property item 2 and 3.
+	\begin{proposition}
+		Assume $T:X\to Y$ is a normed-space isomorphism, then $T$ is a continuous map.
+	\end{proposition}
 	
 	\begin{proposition}
 		If $(X,\norm{\cdot}_X)\backsimeq (Y,\norm{\cdot}_Y)$, then $X$ is separable if and only if $Y$ is separable.
@@ -302,7 +309,7 @@
 		If $(X,\norm{\cdot}_X)\backsimeq (Y,\norm{\cdot}_Y)$, then $(X,\norm{\cdot}_X)$ is complete if and only if $(Y,\norm{\cdot}_Y)$ is complete.
 	\end{proposition}
 	\begin{proof}
-		If $(x_n)$ is Cauchy in $X$, then $(Tx_n)$ is Cauchy in $Y$. Assume $Y$ is complete, then $Tx_n\to y=\triangleq Tx$. Show that $x_n\to x$.
+		If $(x_n)$ is Cauchy in $X$, then $(Tx_n)$ is Cauchy in $Y$. Assume $Y$ is complete, then $Tx_n\to y\triangleq Tx$. Show that $x_n\to x$.
 	\end{proof}
 
 
@@ -360,11 +367,13 @@
 	\begin{lemma}[Riesz's Lemma]
 		Let $(X,\norm{\cdot})$ be a normed space and $Y$ a proper closed subspace of $X$. Then there exists $x\in X$ with $\norm{x}=1$ such that $\norm{x-y}\geq 1/2$ for every $y\in Y$.
 	\end{lemma}
+
 	Using the theorem, if in infinite dimensional space, a subset is bounded and closed implies compactness, then we can deduce that its closed unit ball is compact, which means the space is finite dimensional. Therefore, we have the following conclusion.
 	\begin{corollary}
 		The equivalence between compactness and closed-bounded is valid and only valid in finite dimensional normed space.
 	\end{corollary}
 	
+	An easy example is the $(e^j)_j$ in $l^p$ space. There is no subsequence of $(e^j)$ converges, since no subsequence can be Cauchy. So the closed unit ball in $l^p(\K)$ is not compact, which shows $l^p(\K)$ is of infinite dimensional.
 	
 	\appendix
 	\bibliographystyle{alpha}
