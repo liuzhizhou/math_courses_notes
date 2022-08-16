@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  7 AUG 2022 23:20
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  14 AUG 2022 23:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -785,24 +785,24 @@ File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 (./opt_notes.aux)
 \openout1 = `opt_notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 150.
-LaTeX Font Info:    ... okay on input line 150.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 154.
+LaTeX Font Info:    ... okay on input line 154.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -868,7 +868,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package hyperref Info: Link coloring ON on input line 150.
+Package hyperref Info: Link coloring ON on input line 154.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -882,27 +882,27 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count324
 )
-LaTeX Info: Redefining \ref on input line 150.
-LaTeX Info: Redefining \pageref on input line 150.
-LaTeX Info: Redefining \nameref on input line 150.
+LaTeX Info: Redefining \ref on input line 154.
+LaTeX Info: Redefining \pageref on input line 154.
+LaTeX Info: Redefining \nameref on input line 154.
  (./opt_notes.out) (./opt_notes.out)
 \@outlinefile=\write6
 \openout6 = `opt_notes.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 151
+LaTeX Font Info:    Trying to load font information for U+msa on input line 155
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 151
+LaTeX Font Info:    Trying to load font information for U+msb on input line 155
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 15
-1.
+5.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -914,8 +914,8 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
  [1
 
 {/usr/local/texlive/2021/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2] [3]
- [4]
-Overfull \hbox (7.03891pt too wide) in paragraph at lines 364--365
+ [4] [5]
+Overfull \hbox (7.03891pt too wide) in paragraph at lines 390--391
 \OT1/cmr/m/n/12 To make sure $\OMS/cmsy/m/n/12 r\OML/cmm/m/it/12 f\OT1/cmr/m/n/
 12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 )[]\OML/cmm/m/it/12 d[] < \OT1/cmr/m/n/
 12 0$, most gra-di-ent meth-ods take the form $\OML/cmm/m/it/12 d[] \OT1/cmr/m/
@@ -923,30 +923,23 @@ n/12 = \OMS/cmsy/m/n/12 ^^@\OML/cmm/m/it/12 D[]\OMS/cmsy/m/n/12 r\OML/cmm/m/it/
 12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x[]\OT1/cmr/m/n/12 )$,
  []
 
-[5]
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 369.
+               Default added (so using `tbp') on input line 395.
 
 
 LaTeX Warning: No positions in optional float specifier.
-               Default added (so using `tbp') on input line 391.
+               Default added (so using `tbp') on input line 417.
 
-[6] [7] [8] (./opt_notes.bbl) [9] (./opt_notes.aux)
-
-Package rerunfilecheck Warning: File `opt_notes.out' has changed.
-(rerunfilecheck)                Rerun to get outlines right
-(rerunfilecheck)                or use package `bookmark'.
-
-Package rerunfilecheck Info: Checksums for `opt_notes.out':
-(rerunfilecheck)             Before: 8BCAD56A00C2AE17A6387FFD89D827F8;1100
-(rerunfilecheck)             After:  87073673DA290AE44C35E2B54C4E8FF2;1258.
+[6] [7] [8] [9] (./opt_notes.bbl [10]) [11] (./opt_notes.aux)
+Package rerunfilecheck Info: File `opt_notes.out' has not changed.
+(rerunfilecheck)             Checksum: 4BB32635799C9CF402BB2521397A147A;1654.
  ) 
 Here is how much of TeX's memory you used:
- 26631 strings out of 478994
- 516354 string characters out of 5858184
- 863027 words of memory out of 5000000
- 43594 multiletter control sequences out of 15000+600000
+ 26657 strings out of 478994
+ 516698 string characters out of 5858184
+ 864064 words of memory out of 5000000
+ 43609 multiletter control sequences out of 15000+600000
  414151 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  112i,11n,116p,882b,1112s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -965,10 +958,10 @@ ive/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2021/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/tex
 live/2021/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-Output written on opt_notes.pdf (9 pages, 188826 bytes).
+Output written on opt_notes.pdf (11 pages, 199851 bytes).
 PDF statistics:
- 209 PDF objects out of 1000 (max. 8388607)
- 181 compressed objects within 2 object streams
- 61 named destinations out of 1000 (max. 500000)
- 69 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 240 PDF objects out of 1000 (max. 8388607)
+ 209 compressed objects within 3 object streams
+ 72 named destinations out of 1000 (max. 500000)
+ 93 words of extra memory for PDF output out of 10000 (max. 10000000)
 
