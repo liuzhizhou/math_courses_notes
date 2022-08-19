@@ -133,11 +133,16 @@
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\K}{\mathbb{K}}
 \renewcommand{\d}{\mathrm{d}}
-
+\renewcommand{\i}{\mathbf{\mathrm{i}}}
 
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\inner}[1]{\left\langle #1 \right\rangle}
+
+\newcommand{\clin}{\operatorname{clin}}
+\newcommand{\spn}{\operatorname{span}}
+
+
 \title{Notes on Elementary Analysis}
 \author{Liu Zhizhou}
 \date{First Created: August 3, 2022\\
@@ -146,7 +151,7 @@
 
 
 \begin{document}
-	{\sffamily\bfseries \maketitle}
+	{\sffamily \maketitle}
 	
 	
 	\tableofcontents
@@ -174,10 +179,10 @@
 	\end{proof}
 	
 	The theorem told us we can only consider the integral of the form
-	$\frac{A}{(x-a)^k}$ and $ \frac{Bx+C}{(x^2+bx+c)^l},$
+	$$\frac{A}{(x-a)^k} \quad \text{and}\quad   \frac{Bx+C}{(x^2+bx+c)^l},$$
 	where $b^2-4c<0$.
 	
-	Recall that $$\int \frac{\d x}{x-a} = \ln \abs{x-a}+c$$ and $$\int\frac{\d x}{(x-a)^k}=\frac{(x-a)^{1-k}}{1-k}+c$$ for $k\geq 2$. Therefore, we only need to investigate $\int  \frac{Bx+C}{(x^2+bx+c)^l} \d x$ where $b^2-4c<0$ and $l\in \Z_{+}$.
+	Recall that $$\int \frac{\d x}{x-a} = \ln \abs{x-a}+c$$ and $$\int\frac{\d x}{(x-a)^k}=\frac{(x-a)^{1-k}}{1-k}+c$$ for $k\geq 2$. Therefore, we only need to investigate $$\int  \frac{Bx+C}{(x^2+bx+c)^l} \d x$$ where $b^2-4c<0$ and $l\in \Z_{+}$.
 	
 	We have 
 	$$
@@ -237,7 +242,29 @@
 		Consider covering collection of radius $1/n$.
 	\end{proof}
 	
+	To show a space is \emph{not separable}, we should show that there is no dense subset. A common strategy is the following: construct an uncountable set $B$ in which two distinct elements $x,y$ must differ by a constant, i.e. $\norm{x-y}\geq c$. Then, any dense set $A$ must contain an uncountable number of elements. Indeed, for any distinct elements $x,y$ in $B$, there exists $x',y'\in A$ such that $\norm{x-x'}<1/3$ and $\norm{y-y'}<1/3$. Then
+	$$
+	\norm{x'-y'} =\norm{x'-x+x-y+y-y'}\leq \norm{x-y}-\norm{x'-x}-\norm{y-y'}>\frac{1}{3},
+	$$
+	which shows $x',y'$ are distinct. There exists a injectivity from $B$ to $A$. $A$ must be uncountable.
 	
+	The proof of the non-separability of $l^\infty$ and $L^\infty$ uses the strategy.
+	
+	All separable Hilbert spaces are isometrically isomorphic to $l^2$, so that in some sense $l^2$ is the only (infinite dimensional) separable Hilbert space.
+	\begin{proposition}
+		An infinite-dimensional Hilbert space is separable if and only if it has a countable orthonormal basis.
+	\end{proposition}
+	\begin{proof}
+		If a Hilbert space has a countable basis, then the conclusion is trivial. If a Hilbert space is separable, then consider Gram-Schmidt process.
+	\end{proof}
+
+	\begin{theorem}
+		Any infinite dimensional separable Hilbert space $H$ over $\K$ is isometrically isomorphic to $l^2(\K)$, i.e. $H\equiv l^2(\K)$.
+	\end{theorem}
+
+	Most Hilbert spaces that occur in applications are separable, but there are non-separable Hilbert spaces, such as $l^\infty$ and $L^\infty$.
+
+
 	\section{Completeness}
 	``Completeness arguments'' usually follow similar lines:
 	\begin{enumerate}
@@ -374,6 +401,119 @@
 	\end{corollary}
 	
 	An easy example is the $(e^j)_j$ in $l^p$ space. There is no subsequence of $(e^j)$ converges, since no subsequence can be Cauchy. So the closed unit ball in $l^p(\K)$ is not compact, which shows $l^p(\K)$ is of infinite dimensional.
+	
+	
+	
+	\section{Fundamentals of Inner Product Space}
+	Examples of the inner product spaces are: 
+	\begin{enumerate}
+		\item $\R^n$ with $\inner{x,y}=\sum_{j=1}^n x_j \overline{y_j}$;
+		\item Sequence space $l^2(\K)$ with $\inner{x,y}=\sum_{j=1}^\infty x_j \overline{y_j}$;
+		\item Functional space $L^2(\Omega)$ with $\inner{f,g}=\int_{\Omega} f(x)\overline{g(x)}\d x$.
+	\end{enumerate}
+	\begin{lemma}[Cauchy-Schwarz Inequality]
+		Any inner product $\inner{\cdot,\cdot}$ in a vector space $V$ satisfies
+		\begin{equation}
+			\abs{\inner{x,y}}\leq \norm{x}\norm{y},
+		\end{equation}
+		for all $x,y\in V$, where $\norm{\cdot}^2=\inner{\cdot,\cdot}$, which we called the \emph{induced norm}.
+	\end{lemma}
+	
+	\begin{lemma}[Parallelogram Law]
+		If $V$ is an inner product space with induced norm $\norm{\cdot}$, then
+		\begin{equation}
+		\norm{x+y}^2 + \norm{x-y}^2 = 2(\norm{x}^2+\norm{y}^2)
+		\label{eq:parallelogram}
+		\end{equation}
+		for all $x,y\in V$.
+	\end{lemma}
+
+	\begin{lemma}[Polarisation Identity]
+		Let $V$ be an inner product space with induced norm $\norm{\cdot}$. Then if $V$ is real,
+		\begin{equation}
+			4\inner{x,y}=\norm{x+y}^2 - \norm{x-y}^2,\label{eq:polar}
+		\end{equation}
+		while if $V$ is complex,
+		\begin{equation}
+			4\inner{x,y}=\sum_{n=0}^3 \i^n \norm{x+\i^n y}^2.
+		\end{equation}
+	\end{lemma}
+	
+	\begin{theorem}[Jordan-Neumann Theorem]
+		If $\norm{\cdot}$ is a norm on a real vector space $V$ that satisfies Eq.(\ref{eq:parallelogram}), then the inner product defined by Eq.(\ref{eq:polar}) is indeed an inner product.
+	\end{theorem}
+	
+	
+	
+	\section{Schauder Bases}
+	\begin{definition}[Schauder basis]
+		A countable set $\{e_j\}$ is a \emph{Schauder basis} for a normed space $V$ if every $v\in V$ can be written uniquely as $v=\sum_{j=1}^\infty \alpha_j e_j$ for some $\{\alpha_j\in \K\}$.
+	\end{definition}
+	Note that ``uniquely'' equivalently means independence in ``countable sense'', that is: if $\sum_{j=1}^\infty \alpha_j e_j=0$ then $\alpha_j=0$ for every $j$.
+	
+	Therefore, a Schauder basis is a Hamel basis but a Hamel basis is not necessarily be a Schauder basis since (i) Schauder basis must be countable and (ii) the linearly independence on finite sum version is not enough. In other words, we now narrow the concept of basis from now on.
+	
+	\section{Orthonormal Sets}
+	\begin{lemma}[Generalized Pythagoras]
+		If $\{e_1,\dots,e_n\}$ is an orthonormal set in an inner product space $V$, then for any $\{\alpha_j\in \K\}_{j=1}^n$,
+		\begin{equation}
+			\norm{\sum_{j=1}^n \alpha_j e_j}^2 = \sum_{j=1}^n \abs{\alpha_j}^2.
+		\end{equation}
+	\end{lemma}
+
+	\section{Bessel's Inequality and Parseval's Identity}
+	\begin{lemma}[Bessel's Inequality]
+		Let $V$ be an inner product space and $\{e_j\}_{j=1}^\infty$ an orthonormal set in $V$. Then for all $v\in V$,
+		\begin{equation}
+			\sum_{j=1}^\infty \abs{\inner{x,e_j}}^2\leq \norm{x}^2 \label{eq:Bessel}
+		\end{equation}
+		and in particular the left hand side converges.
+	\end{lemma}
+	\begin{proof}
+		Note that $\norm{x-x_k}^2=\norm{x}^2-\norm{x_k}^2$, where $\norm{x_k}\triangleq \sum_{j=1}^k \abs{\inner{x,e_j}}^2$.
+	\end{proof}
+
+	\begin{lemma}[Parseval's Identity]
+		Let $H$ be a Hilbert space and $\{e_j\}_{j=1}^\infty$ an orthornormal set in $H$. The series $\sum_{j=1}^\infty \alpha_j e_j$ converges if and only if $\sum_{j=1}^\infty \abs{\alpha_j}^2<\infty$. And 
+		\begin{equation}
+			\norm{\sum_{j=1}^\infty \alpha_j e_j}^2=\sum_{j=1}^\infty \abs{\alpha_j}^2.
+		\end{equation}
+	\end{lemma}
+	\begin{proof}
+		Don't forget we are working with the Hilbert space, the proof includes the property of completeness.
+	\end{proof}
+
+	Combining two lemmas, we have
+	\begin{corollary}
+		Let $H$ be a Hilbert space and $\{e_j\}_{j=1}^\infty$ an orthonormal set in $H$. Then $\sum_{j=1}^\infty \inner{x,e_j}e_j$ converges for every $x\in H$.
+	\end{corollary}
+	Note that $\sum_{j=1}^\infty \inner{x,e_j}e_j$ converges but it not necessarily converges to $x$ unless it is a orthonormal basis.
+	\begin{proposition}
+		Let $E=\{e_j\}_{j=1}^\infty$ be an orthonormal set in a Hilbert space $H$. Then the following statements are equivalent:
+		\begin{enumerate}
+			\item $E$ is a basis for $H$;
+			\item for any $x$ we have
+			\begin{equation}
+				x=\sum_{j=1}^\infty \inner{x,e_j}e_j.
+			\end{equation}
+			\item Parseval's identity holds:
+			\begin{equation}
+				\norm{x}^2=\sum_{j=1}^\infty \abs{\inner{x,e_j}}^2.\label{eq:Parseval2}
+			\end{equation}
+			\item $\inner{x,e_j}=0$ for all $j$ implies that $x=0$.
+			\item $\clin(E)=H$.
+		\end{enumerate}
+	\end{proposition}
+	Recall that $\clin$ means the closed linear space of $E$, i.e. $\clin(E)=\overline{\spn(E)}$. Compare Eq.(\ref{eq:Parseval2}) with Eq.(\ref{eq:Bessel}), which shows the condition is also equivalent to the equality holds in the Bessel's inequality.
+	
+	
+	
+	\section{Closest Points and Orthogonal Complements}
+	
+	
+	
+	
+	
 	
 	\appendix
 	\bibliographystyle{alpha}
