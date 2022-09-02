@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper]{report}
 
 \usepackage[top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry}
 %% Packages
@@ -120,7 +120,7 @@
 \hypersetup{
 	colorlinks = true,
 	linkcolor=NavyBlue,
-	citecolor=OrangeRed,
+	citecolor=Orange,
 	filecolor=orange}
 
 \usepackage{tikz}
@@ -129,6 +129,7 @@
 
 
 \newcommand{\R}{\mathbb{R}}
+\newcommand{\C}{\mathbb{C}}
 \newcommand{\Z}{\mathbb{Z}}
 \newcommand{\N}{\mathbb{N}}
 \newcommand{\K}{\mathbb{K}}
@@ -141,6 +142,8 @@
 
 \newcommand{\clin}{\operatorname{clin}}
 \newcommand{\spn}{\operatorname{span}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\range}{\operatorname{range}}
 
 
 \title{Notes on Elementary Analysis}
@@ -156,6 +159,8 @@
 	
 	\tableofcontents
 	\part{Elementary Analysis}
+	\chapter{Univariate Analysis}
+	
 	\section{Integrate on Rational Functions}
 	Functions of the form $R(x)=\frac{P(x)}{Q(x)}$ is called \emph{rational functions}, where $P(x)$ and $Q(x)$ are polynomials. If $\deg(P(x))<\deg(Q(x))$, then it is called a \emph{proper fraction}; otherwise called \emph{improper fraction}. We can always change an improper fraction into a polynomial plus a proper faction.
 	\begin{example}
@@ -224,6 +229,21 @@
 	
 	
 	\part{Functional Analysis}
+	The main reference of this part is \cite{robinson_2020}.
+	
+	\chapter{Fundamental Concepts}
+	\section{Open and Closed Sets}
+	\begin{lemma}
+		If $U$ is a linear subspace of a normed space $X$, then $U=X$.
+	\end{lemma}
+	
+	\begin{lemma}
+		If $U$ is a linear subspace of a normed space $X$, then $\overline{U}$ is a closed linear subspace of $X$.
+	\end{lemma}
+	
+	
+	
+	
 	\section{Separability}
 	\begin{definition}[separable]
 		A metric space $(X,d)$ is \emph{separable} if it contains a countable dense set.
@@ -258,13 +278,13 @@
 		If a Hilbert space has a countable basis, then the conclusion is trivial. If a Hilbert space is separable, then consider Gram-Schmidt process.
 	\end{proof}
 
-	\begin{theorem}
+	\begin{theorem}\label{thm:basis}
 		Any infinite dimensional separable Hilbert space $H$ over $\K$ is isometrically isomorphic to $l^2(\K)$, i.e. $H\equiv l^2(\K)$.
 	\end{theorem}
 
 	Most Hilbert spaces that occur in applications are separable, but there are non-separable Hilbert spaces, such as $l^\infty$ and $L^\infty$.
 
-
+	
 	\section{Completeness}
 	``Completeness arguments'' usually follow similar lines:
 	\begin{enumerate}
@@ -298,7 +318,7 @@
 	\end{corollary}
 	
 	Here is a different strategy to prove the completeness.
-	\begin{lemma}
+	\begin{lemma}\label{lem:complete closed}
 		If $(X,\norm{\cdot})$ is a Banach space and $Y$ is a linear subspace of $X$, then $(Y,\norm{\cdot})$ is a Banach space if and only if $Y$ is closed.
 	\end{lemma}
 	\begin{proof}
@@ -312,6 +332,19 @@
 		Suppose $(y_j)$ is a Cauchy sequence in $X$. Inductively find $n_k$ such that $n_{k+1}>n_k$ and $\norm{y_i-y_j}<2^{-k}$ for $i,j>n_k$. Then set $x_1=y_{n_1}$, $x_j=y_{n_j}-y_{n_{j-1}}$. Use the assumption to show that $y_{n_j}\to y$, where $y=\sum_{j=1}^\infty x_j$.
 	\end{proof}
 
+	\section{$\sup$ Norm and $\max$ Norm}
+	On the space $C([a,b])$, $\norm{f}_{\infty}\triangleq \max_{x\in [a,b]}|f(x)|$ defines a norm, called $\max$ norm; on the space $C_b(X;\K)$, where $X$ is a metric space, and it $C_b$ denotes all bounded and continuous functions, then $\norm{f}_\infty\triangleq \sup_{x\in X}|f(x)|$ defines a norm on $C_b(X;\K)$, called the $\sup$ norm. If $X$ is compact, then $C(X;\K)=C_b(X;\K)$, and this norm is the same as the $\max$ norm.
+	
+	In general, $\sup$ norm is for general $X$ and $\max$ norm is only for compact $X$.
+
+
+
+
+
+
+
+
+
 	\section{Properties Preserved under Isomorphism}
 	To be more specific, the ``isomorphism'' we talking about here is not the ``set-isomorphism''. Instead, it requires more: for $T:X\to Y$, where $X,Y$ are normed spaces, $T$ should have the following properties
 	\begin{enumerate}
@@ -319,6 +352,8 @@
 		\item linearity;
 		\item norm preserving: there exists $c_1,c_2$ such that $c_1\norm{x}\leq \norm{Tx}\leq c_2\norm{x}$.
 	\end{enumerate}
+	In some cases we can strengthen item 3 to be \emph{isometry}: $\norm{Tx}=\norm{x}$ and refer to such a map $T$ as an \emph{isometric isomorphism}.
+	
 	Note that the third property ensures the injectivity, so the procedure to check isomorphism is first check the linearity, then norm preserving, finally surjective.
 	
 	Note that $T$ is automatically continuous by property item 2 and 3.
@@ -337,6 +372,13 @@
 	\end{proposition}
 	\begin{proof}
 		If $(x_n)$ is Cauchy in $X$, then $(Tx_n)$ is Cauchy in $Y$. Assume $Y$ is complete, then $Tx_n\to y\triangleq Tx$. Show that $x_n\to x$.
+	\end{proof}
+	
+	\begin{lemma}[Generalized Bolzano-Weierstrass Theorem]
+		Any bounded sequence in a finite dimensional normed space $(V,\norm{\cdot})$ has a convergent subsequence.
+	\end{lemma}
+	\begin{proof}
+		Consider $(V,\norm{\cdot})\equiv (\R^n, \norm{\cdot})$. If $(v_n)$ is a bounded sequence in $V$ then $(\Psi(v_n))$ is also a bounded sequence in $\R^n$, where $\Psi$ is the isometrically isomorphic map.
 	\end{proof}
 
 
@@ -402,8 +444,8 @@
 	
 	An easy example is the $(e^j)_j$ in $l^p$ space. There is no subsequence of $(e^j)$ converges, since no subsequence can be Cauchy. So the closed unit ball in $l^p(\K)$ is not compact, which shows $l^p(\K)$ is of infinite dimensional.
 	
-	
-	
+	\chapter{Hilbert Spaces}
+	Examples of Hilbert spaces are $\R^n,\C^n,l^2$ and $L^2(\Omega)$.
 	\section{Fundamentals of Inner Product Space}
 	Examples of the inner product spaces are: 
 	\begin{enumerate}
@@ -453,6 +495,7 @@
 	
 	Therefore, a Schauder basis is a Hamel basis but a Hamel basis is not necessarily be a Schauder basis since (i) Schauder basis must be countable and (ii) the linearly independence on finite sum version is not enough. In other words, we now narrow the concept of basis from now on.
 	
+	Note that every separable Hilbert space has a countable Schauder basis, which is stated in Theorem \ref{thm:basis} (the proof is based on Gram-Schmidt process). However, this is not true for Banach space. There exists separable Banach space that do not have a Schauder basis.
 	\section{Orthonormal Sets}
 	\begin{lemma}[Generalized Pythagoras]
 		If $\{e_1,\dots,e_n\}$ is an orthonormal set in an inner product space $V$, then for any $\{\alpha_j\in \K\}_{j=1}^n$,
@@ -500,21 +543,1133 @@
 			\begin{equation}
 				\norm{x}^2=\sum_{j=1}^\infty \abs{\inner{x,e_j}}^2.\label{eq:Parseval2}
 			\end{equation}
-			\item $\inner{x,e_j}=0$ for all $j$ implies that $x=0$.
+			\item $\inner{x,e_j}=0$ for all $j$ implies that $x=0$.\footnote{
+			Using the terminology of orthogonal complements, this condition is equivalent of saying $E^\perp=\{0\}$, where $E=\{e_j\}_{j=1}^\infty$.
+			}
 			\item $\clin(E)=H$.
 		\end{enumerate}
+	\label{prop:basis}
 	\end{proposition}
 	Recall that $\clin$ means the closed linear space of $E$, i.e. $\clin(E)=\overline{\spn(E)}$. Compare Eq.(\ref{eq:Parseval2}) with Eq.(\ref{eq:Bessel}), which shows the condition is also equivalent to the equality holds in the Bessel's inequality.
 	
 	
 	
 	\section{Closest Points and Orthogonal Complements}
+	\begin{theorem}
+		Let $A$ be a non-empty closed convex subset of a Hilbert space $H$ and let $x\in H-A$. Then there exists a unique $\hat{a}\in A$ such that
+		$$
+		\norm{x-\hat{a}}=\dist(x,A)\triangleq \inf\{\norm{x-a}:a\in A\}.
+		$$
+		Moreover, for every $a\in A$ we have
+		\begin{equation}
+			\Re\inner{x-\hat{a},a-\hat{a}}\leq 0,
+		\end{equation}
+		which means the angle between $x-\hat{a}$ and $a-\hat{a}$ is always at least a right angle.
+	\end{theorem}
+	Note that if $A$ is a subspace of $H$, then $A$ is automatically convex. Therefore this theorem is also very useful when $A$ is a closed linear subspace of a Hilbert space $H$.
+	
+	\begin{corollary}
+		Suppose that $A$ is a non-empty closed convex subset of a Hilbert space $H$, and $x\in H-A$. Then there exists $v\in H$ such that
+		\begin{equation}
+			\Re\inner{x-a,v}\geq d^2
+		\end{equation}
+		for all $a\in A$, where $d=\dist(x,A)$.
+	\end{corollary}
+	The physical interpretation of this result is that the work done by a fixed force with the directed distance $x-a$ would be greater than the directed distance $v$.
+	
+	Another viewpoint using the Riesz Representation Theorem is that for any $x\in H-A$, there exists a functional $f\in H^*$ such that $f(x)\geq f(a)+d^2$ for all $a\in A$. Note that $f(x)=\inner{x,v}$, so $f(x)=c$ is a straight line orthogonal to $v$.
+	
+	\begin{definition}[orthogonal complements]
+		If $X$ is a subset of a Hilbert space, then the \emph{orthogonal complement} of $X$ in $H$ is defined to be 
+		$$
+		X^\perp = \{u\in H:\inner{u,x}=0,\forall x\in X\}.
+		$$
+	\end{definition}
+	We have the following immediate conclusions.
+	\begin{lemma}
+		Assume $X$ is a subset of a Hilbert space $H$. Then
+		\begin{enumerate}
+			\item if $Y\subseteq X$, then $X^\perp \subseteq Y^\perp$.
+			\item If $0\in X$, then $X\cap X^\perp =\{0\}$. And if $0\notin X$, then the intersection is emptyset.
+			\item $X^\perp$ is a closed linear subspace of $H$.
+		\end{enumerate}
+	\end{lemma}
+
+	\begin{definition}[direct sum]
+		We $X=U+V$ is a direct sum if for any $x\in X$, there exists a unique decomposition in the form $x=u+v$ where $u\in U, v\in V$.
+	\end{definition}
+	
+	\begin{proposition}
+		If $U$ is a closed linear subspace of a Hilbert space $H$, then any $x\in H$ is the direct sum of $U$ and $U^\perp$, i.e. any $x\in H$ can be written uniquely as $x=u+v$, where $u\in U$ and $v\in U^\perp$. The map $P_U: H\to U$ defined by
+		$$
+		P_U x \triangleq u
+		$$ 
+		is called the orthogonal projection of $x$ onto $U$, and satisfies
+		$$
+		P^2_U x = P_U x \quad \text{and} \quad \norm{P_U x} \leq \norm{x}
+		$$
+		for all $x\in H$.
+	\end{proposition}
+	In the proof of the proposition, we can see that $u$ is chosen to be the closest point of $x$ to $U$.
+	\begin{corollary}
+		If $X\subset H$, then $X\subseteq (X^\perp)^\perp$ with equality if and only if $X$ is a closed linear subspace of $H$.
+	\end{corollary}
+	
+	\begin{theorem}[Best Approximation]
+		Let $E=\{e_j\}_{j\in \mathscr{J}}$ be an orthonormal set, where $\mathscr{J}=\N$ or $(1,\dots,n)$. Then for any $x\in H$, the orthogonal projection of $x$ onto $\clin(E)$, which is the closest point to $x\in \clin(E)$, is given by
+		$$
+		P_E x \triangleq \sum_{j\in \mathscr{J}}\inner{x,e_j}e_j.
+		$$
+	\end{theorem}
+	Of course, if $E$ is a basis for $H$, then by Proposition \ref{prop:basis}, there is no approximation involved.
+	\begin{proof}
+		Consider $x-\sum_{j\in \mathscr{J}}\alpha_j e_j$. Show that when $\alpha_j=\inner{x,e_j}$ the norm of the difference reaches the minimal. Then the summation would be the closest point of $x$ in $\clin(E)$, which is also the projection.
+	\end{proof}
+	
+	
+	\section{Bounded Linear Map}
+	\begin{definition}[bounded linear map]
+		A linear map $T:(X,\norm{\cdot}_X)\to(Y,\norm{Y,\norm{\cdot}_Y})$ is \emph{bounded} if there exists a constant $M$ such that $\norm{Tx}_Y \leq M \norm{x}_X$ for all $x\in X$.
+	\end{definition}
+	In finite dimensional spaces, the linear maps are automatically bounded.
+	\begin{lemma}
+		If $X$ is a finite-dimensional vector space, then any linear map $T:(X,\norm{\cdot}_X)\to(Y,\norm{Y,\norm{\cdot}_Y})$ is bounded.
+	\end{lemma}
+	\begin{proof}
+		Let $E=\{e_j\}_{j=1}^n$ be the basis of $x$. Then consider the norm $\norm{\cdot}_E$. Recall that all norms are equivalent in finite dimensional spaces.
+	\end{proof}
+	
+	An important characterization of boundedness is continuity.
+	\begin{theorem}
+		A linear map $T:(X,\norm{\cdot}_X)\to(Y,\norm{Y,\norm{\cdot}_Y})$ is bounded if and only if it is continuous.
+	\end{theorem}
+	\begin{proof}
+		Bounded map is continuous since 
+		$$
+		\norm{Tx_n-Tx}=\norm{T(x_n-x)}\leq M \norm{x_n-x}.
+		$$
+		Suppose $T$ is continuous, then in particular it is continuous at zero. Then take $\epsilon=1$ to show the boundedness.
+	\end{proof}
+
+	The space of bounded linear maps from $X$ to $Y$ is denoted by $B(X,Y)$. And $B(X)\triangleq B(X,X)$.
+	\begin{definition}[operator norm]
+		The norm in $B(X,Y)$ of a linear map $T:(X,\norm{\cdot}_X)\to(Y,\norm{Y,\norm{\cdot}_Y})$ is the smallest value of $M$, i.e.
+		$$
+		\norm{T}_{B(X,Y)}\triangleq \inf\{M:\norm{Tx}\leq M\norm{x},\forall x\in X\}.
+		$$
+	\end{definition}
+	One can show directly that the definition indeed defines a norm.
+	
+	\begin{lemma}\label{lem:equiv norm}
+		The norm in $B(X,Y)$ is also given by
+		$$
+		\norm{T}_{B(X,Y)} = \sup_{\norm{x}=1}\norm{Tx}.
+		$$
+	\end{lemma}
+	We also have
+	\begin{equation}
+		\norm{T}_{B(X,Y)}=\sup_{\norm{x}\leq 1}\norm{Tx}=\sup_{x\neq 0}\frac{\norm{Tx}}{\norm{x}}.
+	\end{equation}
+	
+	Also, it is easy to see $\norm{S\circ T}\leq \norm{S}\norm{T}$ so that $S\circ T$ is bounded if both $S$, $T$ are bounded. In particular, we have $\norm{T^n}\leq \norm{T}^n$. 
+	
+	The method of showing that $\norm{T}$ is the norm of the linear operator is (i) first showing $M$ satisfies
+	$\norm{Tx}\leq M\norm{x}$, which shows $\norm{T}\leq M$. (ii) then find a sequence $(z_n)\in X$ such that
+	$$
+	\frac{\norm{Tz_n}}{\norm{z_n}}\to M
+	$$
+	as $n\to \infty$, which shows $\norm{T}\geq M$; (ii') sometimes you may find an example of a particular $z\in X$ such that $\norm{T z}=M \norm{z}$.
+	
+	\begin{theorem}\label{thm:B(X,Y) complete}
+		If $X$ is a normed space and $Y$ is a Banach space, then $B(X,Y)$ is a Banach space.
+	\end{theorem}
+	\begin{proof}
+		If $\{T_n\}$ is a Cauchy sequence in $B(X,Y)$, then $\{T_n x\}$ would be a Cauchy sequence in $Y$. By the completeness of $Y$, $T_n x\to x$ for all $x\in X$. Then show that $T_n\to T$ and $T\in B(X,Y)$.
+	\end{proof}
+
+	\begin{proposition}\label{prop:limit of T}
+		Suppose that $X$ is a Banach space, $Y$ a normed space, and that $T_n\in B(X,Y)$. Suppose that $\lim_{n\to\infty}T_n x$ exists for every $x\in X$. Let $Tx=\lim_{n\to\infty}T_n x$. Then $T\in B(X,Y)$.
+	\end{proposition}
+	\begin{proof}
+		Need Theorem \ref{thm:uniform bdd}. It is clear that $T$ is linear. To show $T$ is bounded, note that $\lim_{n\to\infty}\norm{T_n x}$ exists for every $x\in X$ so that $(T_n x)_{n=1}^\infty$ is bounded. The Principle of Uniform Boundedness shows that $\norm{T_n}\leq M$ for every $n\in\N$. Then 
+		$$
+		\norm{Tx}=\lim_{n\to\infty}\norm{T_n x}\leq M \norm{x}.
+		$$
+	\end{proof}
+
+	\section{Kernel and Range}
+	\begin{lemma}
+		If $T\in B(X,Y)$, then $\ker(T)$ is a closed linear subspace of $X$.
+	\end{lemma}
+	\begin{proof}
+		One can argue by the continuity of $T$. First approach: if $Tx_n=0$ and $x_n\to x$, then $Tx = T(\lim x_n)=\lim Tx_n=0$. Second approach (more topology): note that $\ker(T)=T^{-1}(\{0\})$ and $\{0\}$ is a closed subspace of $Y$, so that $T^{-1}(0)$ is a closed subset of $X$.
+	\end{proof}
+	
+	Note that the same is not true for the range of $T$. Consider the map 
+	$$
+	Tx=(x_1,\frac{x_2}{2},\frac{x_3}{3},\dots).
+	$$
+	One can show that it is a bounded linear map. However, $y_n=(1,\frac{1}{2},\frac{1}{3},\dots,\frac{1}{n},\dots,0,\dots)\in \range(T)$ but $y=(1,\frac{1}{2},\dots)\notin \range(T)$.
+	
+	\section{Inverses and Invertibility}
+	Since there is no guarantee that the inverse of a bounded linear map is also bounded, it gives rise to the somewhat strange situation in which $T\in B(X,Y)$ can `have an inverse' but not be `invertible'.
+	\begin{definition}[invertible]
+		Suppose $X,Y$ are normed spaces. An operator $T\in B(X,Y)$ is \emph{invertible} if there exists an $S\in B(X,Y)$ such that $ST=I_X$ and $TS=I_Y$, and then $T^{-1}=S$ is the inverse of $T$.
+	\end{definition}
+	\begin{lemma}
+		For any $T\in B(X,Y)$, the following statements are equivalent:
+		\begin{enumerate}
+			\item $T$ is invertible;
+			\item $T$ is bijection and $T^{-1}\in B(Y,X)$;
+			\item $T$ is onto and for some $c>0$, $\norm{Tx}\geq c\norm{x}$ for every $x\in X$.
+		\end{enumerate}
+	\end{lemma}
+
+	\begin{lemma}
+		If $X$ and $Y$ are Banach spaces and $T\in B(X,Y)$ is invertible, then so is $T+S$ for any $S\in B(X,Y)$ with $\norm{S}\norm{T^{-1}}\leq 1$. Consequently, the subset of $B(X,Y)$ consisting of invertible operators is open. \label{lem:invertible}
+	\end{lemma}
+	\begin{proof}
+		Consider $\mathcal{J}(x)=T^{-1}(y-Sx)$ for given $y\in Y$. Apply Contraction Mapping Theorem to it to show that $T+S$ is onto. On the other side, note that 
+		$$
+		\norm{Tx}\geq \frac{1}{\norm{T^{-1}}}\norm{x}.
+		$$
+	\end{proof}
+
+	\begin{lemma}
+		If $T\in B(X,Y)$ and $S\in B(Y,Z)$ are invertible, then so is $ST\in B(X,Z)$ and $(ST)^{-1}=T^{-1}S^{-1}$.
+	\end{lemma}
+	\begin{lemma}
+		Let $T,S\in L(X)$. If $TS=ST$ and $T$ is invertible, then $T^{-1}S=ST^{-1}$. 
+	\end{lemma}
+	\begin{proof}
+		Consider $T^{-1}[ST]T^{-1}$.
+	\end{proof}
+	\section{Dual Space and Riesz Representation Theorem}
+	\begin{definition}[dual space]
+		The \emph{dual space} of $X$ is $X^*=B(X,\K)$ with norm
+		$$
+		\norm{f}_{X^*}=\sup_{\norm{x}=1}|f(x)|
+		$$
+		for each $f\in X^*$.
+	\end{definition}
+	Use Lemma \ref{lem:equiv norm}, the norm $\norm{\cdot}_{X^*}$ agrees with the former definition of norm on bounded linear operator. Also note that from Theorem \ref{thm:B(X,Y) complete}, $X^*$ is always a Banach space.
+	\begin{lemma}
+		If $H$ is a Hilbert space over $\K$ and $y\in H$, then the map $f_y:H\to\K$ defined by $f_y(x)\triangleq \inner{x,y}$ belongs to $H^*$ with $\norm{f_y}_{H^*}=\norm{y}_H$.
+	\end{lemma}
+	\begin{proof}
+		First show that $\norm{f_y}_{H^*}\leq \norm{y}$ and then find an example, which is $x=y$ that $\abs{f_y(y)}=\norm{y}^2$.
+	\end{proof}
+	
+	The Riesz Representation Theorem shows that the map $R(y)=f_y$ is onto, so that this can be reversed.
+	\begin{theorem}[The Riesz Representation Theorem]
+		If $H$ is a Hilbert space, then for every $f\in H^*$, there exists a unique element $y\in H$ such that
+		$$
+		f(x) = \inner{x,y}
+		$$
+		for all $x\in H$ and $\norm{y}=\norm{f}$
+	\end{theorem}
+	\begin{proof}
+		Let $K=\ker(f)$. First show that $K^\perp$ is a one-dimensional linear subspace of $H$. Then decompose
+		$x\in H$ into $x=\inner{x,z}z+w$, where $z\in K^\perp$ and $w\in K$. So that $f(x)=\inner{x,\overline{f(z)}z}$.
+	\end{proof}
+
+	\begin{theorem}\label{thm:separable of X*}
+		Let $X$ be a normed space. If $X^*$ is separable, then $X$ is separable.
+	\end{theorem}
+	\begin{proof}
+		Note that the proof based on Hahn-Banach Theorem \ref{thm:Hahn-Banach} and the existence of distance functional Proposition \ref{prop:distance functional}. Use the fact that $S_{X^*}$ is separable to find  a dense subset of $S_{X^*}$ and a sequence $(x_n)$ with $\norm{x_n}=1$ such that $|f_n(x_n)|\geq 1/2$, by the definition of the norm in $X^*$. Then show that $M\triangleq\clin\{x_n\}=X$ by contradiction.
+	\end{proof}
+	
+	
+	
+	\section{The Hilbert Adjoint of a Linear Operator}
+	\begin{theorem}
+		Let $H$ and $K$ be Hilbert spaces and $T\in B(H,K)$. Then there exists a unique operator $T^*\in B(K,H)$, which we call the \emph{Hilbert adjoint of $T$} such that
+		$$
+		\inner{Tx,y}_K = \inner{x,T^* y}_H
+		$$
+		for all $x\in H, y\in K$. Furthermore, $T^{**}\triangleq (T^*)^* = T$ and $\norm{T^*}=\norm{T}$.
+	\end{theorem}
+	\begin{proof}
+		Let $f(x)=\inner{Tx,y}_K$ and use the Riesz Representation Theorem.
+	\end{proof}
+	
+	\begin{proposition}
+		Let $H,K$ and $J$ be Hilbert spaces, $R,S\in B(H,K)$ and $T\in B(K,J)$. Then
+		\begin{enumerate}
+			\item $(\alpha R+\beta S)^* = \overline{\alpha} R^* + \overline{\beta} S^*$;
+			\item $(TR)^* = R^* T^*$.
+		\end{enumerate}
+	\end{proposition}
+
+	\begin{definition}
+		If $H$ is a Hilbert space and $T\in B(H)$, then $T$ is \emph{self-adjoint} if $T=T^*$.
+	\end{definition}
 	
 	
 	
 	
+	\section{The Resolvent and Spectrum}
+	\begin{definition}[resolvent and spectrum]
+		Let $X$ be a complex Banach space and $T\in B(X)$. The \emph{resolvent set} of $T$, $\rho(T)$ is
+		$$
+		\rho(T)=\{\lambda\in \C: T-\lambda I \text{ is invertible}\}.
+		$$
+		The \emph{spectrum} of $T$, $\sigma(T)$, is the complement of $\rho(T)$.
+	\end{definition}
+	Be careful with the difference between ``invertible'' and ``have an inverse''. If $\lambda \in \sigma(T)$, then $T-\lambda I$ is not invertible, which means either $T-\lambda I$ does not have an inverse or the inverse is not bounded linear map.
+	
+	In a finite dimensional space, the spectrum consists entirely of eigenvalues. In an infinite dimensional space, the spectrum can be strictly larger than the set of eigenvalues, which we term the ``point spectrum'':
+	$$
+	\sigma_p(T)=\{\lambda\in \C: (T-\lambda I)x=0,\exists x\neq 0\in X\}.
+	$$
+	We have $\sigma_p(T)\subseteq \sigma(T)$. It is easy to see that $|\lambda|\leq \norm{T}$ for $\lambda \in \sigma_p(T)$. Moreover, we have the following lemma.
+	\begin{lemma}
+		If $T\in B(X)$, then $\sigma(T)$ is a closed subset of $\{\lambda\in \C:|\lambda|\leq \norm{T} \}$.
+	\end{lemma}
+	\begin{proof}
+		Use Lemma \ref{lem:invertible}.
+	\end{proof}
+	Therefore, to find the spectrum of a bounded linear operator $T$, we may (i) first find $\sigma_p(T)$, (ii) then find $\norm{T}$, (iii) use the compactness of $\sigma(T)$. Or consider the following lemma if the space a Hilbert space rather than Banach space.
+	\begin{lemma}
+		If $H$ is a Hilbert space and $T\in B(H)$, then
+		$$
+		\sigma(T^*)=\{\overline{\lambda}:\lambda\in \sigma(T)\}.
+		$$
+	\end{lemma}
+	\begin{proof}
+		Show that $\lambda\notin \sigma(T)$ implies that $\overline{\lambda}\notin \sigma(T^*)$.
+	\end{proof}
+	
+	We have a powerful theorem called ``spectrum mapping theorem'', which states $\sigma(f(T))=\{f(\lambda):\lambda\in \sigma(T)\}$. We show it for $f$ being polynomials here.
+	\begin{theorem}[Spectrum Mapping Theorem for Polynomials]
+		If $T\in B(X)$ and $P$ is a polynomial, then
+		$$
+		\sigma(P(T))=P(\sigma(T))\triangleq\{P(\lambda):\lambda\in \sigma(T)\}.
+		$$
+	\end{theorem}
+	\begin{proof}
+		Show that the spectrum of $\sigma(P(T))$, $\lambda$, can be write as $\lambda=P(\beta)$ for some $\beta\in \sigma(T)$. And if $\lambda\notin \sigma(P(T))$, such $\beta$ does not exist. Consider $\lambda-P(z)=a(\beta_1-z)\cdots(\beta_n-z)$, which means the only possibility of the choice of $\beta$ is in $\{\beta_j\}_{j=1}^n$.
+	\end{proof}
 	
 	
+	\section{Compact Linear Operators}
+	There are two equivalent definitions of \emph{compact linear operators}.
+	\begin{definition}[compact linear operator -- first definition]
+		Let $X$ and $Y$ be normed spaces. A linear operator $T: X\to Y$ is \emph{compact} if for any bounded sequence $(x_n)\in X$, the sequence $(Tx_n)\in Y$ has a convergent subsequence.
+	\end{definition}
+
+	\begin{proposition}[equivalent definition]
+		A linear operator $T$ is compact if and only if $T\mathbb{B}_X$ is a precompact subset of $Y$, where $\mathbb{B}_X$ denotes the closed unit ball in $X$. 
+	\end{proposition}
+	
+	Note that a compact operator must be bounded; otherwise $(Tx_n)$ would not have a convergent subsequence.
+	
+	\begin{lemma}
+		Let $X,Y$ be normed spaces and $T\in B(X,Y)$. If $\range(T)$ is finite dimensional, then $T$ is compact.
+	\end{lemma}
+	\begin{proof}
+		Since $T\in B(X,Y)$ and any bounded sequence in a finite dimensional space has a convergent subsequence, the results follows.
+	\end{proof}
+
+	Let $K(X,Y)$ denotes the sets of all compact linear operators from $X$ to $Y$. It is easy to see that this is a vector space. Actually, we have the following advanced result.
+	\begin{theorem}
+		Suppose that $X$ is a normed space and $Y$ is a Banach space. If $(K_n)_{n=1}^\infty$ is a sequence of compact linear operators in $K(X,Y)$ that converges to some $K\in B(X,Y)$, i.e.
+		$$
+		\norm{K_n-K}_{B(X,Y)}\to 0
+		$$
+		as $n\to \infty$, then $K\in K(X,Y)$ also. In particular, $K(X,Y)$ is complete.
+	\end{theorem}
+	The results shows that $K(X,Y)\subseteq B(X,Y)$ is a closed subspace. If $Y$ is complete then $B(X,Y)$ is complete and also the closed subspace is complete.
+	
+	
+	Now we have four ways to show a linear operator $T$ is compact:
+	\begin{enumerate}
+		\item Show that for any bounded sequence $(x_n)$, $(Tx_n)$ has a convergent subsequence.
+		\item Show that $T\mathbb{B}_X$ is precompact, i.e. $T\mathbb{B}_X$ is compact.
+		\item Show that $\range(T)$ is finite dimensional.
+		\item Show that there exists a sequence of compact operators $(T_n)$ converges to $T$.
+	\end{enumerate}
+	One other way is to show that $T$ is a Hilbert-Schmidt operator, which we will discuss in the following section.
+	
+	\begin{lemma}
+		Suppose that $T\in B(X,Y)$ and $S\in B(Y,Z)$. Show that if either $S$ or $T$ are compact, then $S\circ T$ is compact. \label{lem:composition of compact}
+	\end{lemma}
+	
+	
+	\begin{lemma}
+		If $H$ is a Hilbert space and $T\in K(H)$, then $T^*\in K(H)$.
+	\end{lemma}
+	\begin{proof}
+		Use Lemma \ref{lem:composition of compact}, then $TT^*x_n$ would have a convergent subsequence given $x_n$ is bounded. Show that $T^* x_n$ (relabeled) is Cauchy thus convergent.
+	\end{proof}
+
+	\begin{theorem}
+		Suppose that $X$ is an infinite-dimensional Banach space and $T\in K(X)$. Then $0\in \sigma(T)$.
+	\end{theorem}
+	$0\in \sigma(T)$ means that $T$ is not invertible.
+	\begin{proof}
+		Assume $0\notin \sigma(T)$, then $T$ is invertible, $T^{-1}\in B(X)$. It follows that $I=T^{-1}T$ is compact. However, by the equivalent definition, $\mathbb{B}_X$ is compact. This shows that $X$ is finite dimensional, contradiction.
+	\end{proof}
+	
+	\section{Hilbert-Schmidt Operators}
+	\begin{definition}[Hilbert-Schmidt]
+		An operator $T\in B(H)$ is \emph{Hilbert-Schmidt} if for some orthonormal basis $\{e_j\}_{j=1}^\infty$ of $H$,
+		$$
+		\norm{T}^2_{\text{HS}} \triangleq \sum_{j=1}^\infty \norm{Te_j}^2 < \infty.
+		$$
+	\end{definition}
+	Note that this definition is only meaningful when $H$ is separable. Once it is separable, the quantity of $\norm{T}^2_{\text{HS}}$ is independent of the choice of orthonormal basis. To see this, note that we have Parseval's equality:
+	$$
+	\norm{x}^2 = \sum_{j=1}^\infty \abs{\inner{x,e_j}}^2.
+	$$
+	Then for $\{e_j\}_{j=1}^\infty$ and $\{f_k\}_{k=1}^\infty$
+	$$
+	\sum_{j=1}^\infty \norm{Te_j}^2 = \sum_{j,k=1}\abs{\inner{Te_j,f_k}}^2 = \sum_{j,k=1}\abs{\inner{e_j,T^* f_k}}^2 = 
+	\sum_{k=1}\norm{T^*f_k}^2.
+	$$
+	Let $e_j=f_j$, then
+	$$
+	\sum_{j=1}^\infty \norm{Tf_j}^2 = \sum_{k=1}^\infty \norm{T^* f_k}^2 = \sum_{j=1}^\infty \norm{Te_j}^2.
+	$$
+	
+	\begin{theorem}
+		Any Hilbert-Schmidt operator $T$ is compact.
+	\end{theorem}
+	\begin{proof}
+		Let $T_n u= \sum_{j=1}^n \inner{u,e_j} Te_j$. Then show that $T_n$ is compact (since it has finite dimensional range) and $T_n$ converges to $T$.
+	\end{proof}
+
+
+
+
+
+	\section{Numerical Range}
+	\begin{definition}[numerical range]
+		If $T$ is self-adjoint, then the \emph{numerical range} of $T$, denoted $V(T)$, is the set
+		$$
+		V(T)\triangleq \{\inner{Tx,x}: x\in H, \norm{x}=1\}.
+		$$
+	\end{definition}
+
+	\begin{theorem}\label{thm:numerical range}
+		Let $H$ be a Hilbert space and $T\in B(H)$ a self-adjoint operator. Then $V(T)\subset \R$ and
+		$$
+			\norm{T}_{B(H)}=\sup\{|\lambda|:\lambda\in V(T)\}.
+		$$
+	\end{theorem}
+	\begin{proof}
+		Since $T$ is self-adjoint, $\inner{Tx,x}=\inner{x,Tx}=\overline{\inner{Tx,x}}$, which shows $V(T)\subset \R$. Let $M=\sup\{\abs{\inner{Tx,x}}:x\in H,\norm{x}=1\}$. We should show $M\leq \norm{T}$ and then $M\geq \norm{T}$. The former can be shown by Cauchy-Schwarz inequality. For the latter, show that $\norm{Tu}\leq M \norm{u}$.
+	\end{proof}
+	
+	
+	\section{Eigenvalues of (Compact) Self-Adjoint Operators}
+	Self-adjoint operators can be characterized by the spectrum.
+	\begin{theorem}[$T$ self-adjoint]
+		If $T\in B(H)$ is self-adjoint, then
+		\begin{enumerate}
+			\item all of its eigenvalues are real, and
+			\item if $Tx_1=\lambda_1 x_1$ and $Tx_2=\lambda_2 x_2$ with $\lambda_1\neq \lambda_2$, then $\inner{x_1,x_2}=0$.
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		Use the result $\inner{Tx,x}\in \R$ in Theorem \ref{thm:numerical range}.
+	\end{proof}
+	
+	\begin{theorem}[$T$ compact self-adjoint]\label{thm:compact self-adjoint}
+		Let $H$ be a Hilbert space and $T\in B(H)$ a compact self-adjoint operator. Then at least one of $\pm \norm{T}$ is an eigenvalue of $T$, and so in particular
+		$$
+		\norm{T}=\max\{\abs{\lambda}:\lambda\in \sigma_p (T)\}.
+		$$
+	\end{theorem}
+	\begin{proof}
+		Use Theorem \ref{thm:numerical range} to find $x\neq 0\in H$ such that $Tx=\alpha x$, where $\alpha =\norm{T}$ or $-\norm{T}$. Since $|\lambda|\leq \norm{T}$, the result follows.
+	\end{proof}
+	
+	\begin{proposition}[$H$ separable, $T$ compact self-adjoint]\label{prop:lambda tend zero}
+		Let $T$ be a compact self-adjoint operator on a separable Hilbert space $H$. Then $\sigma_p(T)$ is either finite or consists of a countable sequence $(\lambda_n)_{n=1}^\infty$ with $\lambda_n\to 0$ as $n\to\infty$. Furthermore, every distinct non-zero eigenvalue corresponds to only a finite number of linearly independent eigenvectors.
+	\end{proposition}
+	In short, this proposition shows that the eigenvalues can only accumulate at $0$ and every eigenspace is finite dimensional.
+	\begin{proof}
+		Assume that there is a sequence of $(\lambda_n)$ that do not tend to zero, i.e. for some $\epsilon_0>0$, $|\lambda_n|>\epsilon_0$ for every $n$. Let $x_n$ be the corresponding eigenvectors, i.e. $Tx_n =\lambda_n x_n$ with $\norm{x_n}=1$. Show that $Tx_n$ is separated, i.e. $\norm{Tx_n-Tx_m}^2\geq \epsilon'.$ Then it would not have a convergent subsequence. This contradicts with the compactness of $T$.
+		
+		If for some $\lambda_n$, there exists infinite number of linear independent eigenvectors. Then we can find a countably infinite orthonormal set $\{\tilde{e}_j\}$ by Gram-Schmidt. However, $T\tilde{e}_n$ is again separated, thus arriving a contradiction.
+	\end{proof}
+	
+	Note that if $T^n$ rather than $T$ is compact, then by $\sigma(T^n)=[\sigma(T)]^n$ and $\sigma_p(T)\subseteq \sigma(T)$. If there exist a countable sequence in $\sigma_p(T)$ then must be in $\sigma(T^n)$. Therefore the point spectrum of $T$ is also either finite or consists of a countable sequence tending to zero.
+	
+	
+	
+	\section{The Hilbert-Schmidt Theorem}
+	This section is the main result about compact self-adjoint operators.
+	\begin{lemma}
+		If $T\in B(H)$ and $Y$ is a closed linear subspace of $H$ such that $TY\subseteq Y$, then $T^* Y^\perp \subseteq Y^\perp$.
+	\end{lemma}
+	\begin{corollary}
+		If $T$ is a self-adjoint bounded linear map in $B(H)$ and $Y$ is a closed linear subspace of $H$. Then $TY\subseteq Y$ implies $TY^\perp \subseteq Y^\perp$. 
+	\end{corollary}
+	In other words, $Y$ is invariant under $T$ implies $Y^\perp$ is also invariant under $T$.
+	\begin{theorem}[Hilbert-Schmidt Theorem]\label{thm:Hilbert-Schmidt}
+		Let $H$ be a Hilbert space and $T\in B(H)$ a compact self-adjoint operator. Then there exists a finite or countably infinite orthonormal sequence $(w_j)_{j\in \mathscr{J}}$, where $\mathscr{J}=(1,\dots,n)$ or $\N$, consisting of eigenvectors of $T$, with corresponding non-zero real eigenvalues $(\lambda_j)_{j\in \mathscr{J}}$, such that for all $x\in H$
+		\begin{equation}
+			T x =\sum_{j\in \mathscr{J}} \lambda_j \inner{x,w_j}w_j.
+		\end{equation}
+	\end{theorem}
+	\begin{proof}
+		Use Theorem \ref{thm:compact self-adjoint}. There exists $w_1\in H$ such that $Tw_1=\alpha w_1$ and $\norm{w_1}=1$, where $\alpha=\norm{T}$ or $-\norm{T}$. Then let $H_2=\{w_1\}^\perp$. $H_2$ is the orthonormal complement thus closed so that it is also Hilbert space. Also $T$ is self-adjoint and of course invariant on $\{w_1\}$, so $T$ is invariant on $H_2$. Consider $T_2=T|_{H_2}$. Repeatedly doing this as long as $T_n\neq 0$.
+		
+		If $T_n=0$ for some $n$. Then for any given $x\in H$, show that $T[x-\sum_{j=1}^{n-1}\inner{x,w_j}w_j]=0$. Then the result follows. If $T_n\neq 0$ for all $n$. Then show that
+		$$
+		\norm{Tx-\sum_{j=1}^{n-1}\lambda_j \inner{x,w_j}w_j}\to 0
+		$$
+		as $n\to\infty$. Note that $|\lambda_n|\to 0$ by Proposition \ref{prop:lambda tend zero}.
+	\end{proof}
+	
+	\begin{corollary}
+		Let $H$ be an infinite-dimensional separable Hilbert space and $T\in B(H)$ a compact self-adjoint operator. Then there exists a countable orthonormal basis $E=\{e_j\}_{j=1}^\infty$ of $H$ consisting of eigenvectors of $T$, and for any $x\in H$
+		\begin{equation}
+			Tx = \sum_{j=1}^\infty \lambda_j \inner{x,e_j}e_j,
+		\end{equation}
+		where $Te_j=\lambda_j e_j$. In particular, if $\ker(T)=\{0\}$, then $H$ has an orthonormal basis consisting of eigenvectors of $T$ corresponding to non-zero eigenvalues.
+	\end{corollary}
+	\begin{proof}
+		Use Theorem \ref{thm:Hilbert-Schmidt} to get $(w_j)$, which is a series of eigenvectors corresponding to non-zero eigenvalues. Then consider $\ker(T)$.
+	\end{proof}
+	\begin{theorem}
+		If $T$ is a compact self-adjoint operator on a separable Hilbert space $H$, then $\sigma(T)=\overline{\sigma_p(T)}$. Every non-zero $\lambda\in \sigma(T)$ is an eigenvalue and either $\sigma(T)=\sigma_p(T)$ or $\sigma(T)=\sigma_p(T)\cup \{0\}$.
+	\end{theorem}
+	\begin{proof}
+		First note that $\sigma_p(T)\subseteq \sigma(T)$ and $\sigma(T)$ is closed. So $\overline{\sigma_p(T)}\subseteq \sigma(T)$. Then for $\lambda \in \sigma(T)$, we wish to show $\lambda \in \overline{\sigma_p(T)}$. Assume the contrary, if $\lambda \notin \overline{\sigma_p(T)}$, then there exists $\delta >0$ such that $\sup_{j\in \N}|\lambda-\lambda_j|\geq \delta>0$. Show that $T-\lambda I$ is invertible to arrive at a contradiction.
+		
+		Since only zero could be the limit point in $\sigma_p(T)$ and $0\in \sigma(T)$ when $H$ is infinite dimensional, so that $\overline{\sigma_p(T)}=\sigma_p(T)$ (if $0$ is eigenvalue) or $\sigma_p(T)\cup\{0\}$ (if $0$ is not eigenvalue).
+	\end{proof}
+	
+	
+	
+	
+	\chapter{Banach Spaces}
+	
+	\section{The Young and H\"{o}lder Inequalities}
+	We say that two indices $1\leq p,q \leq \infty$ are \emph{conjugate} if
+	$$
+	\frac{1}{p}+\frac{1}{q}=1.
+	$$
+	
+	\begin{lemma}[Young's Inequality]
+		Let $a,b>0$ and let $(p,q)$ be conjugate indices with $1<p,q<\infty$. Then
+		$$
+		ab\leq \frac{a^p}{p}+\frac{b^q}{q}
+		$$
+	\end{lemma}
+	\begin{proof}
+		Use the fact that $e^x$ is convex and write $ab$ as
+		$$
+		\exp\left(\frac{1}{p}\log a^p + \frac{1}{q} \log b^q\right).
+		$$
+	\end{proof}
+
+	\begin{lemma}[H\"{o}lder's inequality in $l^p$ spaces]
+		If $x\in l^p(\K)$ and $y\in l^q(\K)$ with $(p,q)$ conjugate, $1\leq p,q\leq \infty$, then
+		$$
+		\sum_{j=1}^\infty |x_j y_j|\leq \norm{x}_{l^p}\norm{y}_{l^q}.
+		$$
+	\end{lemma}
+	\begin{proof}
+		Note that
+		$$
+		\sum_{j=1}^n \frac{|x_j|}{\norm{x}_{l^p}}\frac{|y_j|}{\norm{y}_{l^q}}\leq \sum_{j=1}^n \frac{1}{p}\frac{|x_j|^p}{\norm{x}^p_{l^p}}+\frac{1}{q}\frac{|y_j|^q}{\norm{y}^q_{l^q}}=1.
+		$$
+	\end{proof}
+	\begin{lemma}[H\"{o}lder's inequality in $L^p$ spaces]
+		Suppose that $f\in L^p(\Omega)$ and $g\in L^1(\Omega)$, with $(p,q)$ conjugate, $1\leq p,q\leq \infty$. Then $fg\in L^1(\Omega)$, with
+		$$
+		\norm{fg}_{L^1}=\int_{\Omega} |fg|\leq \norm{f}_{L^p}\norm{g}_{L^q}.
+		$$
+	\end{lemma}
+	\begin{proof}
+		The same as the case in $l^p$.
+	\end{proof}
+	
+	\section{The Dual Spaces of $l^p$}
+	\begin{theorem}
+		For $1<p<\infty$, we have $(l^q)\equiv (l^p)^*$, with $(p,q)$ conjugate, via the mapping $T_p:x\mapsto L_x$, where
+		\begin{equation}
+			L_x(y)=\sum_{j=1}^\infty x_j y_j.\label{eq:L_x}
+		\end{equation}
+	\end{theorem}
+	\begin{proof}
+		Given $x\in l^q$ we want to find the linear functional $L_x\in (l^p)^*$ with $\norm{x}=\norm{L_x}$ and the map $T_p$ is onto. 
+	\end{proof}
+	
+	\begin{theorem}
+		$(l^\infty)\equiv (l^1)^*$ via mapping $T_1:x\mapsto L_x$, where $L_x$ is defined as (\ref{eq:L_x}).
+	\end{theorem}
+	\begin{proof}
+		The same as the case when $1<p<\infty$.
+	\end{proof}
+	The result does not hold when $p=\infty$. In the proof, for $l^\infty$, it is not a separable space thus does not have a basis. The proof of $T_p$ is onto need to construct a point in $l^p$ for $f\in (l^p)^*$. The construction is $x_j=f(e_j)$, where $\{e_j\}$ is the basis in $l^p$. 
+	
+	\begin{proposition}
+		$(l^\infty)^* \ncong l^1$.
+	\end{proposition}
+	\begin{proof}
+		Use Theorem \ref{thm:separable of X*}.
+	\end{proof}
+	
+	\section{The Dual Spaces of $L^p(\Omega)$}
+	\begin{theorem}
+		For $1\leq p <\infty$, $L^q(\Omega)\equiv (L^p(\Omega))^*$, where $(p,q)$ conjugate, via the mapping $g\mapsto \Phi_g$, where
+		\begin{equation}
+			\Phi_g(f)=\int_\Omega fg \d x,
+		\end{equation}
+		for all $f\in L^p(\Omega)$.
+	\end{theorem}
+
+	\begin{proposition}
+		$(L^\infty)^* \ncong L^1$.
+	\end{proposition}
+	\begin{proof}
+		Use Theorem \ref{thm:separable of X*}.
+	\end{proof}
+
+	\section{Sublinear and Seminorm}
+	\begin{definition}[sublinear and seminorm]
+		If $V$ is a vector space, then a function $p:V\to\R$ is \emph{sublinear} if for every $x,y\in V$, $p(x+y)\leq p(x)+p(y)$ and $p(\lambda x)=\lambda p(x)$ for $\lambda \geq 0$. A function is \emph{seminorm} if for every $x,y\in V$, $p(x+y)\leq p(x)+p(y)$ and $p(\lambda x)=\abs{\lambda}p(x)$, $\lambda\in \K$.
+	\end{definition}
+	
+	\begin{lemma}[Properties of Seminorm]
+		A seminorm $p$ on a vector space $X$ satisfies:
+		\begin{enumerate}
+			\item $p(0)=0$;
+			\item $|p(x)-p(y)|\leq p(x-y)$;
+			\item $p(x)\geq 0$; and
+			\item $\{x: p(x)=0\}$ is a subspace of $X$.
+		\end{enumerate}
+	\end{lemma}
+	\begin{proof}
+		Set $\lambda =0$ then $p(0)=0$. Note that $p(x)=p(-x)$. Then $p(x)=p(x-y+y)\leq p(x-y)+p(y)$, which implies $p(x)-p(y)\leq p(x-y)$. Similarly, $p(y)=p(y-x+x)\leq p(y-x)+p(x)=p(x-y)+p(x)$. Use item 2, $p(x)=p(x-0)\geq |p(x)-p(0)|=|p(x)|\geq 0$. And finally, note that $p(\alpha x+\beta y)\leq |\alpha|p(x)+|\beta|p(y)$. Therefore, $x,y\in \{x: p(x)=0\}$ implies $\alpha x+\beta y\in \{x: p(x)=0\}$.
+	\end{proof}
+	\section{The Hahn-Banach Theorem}
+	\begin{theorem}[Real Hahn-Banach Theorem]\label{thm:Hahn-Banach}
+		Let $X$ be a real vector space and $U$ a subspace of $X$. Suppose that $\phi: U\to\R$ is linear and satisfies 
+		$\phi(x)\leq p(x)$ for all $x\in U$ for some sublinear map $p:X\to \R$. Then there exists a linear map $f:X\to\R$ such that $f(x)=\phi(x)$ for all $x\in U$ and $f(x)\leq p(x)$ for all $x\in X$. Furthermore, if $p$ is seminorm, then $|f(x)|\leq p(x)$ for all $x\in X$.
+	\end{theorem}
+	\begin{proof}
+		Consider all possible linear extensions $g$ of $\phi$ satisfying the bound $g(x)\leq p(x)$, and apply Zorn's Lemma to deduce that there is a ``maximum extension''. Then argue by contradiction to show that this maximal extension must be defined on the whole of $X$.
+	\end{proof}
+	\begin{corollary}
+		If $X$ is a normed vector space over $\R$, then any $\phi\in U^*$ has an extension $f\in X^*$ with $\norm{f}_{X^*}=\norm{\phi}_{U^*}$.
+	\end{corollary}
+	\begin{proof}
+		Let $p(x)=\norm{\phi}_{U^*}\norm{x}$, which is a seminorm. Then there exists an extension with $|f(x)|\leq \norm{\phi}_{U^*}\norm{x}$, i.e. $\norm{f}_{X^*}\leq \norm{\phi}_{U^*}$. On the other hand, since $U\subseteq X$, $\norm{\phi}_{U^*}\leq \norm{f}_{X^*}$.
+	\end{proof}
+	
+	\begin{theorem}[Complex Hahn-Banach Theorem]
+		Let $X$ be a complex vector space, $U$ a subspace of $X$, and $p$ a seminorm on $X$. Suppose that $\phi:U\to \C$ is linear and satisfies $|\phi(x)|\leq p(x)$ for all $x\in U$. Then there exists a linear map $f:X\to \C$ such that $f(x)=\phi(x)$ for all $x\in U$ and $|f(x)|\leq p(x)$ for all $x\in X$.
+	\end{theorem}
+	
+	\begin{corollary}
+		If $X$ is a normed space over $\C$, then any $\phi\in U^*$ can be extended to some $f\in X^*$ with $\norm{f}_{X^*}=\norm{\phi}_{U^*}$.
+	\end{corollary}
+
+
+	\section{Applications of the Hahn-Banach Theorem}
+	We now turn to some applications of Hahn-Banach Theorem.
+	\begin{lemma}[Support Functional]\label{lem:support functional}
+		If $X$ is a normed space, then given any $x\in X$ there exists an $f\in X^*$ such that $\norm{f}_{X^*}=1$ and $f(x)=\norm{x}$.
+	\end{lemma}
+	We term this $f$ the ``support functional at $x$''. Note that $x$ is given.
+	\begin{proof}
+		Define $\phi$ on $\spn(x)$ and set $\phi(\alpha x)=\alpha\norm{x}$. Then $\norm{\phi}=1$ and apply Hahn-Banach Theorem.
+	\end{proof}
+	The following corollary shows that $X^*$ is rich enough to distinguish between elements of $X$.
+	\begin{corollary}[$X^*$ separates points]
+		If $x\neq y\in X$, then there exists $f\in X^*$ such that $f(x)\neq f(y)$. Consequently, if $x,y\in X$ and $f(x)=f(y)$ for every $f\in X^*$, then $x=y$.
+	\end{corollary}
+	\begin{proof}
+		If $x\neq y$, then there exists a support functional $f$ at $x-y$, i.e. $f(x-y)=\norm{x-y}\neq 0$. Note that $f(x-y)=f(x)-f(y)$.
+	\end{proof}
+	
+	\begin{proposition}[Distance Functional]\label{prop:distance functional}
+		Let $X$ be a normed space and $Y$ be a proper closed subspace of $X$. Take $x\in X-Y$ and set
+		\begin{equation}
+			d=\dist(x,Y)\triangleq \inf\{\norm{x-y}:y\in Y\}>0.
+		\end{equation}
+		Then there is an $f\in X^*$ such that $\norm{f}_{X^*}=1$, $f(y)=0$ for every $y\in Y$, and $f(x)=d$.
+	\end{proposition}
+	\begin{proof}
+		Consider functional $\phi$ on $U=\spn(Y\cup \{x\})$ which defined to be $\phi(y+\lambda x)=\lambda d$ for $y\in Y$ and $\lambda\in \K$.
+	\end{proof}
+	
+
+	\section{Adjoint of Linear Maps between Banach Spaces}
+	\begin{definition}[the adjoint of $T\in B(X,Y)$]
+		The \emph{adjoint} $T^\times$ of $T$ is defined to be $T^\times: Y^* \to X^*$ and maps $g\mapsto g\circ T$.
+	\end{definition}
+	Formally, if the inner product $\inner{g, x}$ means $g(x)$, then $\inner{T^*g,x}=\inner{g,Tx}$ for all $x\in X$ and $g\in Y^*$.
+	
+	$T^\times $ is a linear map on $Y^*$ since 
+	$$
+	T^\times (\alpha g_1+\beta g_2)=\alpha g_1 \circ T+\beta g_2 \circ T=\alpha T^\times g_1 +\beta T^\times g_2.
+	$$
+	
+	Also note that $\norm{g\circ T}\leq \norm{g}\norm{T}$ so that $\norm{T^\times}\leq \norm{T}$. To show that $\norm{T}\leq \norm{T^\times}$, we have support functional $g$ at $Tx$ so that $\norm{g}=1$ and $g(Tx)=\norm{Tx}$. Then 
+	$$
+	\norm{Tx}=g(Tx)=(T^\times g )(x)\leq \norm{T^\times}\norm{g}\norm{x}=\norm{T^\times}\norm{x}.
+	$$
+	Therefore, we have the following proposition.
+	\begin{proposition}
+		If $T\in B(X,Y)$, then $T^\times\in B(Y^*,X^*)$ and $\norm{T^\times}=\norm{T}$.
+	\end{proposition}
+	
+	The following lemma would be useful in reflexive spaces.
+	\begin{lemma}
+		If $T:X\to Y$ is an isomorphism, then $T^\times:Y^*\to X^*$ is an isomorphism. If $T$ is an isometric isomorphism, then so is $T^\times$.
+	\end{lemma}
+	
+	\section{The Minkowski Functional}
+	\begin{lemma}[The Minkowski Functional]
+		If $C$ is an open convex subset of a Banach space $X$ with $0\in C$, then we define the \emph{Minkowski functional} of $C$ by setting
+		\begin{equation}
+			p(x)\triangleq \inf\{\lambda>0: \lambda^{-1}x\in C\}
+		\end{equation}
+		for each $x\in X$. Then $p$ is a sublinear functional on $X$ and there exists a constant $c>0$ such that
+		\begin{equation}
+			0\leq p(x)\leq c\norm{x}
+		\end{equation}
+		for every $x\in X$. Furthermore,
+		\begin{equation}
+			C=\{x:p(x)<1\}.
+		\end{equation}
+	\end{lemma}
+	The Minkowski functional $p(x)= $ if $x\in \partial C$ and $p(x)>1$ if $x\notin C$; $p(x)<1$ if $x\in C$. It is constant on scaled versions of $\partial C$.
+
+	\section{Separating Convex Sets}
+	\begin{theorem}[Functional Separation Theorem]
+		Suppose that $X$ is a real Banach space and $A,B\subset X$ are non-empty, disjoint, convex sets. Then
+		\begin{enumerate}
+			\item If $A$ is open, then there exists $f\in X^*$ and $\gamma\in \R$, such that
+			$$
+			f(a)<\gamma\leq f(b)
+			$$
+			for all $a\in A, b\in B$.
+			\item If $A$ is compact and $B$ is closed, then there exist $f\in X^*$, $\gamma\in \R$ and $\delta>0$ such that
+			$$
+			f(a)\leq \gamma-\delta < \gamma+\delta \leq f(b)
+			$$
+			for all $a\in A$, $b\in B$.
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		Consider the Minkowski functional of $C\triangleq \{w_0+a-b:a\in A,b\in B\}$ and apply Hahn-Banach Theorem.
+	\end{proof}
+	
+	\begin{corollary}
+		Suppose that $X$ is a complex Banach space. Then Functional Separation Theorem still holds, except that in the inequalities $f$ should be replaced by $\Re f$ throughout.
+	\end{corollary}
+	
+	
+	\section{Hyperplane}
+	\begin{definition}[hyperplane]
+		A \emph{hyperplane} $U$ in a vector space $X$ is a codimension-one subspace of $X$, i.e. a maximal proper subspace: $U\neq X$ and if $Z$ is a subspace with $U\subseteq Z\subseteq X$, then $Z=U$ or $Z=X$.
+	\end{definition}
+	
+	\begin{lemma}
+		The following are equivalent:
+		\begin{enumerate}
+			\item $U$ is a hyperplane in $X$;
+			\item $U$ is a subspace of $X$ with $U\neq X$ but for any $x\in X-U$, $\spn(U\cup \{x\})=X$;
+			\item $U=\ker(\phi)$ for some non-zero linear functional $\phi:X\to\K$.
+		\end{enumerate}
+	\end{lemma}
+	Note that in item 3, $\phi$ does not have to be bounded.
+	\begin{proof}
+		We only prove the equivalence of item 2 and 3. Assume we have item 2. Then choose $x\in X-U$, define $\phi:X\to\K$ by setting $\phi(u+\lambda x)=x$ since $X=\spn(U\cup \{x\})$, $u\in U, \lambda\in\K$. The well-defined property could be checked. $\phi$ is clearly non-zero linear functional and $\phi(u)=0$ if and only if $u\in U$, so $U=\ker(\phi)$. Assume we have item 3. Since $\phi$ is non-zero, we can take $x\notin U=\ker(\phi)$. For any $z\in X$, if $z\in U$, then $z$ is clearly in the span. If $z\notin U$, then $z=y+(\phi(z)/\phi(x))x$, where $y=z-(\phi(z)/\phi(x))x$. Note that $\phi(y)=0$.
+	\end{proof}
+	
+	\begin{lemma}
+		If $U=\ker(\phi)$ is a hyperplane, then $U$ is closed if and only if $\phi$ is bounded. And if $U$ is not closed (or equivalently $\phi$ is bounded), then $U$ is dense in $X$.
+	\end{lemma}
+	\begin{proof}
+		If $\phi$ is bounded, then $\ker(\phi)$ is closed. If $\phi$ is unbounded and $\ker(\phi)$ is dense, then it can't be closed. Therefore to show closed implies bounded, it suffices to show unbounded implies dense.
+		
+		If $\phi$ is unbounded, then we can find $(x_n)\in X$ with $\norm{x_n}=1$ but $\phi(x_n)\geq n$. For each $x\in X$, consider
+		$$
+		y_n = x-\frac{\phi(x)}{\phi(x_n)}x_n.
+		$$
+		Show that $y_n\to x$ as $n\to \infty$. Note that $y_n\in U=\ker(\phi)$.
+	\end{proof}
+	
+	The \emph{translate} by $y\in X$ of a hyperplane $U$ is the set
+	$$
+	U+y=\{u+y:u\in U\}.
+	$$
+	Since any hyperplane $U$ is equal to $\ker(\phi)$ for some $\phi\in X^*$, 
+	$$
+	U+y=\{x\in X:\phi(x)=\phi(y)\}.
+	$$
+		
+	Now let $U=\ker(f)$ in Functional Separation Theorem. We can understand the theorem as the following.
+	\begin{corollary}
+		Suppose that $A,B$ are non-empty convex subsets of $X$ with $A$ closed and $B$ compact. Then there exists a closed hyperplane that can be translated so that it separates $A$ and $B$.
+	\end{corollary}
+	Since $f$ is continuous, there exists $x\in X$ such that $f(x)=\gamma$. The translate that separates $A,B$ is then $U+x$, where $U=\ker(f)$.
+	
+	
+	\section{The Baire Category Theorem}
+	
+	This theorem also holds in any complete metric space. Any set that contains a countable intersection of open dense sets is called \emph{residual}.
+	
+	Residual form of Baire's Category Theorem says that a countable intersection of ``large'' sets (any residuals) in a complete normed space is dense.
+	\begin{theorem}[The Baire Category Theorem: residual form]
+		If $\{G_i\}_{i=1}^\infty$ is a countable family of open dense subsets of a complete normed space $(X,\norm{\cdot})$, then $G=\cap_{i=1}^\infty G_i$ is dense in $X$.
+	\end{theorem}
+	\begin{proof}
+		For any $n$, we can find $y$ and $r'$ such that $\overline{B(y,r')}\subset B(z,r)\cap G_n$ for any given $z\in X$ and $r>0$. Then construct a nested closed sets,
+		$$
+		\overline{B(x_1,r_1)}\supset \overline{B(x_2,r_2)}\supset \cdots,
+		$$
+		where $x_n\in G_n$ and $r_n<2^{-n}$. Note that $(x_j)$ is then a Cauchy sequence. The limit $x_0$ is then lies in $B(x,\epsilon)\cap G$.
+	\end{proof}
+	
+	The meagre form of Baire's Category Theorem says that a complete normed space cannot be from the countable union of ``small'' sets. More precisely, we say a subset $W$ of $(X,\norm{\cdot})$ is \emph{nowhere dense} if $(\overline{W})^\circ = \emptyset$, i.e. if the closure of $W$ contains no open sets. A countable union of nowhere dense subsets is called \emph{meagre} or \emph{of the first category}
+	\footnote{The set that is not of the first category is \emph{of the second category}.}.
+	
+	Observe that if $W$ is nowhere dense, then $X-\overline{W}$ is open and dense. Otherwise, there exists $x\in X$ such that $B(x,r)\cap (X-\overline{W})=\emptyset$, then $B(x,r)\subset \overline{W}$, contradiction.
+	
+	\begin{theorem}[The Baire Category Theorem: meagre form]
+		Let $\{F_j\}_{j=1}^\infty$ be a countable collection of nowhere dense subsets of a complete normed space $(X,\norm{\cdot})$. Then $\cup_{j=1}^\infty F_j\neq X$.
+	\end{theorem}
+	\begin{proof}
+		The sets $X-\overline{F_j}$ is open and dense. Therefore the intersection is also dense, i.e. 
+		$$
+		\cap_{j=1}^\infty X-\overline{F_j} = X-\cup_{j=1}^\infty \overline{F_j}
+		$$
+		is dense and in particular non-empty.
+	\end{proof}
+	
+
+
+	Assume $F_j$ is closed. If $F_j$ is nowhere dense, then $F_j^\circ=\emptyset$, i.e. $F_j$ does not contain non-empty open sets. 
+	\begin{corollary}
+		If the elements of $\{F_j\}_{j=1}^\infty$ are closed, nowhere dense and $\cup_{j=1}^\infty F_j=X$, then at least one of $F_j$ contains a non-empty open set.
+	\end{corollary}
+	
+	
+	\section{The Principle of Uniform Boundedness}
+	\begin{theorem}[Principle of Uniform Boundedness]\label{thm:uniform bdd}
+		Let $X$ be a Banach space and $Y$ a normed space. Let $\mathscr{S}\subset B(X,Y)$ be a collection of bounded linear operators such that 
+		$$
+		\sup_{T\in \mathscr{S}}\norm{Tx}<\infty
+		$$
+		for each $x\in X$. Then
+		$$
+		\sup_{T\in \mathscr{S}}\norm{T}_{B(X,Y)}<\infty,
+		$$
+		i.e. there exists $M>0$ such that $\norm{Tx}\leq M\norm{x}$ for all $T\in \mathscr{S}$ and $x\in X$.
+	\end{theorem}
+	Be careful that we need $X$ be Banach space and $\mathscr{S}\subset B(X,Y)$ when applying this theorem.
+	
+	\begin{corollary}[Condensation of Singularities]
+		Suppose that $X$ is a Banach space, $Y$ a normed space, and $\mathscr{S}\subset B(X,Y)$ with
+		$$
+		\sup_{T\in \mathscr{S}}\norm{T} = \infty.
+		$$
+		Then there exists $x\in X$ such that
+		$$
+		\sup_{T\in \mathscr{S}} \norm{T_n x}=\infty.
+		$$
+	\end{corollary}
+	
+	\section{The Open Mapping Theorem}
+	
+	\begin{theorem}[Open Mapping Theorem]
+		If $X$ and $Y$ are Banach spaces and $T:X\to Y$ is a bounded surjective linear map, then $T$ maps open sets in $X$ to open sets in $Y$.
+	\end{theorem}
+	\begin{proof}
+		It suffices to show that $T(\mathbb{B}_X)$ includes an open ball around $0$ in $Y$, say $B_Y(0,r)$ for some $r>0$. Note that $\mathbb{B}_X$ denotes the closed unit ball in $X$.
+		
+		First show that $\overline{T(\mathbb{B}_X)}$ contains a non-empty open ball around $0$. Indeed, note that $\{\overline{T(n\mathbb{B}_X)}\}_{n=1}^\infty$ is a collection of closed sets and the union covers $Y$. It follows by using Baire's Category Theorem that at least one of them contains a non-empty open ball. Since $\overline{T(n\mathbb{B}_X)}=n\overline{T(\mathbb{B}_X)}$, $\overline{T(\mathbb{B}_X)}$ must contains $B_Y(z,r)$ for some $z\in Y$ and $r>0$. Since $\overline{T(\mathbb{B}_X)}$ is symmetric, $B_Y(-z,r)\subset \overline{T(\mathbb{B}_X)}$. Then $B_Y(0,r)\subset \overline{T(\mathbb{B}_X)}$ since every $v\in B_Y(0,r)$ can be written as $\frac{1}{2}(v+z)+\frac{1}{2}(v-z)$ and $\overline{T(\mathbb{B}_X)}$ is convex. Note that the proof of the convexity of $\overline{T(\mathbb{B}_X)}$ is immediate.
+		
+		Then show that $T(\mathbb{B}_X)$ must includes $B_Y(0,r)$. Note that given any $y\in B_Y(0.\alpha r),$ any $\epsilon >0$. there exists $x\in \alpha \mathbb{B}$ such that $\norm{y-Tx}<\epsilon$.
+	\end{proof}
+	
+	
+	\section{The Inverse Mapping Theorem}
+	\begin{theorem}[Inverse Mapping Theorem]
+		If $X$ and $Y$ are Banach spaces and $T\in B(X,Y)$ is bijective, then $T^{-1}\in B(Y,X)$, i.e. $T$ is invertible.
+	\end{theorem}
+	Recall that being invertible requires the inverse to be bounded linear map.
+	\begin{proof}
+		$(T^{-1})^{-1}(U)=T(U)$ is open, so that $T$ is continuous and then bounded.
+	\end{proof}
+	
+	\begin{corollary}
+		If $X$ is a Banach space that is complete with respect to two norms $\norm{\cdot}_1$ and $\norm{\cdot}_2$ and $\norm{x}_2\leq C\norm{x}_1$, then the two norms are equivalent.
+	\end{corollary}
+	\begin{proof}
+		Consider the map $I_X$. The condition implies $\norm{I_X}\leq C$ then $\norm{I_X^{-1}}\leq C'$ by Inverse Mapping Theorem. Then $\norm{x}_1\leq C' \norm{x_2}$.
+	\end{proof}
+	
+	
+	\section{The Closed Graph Theorem}
+	\begin{theorem}[Closed Graph Theorem]
+		Suppose that $T:X\to Y$ is a linear map between Banach spaces and that the graph of $T$,
+		$$
+		G(T)=\{(x,Tx)\in X\times Y: x\in X\},
+		$$
+		is a closed subset of $X\times Y$ (with norm $\norm{(x,y)}_{X\times Y}=\norm{x}_X+\norm{y}_Y$). Then $T$ is bounded.
+	\end{theorem}
+	Note that the converse is obviously true since $T$ is bounded then it is continuous so that if $(x_n,Tx_n)\to (x,y)$ then $Tx_n\to Tx=y$, so that $(x,y)=(x,Tx)\in G(T)$.
+	\begin{proof}
+		Recall Lemma \ref{lem:complete closed} and note that $X\times Y$ is also a Banach space. Show that $G(T)$ is a Banach space. Then note that
+		$$
+		\norm{x}+\norm{Tx}=\norm{(x,Tx)}=\norm{\Pi^{-1}x}\leq M\norm{x},
+		$$
+		where $\Pi$ is the natural projection, $\Pi(x,y)=x$.
+	\end{proof}
+	
+	\section{The Second Dual and Reflexivity}
+	Recall that $X^*$ is always a Banach space. The \emph{second dual} of $X$, denoted by $X^{**}$ is $B(X^*,\K)$.
+	\begin{lemma}
+		For any normed space $X$ we can isometrically map $X$ onto a subspace of $X^{**}$ via the canonical linear mapping $J: X\to X^{**}$, $x\mapsto x^{**}$, where
+		$$
+		x^{**}(f)=f(x)
+		$$
+		for each $f\in X^*$.
+	\end{lemma}
+	\begin{proof}
+		Take the support functional at $x$, $f\in X^*$ with $\norm{f}=1$ and $f(x)=\norm{x}$. Then 
+		$$
+		\abs{x^{**}(f)}=\abs{f(x)}=\norm{x}\norm{f}.
+		$$
+		Then $\norm{x^{**}}\geq \norm{x}$. The converse is trivial.
+	\end{proof}
+	
+	In general, we have the following lemma.
+	\begin{lemma}
+		If $X$ is a Banach space, then $J(X)$ is a closed subspace of $X^{**}$.
+	\end{lemma}
+	
+	Since $J$ is a linear isometry, once it is onto, it is a isometrically isomorphism. We have the following concept when the surjectivity condition happens.
+	\begin{definition}[reflexive]
+		A Banach space $X$ is reflexive if $J: X\to X^{**}$ is onto, i.e. if every $F\in X^{**}$ can be written as $x^{**}$ for some $x\in X$.
+	\end{definition}
+	If $X$ is reflexive then $X\equiv X^{**}$, while the converse is not true.
+	\begin{proposition}
+		All Hilbert spaces are reflexive.
+	\end{proposition}
+	
+	\begin{proposition}
+		$l^p$ spaces are reflexive for $1<p<\infty$.
+	\end{proposition}
+	
+	\begin{proposition}
+		$L^p$ spaces are reflexive for $1<p<\infty$.
+	\end{proposition}
+	
+	\begin{theorem}
+		Let $X$ be a Banach space. Then $X$ is reflexive if and only if $X^*$ is reflexive.
+	\end{theorem}
+
+	Before the proof of the theorem, note that we have
+	\begin{equation}
+		(X^{*})^{**}=(X^{**})^{*},
+	\end{equation}
+	since $(X^{*})^{**}=B((X^{*})^*,\K)=B(X^{**},\K)=(X^{**})^{*}$. Therefore, the notation $X^{***}$ is clear. 
+	
+	We will use $x,y$ for elements of $X$; $f,g$ for elements of $X^*$; $F,G$ for elements of $X^{**}$; $\Phi,\Psi$ for elements of $X^{***}$.
+	
+	\begin{proof}
+		Suppose that $X$ is reflexive, we want to show that $X^*$ is reflexive. If $X$ is reflexive, then for every $F\in X^{**}$, we can find a $x\in X$ such that $F=x^{**}$, i.e. $F(f)=f(x)$ for each $f\in X^*$. We want to show that for each $\Phi\in (X^{*})^{**}$, we can find an $f\in X^*$ such that $f^{**}=\Phi$, i.e. $\Phi(F)=F(f)$ for each $F\in X^{**}$. 
+		
+		To find such $f$ for each $\Phi$, note that there exists $x$ such that $x^{**}(f)=f(x)$, so that $\Phi(F)=\Phi(x^{**})=x^{**}(f)=f(x)$. Therefore, to find $f$ given $\Phi$ such that $\Phi(F)=F(f)$ for each $F$, we only need to find the corresponding $x$ to $F$ and define $f$ at $x$ as $\Phi(x^{**})$. Then check that $f\in X^{*}$ indeed.
+		
+		For the converse, suppose that $X^{**}$ but $X$ is not, then we expect a contradiction. $X$ is not reflexive means that there is a element $F\in X^{**}$ such that $F\neq x^{**}$ for any $x\in X$. Then $J(X)$ is a proper closed linear subspace of $X^{**}$. Then there exists a distance functional $\Phi\in (X^{**})^*$ such that $\Phi=0$ on $J(X)$. Since $X^{*}$ is reflexive, there exists $f\in X^*$ such that $\Phi=f^{**}$. Therefore,
+		$$
+		f(x)=x^{**}(f)=f^{**}(x^{**})=0
+		$$
+		for all $x\in X$. Then $f=0$ but this implies $\Phi=0$, contradiction.
+	\end{proof}
+	
+	\begin{lemma}
+		If $X$ is reflexive and $X\equiv Y$, then $Y$ is reflexive.
+	\end{lemma}
+	(The hypothesis can be weaken to $X\backsimeq Y$.)
+	\begin{proof}
+		Suppose $\phi$ is the linear isometric isomorphism from $X\to Y$. Then the Banach adjoint of $\phi$, $\phi^\times$ is also a linear isometric isomorphism from $Y^*\to X^*$. And $\phi^{\times \times}$ is a linear isometric isomorphism from $X^{**}\to Y^{**}$. Take $G\in Y^{**}$, find $y\in Y$ such that $G(g)=g(y)$ for all $g\in Y^*$.
+	\end{proof}
+	
+	\begin{lemma}
+		Any closed subspace $Y$ of a reflexive Banach space $X$ is reflexive.
+	\end{lemma}
+	\begin{proof}
+		Take $f\in X^*$ then $f|_Y\in Y^*$. Because of Hahn-Banach Theorem, any $f|_Y$ can extend to an element in $X^*$. Therefore any $g\in Y$ can be written as $f|_Y$. To show that $Y$ is reflexive, we need to show that for any $G\in Y^{**}$ there exists a $y\in Y$ such that $G(f|_Y)=f|_Y(y)$ for all $f\in X^*$.
+		
+		Define $F\in X^{**}$ by $F(f)=G(f|_Y)$. Then $F=x^{**}$ for some $x\in X$. Show that $x\in Y$. If not, then there exists a distance functional $f\in X^*$ such that $\norm{f}=1$ and $f(y)=0$ for every $y\in Y$, $f|_Y=0$. Then
+		$$
+		f(x)=x^{**}(f)=F(f)=G(f|_Y)=0,
+		$$
+		which is a contradiction.
+	\end{proof}
+	
+	
+	\newcommand{\weakto}{\rightharpoonup}
+	\section{Weak Convergence}
+	\begin{definition}[weak convergence]
+		We say that a sequence $(x_n)\in X$ converges weakly to $x\in X$, and write $x_n\weakto x$, if
+		$$
+		f(x_n)\to f(x)
+		$$
+		for all $f\in X^*$.
+	\end{definition}
+	In Hilbert space, the Riesz Representation Theorem makes the condition change to $\inner{x_n,y}=\inner{x,y}$ for all $y\in Y$.
+	
+	Note that generally weak convergence and convergence are not equivalent.
+	\begin{example}
+		Pick any countable orthonormal sequence $(e_j)\in H$. Then for any $y\in H$, Bessel's inequality states that 
+		$$
+		\sum_{j=1}^\infty |\inner{y,e_j}|^2\leq \norm{y}^2.
+		$$
+		Therefore, $\inner{y,e_j}\to 0=\inner{y,0}$, so that $e_j\weakto 0$. However, $e_j$ cannot converges to $0$ since any two elements are $\sqrt{2}$ apart.
+	\end{example}
+	
+	\begin{proposition}[Properties of Weak Convergence]
+		Weak convergence has the following properties:
+		\begin{enumerate}
+			\item Strong convergence implies weak convergence;
+			\item in a finite dimensional normed space, weak convergence and strong convergence are equivalent;
+			\item weak limits are unique;
+			\item weakly convergent sequences are bounded;
+			\item if $x_n\weakto x$, then $\norm{x}\leq \liminf_{n\to\infty}\norm{x_n}$.
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		Item 1 is easy. For item 2 consider $f: x\mapsto x_i$, where $x=\sum_{j=1}^n x_je_j$. For item 3, recall that $X^*$ separates points in $X$, so $f(x)=f(y)$ for all $f\in X^*$ implies $x=y$.
+		
+		For item 4, since $f(x_n)$ converges, it is bounded, for every $f\in X^*$. Then $x_n^{**}(f)=f(x_n)$ is bounded. By the Principle of Uniform Boundedness, $\norm{x_n^{**}}$ is uniformly bounded, then so is $\norm{x_n}$.
+		
+		For item 5, choose a support functional $f$ at $x$, then $\norm{f}=1$ and $f(x)=\norm{x}$. Then
+		$$
+		\norm{x}=f(x)=\lim_{n\to \infty}f(x_n)\leq \liminf_{n\to\infty} \norm{f}\norm{x_n}=\liminf_{n\to\infty} \norm{x_n}.
+		$$
+	\end{proof}
+	
+	\begin{lemma}
+		Let $H$ be a Hilbert space. If $(x_n)\in H$ with $x_n\weakto x$ and $\norm{x_n}\to \norm{x}$, then $x_n\to x$.
+	\end{lemma}
+	\begin{proof}
+		We have 
+		$$
+		\norm{x_n-x}^2=\norm{x}^2-\inner{x,x_n}-\inner{x_n,x}+\norm{x_n}^2.
+		$$
+		Since $x_n\weakto x$, $\inner{x_n,x}\to \inner{x,x}$ and $\norm{x_n}\to \norm{x}$ by assumption. The result follows.
+	\end{proof}
+
+	\begin{lemma}
+		Suppose that $T:X\to Y$ is a compact linear operator. If $(x_n)\in X$ with $x_n\weakto x$ in $X$, then $Tx_n\to Tx$ in $Y$.
+	\end{lemma}
+	\begin{proof}
+		We first show that $Tx_n \weakto Tx$ in $Y$. For any $f\in Y^*$, $f\circ T\in X^*$, so $x_n\weakto x$ implies $f(Tx_n)\to f(Tx)$.
+		
+		Now suppose that $Tx_n$ does not converges to $Tx$, i.e. there exists $\epsilon>0$ and a subsequence $(x_{n_j})_j$ such that $\norm{Tx_{n_j}-Tx}>\epsilon$ for every $j$. Since $x_{n_j}$ converges weakly, it is bounded. Then since $T$ is compact, $(Tx_{n_j})$ would have a convergent subsequence, $(Tx_j)_{j\in \mathscr{J}}$. Then $Tx$ must be the limit of $Tx_n$ since the limit of weak convergence is unique, contradiction.
+	\end{proof}
+
+	
+	\newcommand{\weakstarto}{\overset{\ast}{\rightharpoonup}}
+	\section{Weak* Convergence}
+	Weak* (or weak-star) convergence deals the sequences in $X^*$.
+	\begin{definition}[weak* convergent]
+		If $(f_n)_{n=1}^\infty \in X^*$, then $f_n$ converges weakly* to $f$, write $f_n\weakstarto f$ if 
+		$$
+		f_n(x)\to f(x)
+		$$
+		for all $x\in X$.
+	\end{definition}
+	Note that weak* convergence is a very natural way to define convergence of sequences in $X^*$: it is equivalent of pointwise convergence for continuous functions.
+	
+	\begin{proposition}[Properties of Weak* Convergence]
+		Weak* convergence has the following properties:
+		\begin{enumerate}
+			\item Strong convergence in $X^*$ implies weak* convergence in $X^*$;
+			\item weak* limits are unique;
+			\item weakly* convergent sequences are bounded;
+			\item if $f_n\weakstarto f$, then $\norm{f}\leq \liminf_{n\to\infty}\norm{f_n}$.
+			\item weak convergence in $X^*$ implies weak* convergence in $X^*$;
+			\item if $X$ is reflexive, then weak* convergence in $X^*$ implies weak convergence in $X*$.
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		We only prove for item 5 and 6. For item 5, weak convergence in $X^*$ means that for all $F\in X^{**}$, $F(f_n)\to F(f)$. Therefore, for each $x\in X$,
+		$$
+		f_n(x)=x^{**}(f_n)\to x^{**}(f)=f(x).
+		$$
+		So that $f_n\weakstarto f$.
+		
+		For item 6, if $f_n\weakstarto f$, then for each $F\in X^{*}$,
+		$$
+		F(f_n)=x^{**}(f_n)=f_n(x)\to f(x)=x^{**}(f)=F(f),
+		$$
+		where $F=x^{**}$ by the reflexivity of $X$.
+	\end{proof}
+	
+	\section{Weak Compactness Theorems}
+	Recall that sequential compactness means every bounded sequence has a convergent subsequence. The weak compactness is similar to the sense of sequential compactness.
+	
+	The following lemma is similar to Proposition \ref{prop:limit of T}.
+	\begin{lemma}\label{lem:dense converges}
+		Suppose that $(f_n)$ is a bounded sequence in $X^*$, so that $\norm{f_n}\leq M$ for some $M\geq 0$, and suppose that $f_n(a)$ converges as $n\to\infty$ for every $a\in A$, where $A$ is a dense subset of $X$. Then $\lim_{n\to\infty}f_n(x)$ exists for every $x\in X$, and the map $f:X\to\R$ defined by setting
+		$$
+		f(x)=\lim_{n\to\infty}f_n(x)
+		$$
+		for each $x\in X$ is an element of $X^*$ with $\norm{f}\leq M$.
+	\end{lemma}
+	\begin{proof}
+		Show that $(f_n(x))$ is Cauchy for all $x\in X$ thus converges. Then $f$ is obviously linear and $|f(x)|=\lim_{n\to\infty}|f_n(x)|\leq M\norm{x}$.
+	\end{proof}
+
+	\begin{theorem}[Helly's Theorem]
+		\footnote{This result can also be derived as a consequence of the more powerful Banach-Alaoglu Theorem, which guarantees that for any Banach space $X$, the closed unit ball in $X^*$ is compact in the weak* topology.}
+		Suppose that $X$ is separable. Then any bounded sequence in $X^*$ has a weakly* convergent subsequence.
+	\end{theorem}
+	\begin{proof}
+		Let $\{x_k\}$ be a countable dense subset of $X$, and $(f_j)$ a sequence in $X^*$ such that $\norm{f_j}\leq M$. Use the diagonal argument to find a subsequence of the $(f_j)$ such that $(f_{j_n}(x_k))$ converges for each $k$. Then the subsequence converges on a dense subset of $X$. By Lemma \ref{lem:dense converges}, the limit exists for every $x\in X$.
+	\end{proof}
+
+	\begin{theorem}
+		Let $X$ be a reflexive Banach space. Then any bounded sequence in $X$ has a weakly convergent subsequence.
+	\end{theorem}
+	\begin{proof}
+		Take a bounded sequence $(x_n)\in X$ and let $Y=\clin(\{x_n\})$. Then $Y$ is separable and reflexive. Therefore $Y^{**}$ is separable since $Y\equiv Y^{**}$. And so is $Y^*$ since the separability of $X^*$ implies the separablitiy of $X$, Theorem \ref{thm:separable of X*}. Therefore, for $(x_n^{**}) \in Y^{**}$, there exists a subsequence $(x_{n_k}^{**})$ weakly* converges to some $G\in Y^{**}$. But $Y^{**}$ is separable so we have $x_{n_k}^{**}\weakstarto x^{**}$, for some $x\in Y$.
+		
+		Now for any $f\in X^*$,
+		$$
+		\lim_{k\to\infty}f(x_{n_k})=\lim_{k\to\infty} f|_Y (x_{n_k})=\lim_{k\to\infty} x_{n_k}^{**}(f|_Y)=x^{**}(f|_Y)=f|_Y(x)=f(x),
+		$$
+		i.e. $x_{n_k}\weakto x$.
+	\end{proof}
+
+
+	\begin{lemma}
+		Let $X$ be a reflexive Banach space, and $T:X\to X$ a compact linear operator. Suppose that $(x_n)$ is a sequence in $X$ such that there exist $c_1,c_2$ with $0<c_1\leq c_2$ so that $c_1\leq \norm{x_n}\leq c_2$ and $\norm{Tx_n-x_n}\to 0$ as $n\to\infty$. Then there exists a non-zero $x\in X$ such that $Tx=x$.
+	\end{lemma}
+	\begin{proof}
+		$(x_n)$ has a weakly convergent subsequence $(x_{n_k})$, $x_{n_k}\weakto x$ and $Tx_{n_k}\to Tx$ strongly in $X$. Then by assumption, $x_{n_j}\to Tx$. So $Tx=x$ by the uniqueness of weak convergence. Therefore $x_{n_k}\to x$ strongly, so $\norm{x}\geq c_1$.
+	\end{proof}
+
+	\begin{lemma}
+		Suppose that $X$ is reflexive and that $K$ is closed convex subset of $X$. Then for any $x\in X-K$ there exists at least one $k\in K$ such that
+		$$
+		\norm{x-k}=\dist(x,K).
+		$$
+	\end{lemma}
+
+
+
+
+
+
+
 	\appendix
 	\bibliographystyle{alpha}
 	\bibliography{references} 

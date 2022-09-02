@@ -1,3 +1,8 @@
-\begin{thebibliography}{}
+\begin{thebibliography}{Rob20}
+
+\bibitem[Rob20]{robinson_2020}
+James~C. Robinson.
+\newblock {\em An Introduction to Functional Analysis}.
+\newblock Cambridge University Press, 2020.
 
 \end{thebibliography}
