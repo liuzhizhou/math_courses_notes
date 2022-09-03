@@ -1,11 +1,17 @@
 \babel@toc {english}{}
-\contentsline {section}{\numberline {1}Derivatives}{1}{section.1}%
-\contentsline {section}{\numberline {2}Convex Sets and Functions}{2}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Convexity}{2}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Convex Hull and Affine Hull}{3}{subsection.2.2}%
-\contentsline {section}{\numberline {3}Main Optimality Conditions}{4}{section.3}%
-\contentsline {section}{\numberline {4}Algorithms: Gradient Methods}{6}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Descent Direction}{6}{subsection.4.1}%
-\contentsline {subsection}{\numberline {4.2}Stepsize}{6}{subsection.4.2}%
-\contentsline {subsection}{\numberline {4.3}Mathematical Statements for Convergence Results}{6}{subsection.4.3}%
-\contentsline {subsection}{\numberline {4.4}Rate of Convergence}{10}{subsection.4.4}%
+\contentsline {chapter}{\numberline {1}Preliminaries}{3}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Derivatives}{3}{section.1.1}%
+\contentsline {chapter}{\numberline {2}Fundamental Concepts}{5}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Convexity}{5}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Convex Hull and Affine Hull}{6}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Fundamental Terminologies}{6}{section.2.3}%
+\contentsline {section}{\numberline {2.4}General Optimality Condition}{7}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Unconstrained Optimality Conditions}{8}{section.2.5}%
+\contentsline {subsection}{\numberline {2.5.1}General Case}{8}{subsection.2.5.1}%
+\contentsline {subsection}{\numberline {2.5.2}Convex Case}{9}{subsection.2.5.2}%
+\contentsline {subsection}{\numberline {2.5.3}Sufficient Conditions}{10}{subsection.2.5.3}%
+\contentsline {section}{\numberline {2.6}Algorithms: Gradient Methods}{10}{section.2.6}%
+\contentsline {subsection}{\numberline {2.6.1}Descent Direction}{10}{subsection.2.6.1}%
+\contentsline {subsection}{\numberline {2.6.2}Stepsize}{11}{subsection.2.6.2}%
+\contentsline {subsection}{\numberline {2.6.3}Mathematical Statements for Convergence Results}{11}{subsection.2.6.3}%
+\contentsline {subsection}{\numberline {2.6.4}Rate of Convergence}{14}{subsection.2.6.4}%

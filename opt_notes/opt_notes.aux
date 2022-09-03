@@ -18,25 +18,35 @@
 \gdef\HyperFirstAtBeginDocument#1{#1}
 \providecommand\HyField@AuxAddToFields[1]{}
 \providecommand\HyField@AuxAddToCoFields[2]{}
-\citation{Bertsekas/99}
 \babel@aux{english}{}
-\@writefile{toc}{\contentsline {section}{\numberline {1}Derivatives}{1}{section.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2}Convex Sets and Functions}{2}{section.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.1}Convexity}{2}{subsection.2.1}\protected@file@percent }
-\newlabel{eq:convex}{{2.1}{3}{convex set, convex function}{equation.2.1}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Convex Hull and Affine Hull}{3}{subsection.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {3}Main Optimality Conditions}{4}{section.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {4}Algorithms: Gradient Methods}{6}{section.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.1}Descent Direction}{6}{subsection.4.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.2}Stepsize}{6}{subsection.4.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.3}Mathematical Statements for Convergence Results}{6}{subsection.4.3}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces  Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \nabla f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form $f(x)=\frac  {1}{2}\left \lVert g(x) \right \rVert ^2=\frac  {1}{2}\DOTSB \sum@ \slimits@ _{i=1}^m (g_i(x))^2,$ where $g=(g_1,\dots  ,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training.}}{7}{table.1}\protected@file@percent }
-\newlabel{table:descent direction}{{1}{7}{Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \grad f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form $f(x)=\frac {1}{2}\norm {g(x)}^2=\frac {1}{2}\sum _{i=1}^m (g_i(x))^2,$ where $g=(g_1,\dots ,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training}{table.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces Various choice of stepsize $\alpha ^k$. In Arimijo rule, first choose fix scalars $s,\beta $ and $\sigma $, with $0<\beta <1$ and $0<\sigma <1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta ^m s d^k)\geq -\sigma \beta ^m s \nabla f(x^k)^\top d^k$. Note that here $\beta ^m$ means $\beta $ to the $m$-th power. In diminishing method, we require $\DOTSB \sum@ \slimits@ _{k=0}^{\infty }\alpha ^k=\infty $ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to \bar  {x}$, then for large $m,n$, $x^m\approx x^n \approx \bar  {x}$, also $x^m\approx x^n -(\DOTSB \sum@ \slimits@ _{k=n}^{m-1}\alpha ^k)\nabla f(\bar  {x})$, which shows $\nabla f(\bar  {x})$ must be zero.}}{7}{table.2}\protected@file@percent }
-\newlabel{table:stepsize}{{2}{7}{Various choice of stepsize $\alpha ^k$. In Arimijo rule, first choose fix scalars $s,\beta $ and $\sigma $, with $0<\beta <1$ and $0<\sigma <1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta ^m s d^k)\geq -\sigma \beta ^m s \grad f(x^k)^\T d^k$. Note that here $\beta ^m$ means $\beta $ to the $m$-th power. In diminishing method, we require $\sum _{k=0}^{\infty }\alpha ^k=\infty $ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to \bar {x}$, then for large $m,n$, $x^m\approx x^n \approx \bar {x}$, also $x^m\approx x^n -(\sum _{k=n}^{m-1}\alpha ^k)\grad f(\bar {x})$, which shows $\grad f(\bar {x})$ must be zero}{table.2}{}}
-\newlabel{eq:constant stepsize condition}{{4.4}{9}{Constant Stepsize}{equation.4.4}{}}
+\citation{Bertsekas/99}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Preliminaries}{3}{chapter.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Derivatives}{3}{section.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Fundamental Concepts}{5}{chapter.2}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Convexity}{5}{section.2.1}\protected@file@percent }
+\newlabel{eq:convex}{{2.1.1}{5}{convex set, convex function}{equation.2.1.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Convex Hull and Affine Hull}{6}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Fundamental Terminologies}{6}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}General Optimality Condition}{7}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Unconstrained Optimality Conditions}{8}{section.2.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}General Case}{8}{subsection.2.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Convex Case}{9}{subsection.2.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Sufficient Conditions}{10}{subsection.2.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}Algorithms: Gradient Methods}{10}{section.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Descent Direction}{10}{subsection.2.6.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces  Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \nabla f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form $f(x)=\frac  {1}{2}\left \lVert g(x) \right \rVert ^2=\frac  {1}{2}\DOTSB \sum@ \slimits@ _{i=1}^m (g_i(x))^2,$ where $g=(g_1,\dots  ,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training.}}{11}{table.2.1}\protected@file@percent }
+\newlabel{table:descent direction}{{2.1}{11}{Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \grad f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form $f(x)=\frac {1}{2}\norm {g(x)}^2=\frac {1}{2}\sum _{i=1}^m (g_i(x))^2,$ where $g=(g_1,\dots ,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training}{table.2.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Various choice of stepsize $\alpha ^k$. In Arimijo rule, first choose fix scalars $s,\beta $ and $\sigma $, with $0<\beta <1$ and $0<\sigma <1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta ^m s d^k)\geq -\sigma \beta ^m s \nabla f(x^k)^\top d^k$. Note that here $\beta ^m$ means $\beta $ to the $m$-th power. In diminishing method, we require $\DOTSB \sum@ \slimits@ _{k=0}^{\infty }\alpha ^k=\infty $ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to \bar  {x}$, then for large $m,n$, $x^m\approx x^n \approx \bar  {x}$, also $x^m\approx x^n -(\DOTSB \sum@ \slimits@ _{k=n}^{m-1}\alpha ^k)\nabla f(\bar  {x})$, which shows $\nabla f(\bar  {x})$ must be zero.}}{11}{table.2.2}\protected@file@percent }
+\newlabel{table:stepsize}{{2.2}{11}{Various choice of stepsize $\alpha ^k$. In Arimijo rule, first choose fix scalars $s,\beta $ and $\sigma $, with $0<\beta <1$ and $0<\sigma <1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta ^m s d^k)\geq -\sigma \beta ^m s \grad f(x^k)^\T d^k$. Note that here $\beta ^m$ means $\beta $ to the $m$-th power. In diminishing method, we require $\sum _{k=0}^{\infty }\alpha ^k=\infty $ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to \bar {x}$, then for large $m,n$, $x^m\approx x^n \approx \bar {x}$, also $x^m\approx x^n -(\sum _{k=n}^{m-1}\alpha ^k)\grad f(\bar {x})$, which shows $\grad f(\bar {x})$ must be zero}{table.2.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Stepsize}{11}{subsection.2.6.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.3}Mathematical Statements for Convergence Results}{11}{subsection.2.6.3}\protected@file@percent }
+\newlabel{eq:constant stepsize condition}{{2.6.4}{12}{Constant Stepsize}{equation.2.6.4}{}}
 \bibstyle{alpha}
 \bibdata{opt_bib.bib}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.4}Rate of Convergence}{14}{subsection.2.6.4}\protected@file@percent }
 \bibcite{Bertsekas/99}{Ber99}
-\@writefile{toc}{\contentsline {subsection}{\numberline {4.4}Rate of Convergence}{10}{subsection.4.4}\protected@file@percent }
-\gdef \@abspage@last{11}
+\gdef \@abspage@last{16}

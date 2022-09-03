@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{article}
+\documentclass[12pt,a4paper]{report}
 
 \usepackage[top=3cm,bottom=3cm,left=3cm,right=3cm]{geometry}
 %% Packages
@@ -157,7 +157,7 @@
 	\cite{Bertsekas/99} is brilliant textbook for optimization, which is also the main reference of this notes.
 	
 	\tableofcontents
-
+	\chapter{Preliminaries}
 	\section{Derivatives}
 	Let $f:\R^n \to \R$. The \emph{gradient} of $f$ at $x$ is defined as the column vector
 	$$
@@ -214,9 +214,13 @@
 		\end{enumerate}
 	\end{theorem}
 
-
-	\section{Convex Sets and Functions}
-	\subsection{Convexity}
+	
+	
+	
+	
+	
+	\chapter{Fundamental Concepts}
+	\section{Convexity}
 	\begin{definition}[convex set, convex function]
 		A subset $C$ of $\R^n$ is called \emph{convex} if 
 		$$
@@ -228,6 +232,10 @@
 		\end{equation}
 		for $x,y\in C$ and $\alpha\in [0,1]$. The function is called \emph{concave} if $-f$ is convex.
 	\end{definition}
+	
+	An optimization problem is convex if both the objective function and feasible set are convex.
+
+
 	\begin{definition}[strictly convex]
 		The function $f$ is called \emph{strictly convex} if Eq.(\ref{eq:convex}) is strict for all $x\neq y$ and $\alpha\in(0,1)$.
 	\end{definition}
@@ -259,7 +267,7 @@
 	for all $x,y\in \R^n$.
 	
 	
-	\subsection{Convex Hull and Affine Hull}
+	\section{Convex Hull and Affine Hull}
 	\begin{definition}[convex combination, convex hull]
 		A \emph{convex combination} of elements of $X$ is a vector of the form $\sum_{i=1}^m \alpha_i x_i$, where $x_i\in X$ and $\alpha_i\in \R$ such that $\alpha_i\geq 0$ for $i=1,\dots,m$ and $\sum_{i=1}^m \alpha_i =1$.
 		
@@ -279,9 +287,94 @@
 	\end{definition}
 	
 	
+	\section{Fundamental Terminologies}
+	Consider the problem
+	\begin{equation}
+		\begin{split}
+			&\ \min f(x)\\
+			&\ \text{subject to } x\in \Omega.  
+		\end{split}
+	\end{equation}
+	Then $\Omega$ is called the \emph{feasible set}. If $\Omega=\R^n$, then the problem is called \emph{unconstrained}; otherwise, the problem is called \emph{constrained}.
 	
+	\begin{definition}[minimizer]
+		$x^*$ is a \emph{local minimizer} if there is $\delta >0$ such that $f(x)\geq f(x^*)$ for all $x\in \Omega$ and $\norm{x-x^*}<\delta$. $x^*$ is a \emph{global minimizer} if $f(x)\geq f(x^*)$ for all $x\in \Omega$. If $f(x)>f(x^*)$ for all $x\in \Omega-\{x^*\}$, then it is called the corresponding strict minimizer (strict local minimizer and strict global minimizer).
+	\end{definition}
 
-	\section{Main Optimality Conditions}
+	\begin{theorem}
+		Any local minimizer of a convex optimization problem is a global minimizer.
+	\end{theorem}
+	\begin{proof}
+		Assume that $x^*$ is a local minimizer but not a global one. Use the convexity to arrive at a contradiction.
+	\end{proof}
+	
+	
+	\begin{definition}[feasible direction]
+		A vector $d\in \R^n$ is a feasible direction at $x\in \Omega$ if $d\neq 0$ and $x+\alpha d\in \Omega$ for some small $\alpha>0$.
+	\end{definition}
+	Note that $x+d$ is not necessarily in $\Omega$.
+	
+	\section{General Optimality Condition}
+	\begin{theorem}[First Order Necessary Condition]
+		Let $\Omega$ be a subset of $\R^n$ and $f\in C^1$ a real-valued function on $\Omega$. If $x^*$ is a local minimizer of $f$ over $\Omega$, then for any feasible direction $d$ at $x^*$, we have
+		$$
+		d^\T \grad f(x^*)\geq 0.
+		$$
+	\end{theorem}
+	\begin{proof}
+		Let $d$ be any feasible direction. Consider first order Taylor expansion at $\alpha=0$:
+		$$
+		f(x^*+\alpha d)= f(x^*)+\alpha d^\T \grad f(x^*) +o(\alpha).
+		$$
+		Since $x^*$ is a local minimizer, then $\alpha d^\T \grad f(x^*) +o(\alpha)\geq 0$, then $d^\T \grad f(x^*)\geq 0$ if divided by $\alpha$ and let $\alpha\to 0$. Note that we can only consider $\alpha>0$.
+	\end{proof}
+	The geometric interpretation of this result is that: if $x^*$ is a local minimizer, then every feasible direction has a less than right angle with the direction that increase the function for the most, i.e. every feasible direction makes it increase.
+	
+	\begin{corollary}[Interior Case]
+		Let $\Omega$ be a subset of $\R^n$ and $f\in C^1$ a real-valued function on $\Omega$. If $x^*$ is a local minimizer of $f$ over $\Omega$ and a interior point, then 
+		$$
+		\grad f(x^*)=0.
+		$$
+	\end{corollary}
+	\begin{proof}
+		Set $d=-\grad f(x^*)$, i.e. the direction that decrease the most.
+	\end{proof}
+	
+	There are two cases in first order necessary condition: $d^\T \grad f(x^*)>0$ for all feasible direction $d$; or $d^\T \grad f(x^*)=0$ for some feasible direction $d$. In the first case, we must have $x^*$ a local minimizer; while in the second case, the following theorem provides a higher order derivatives check.
+	
+	\begin{theorem}[Second Order Necessary Condition (SONC)]
+		Let $\Omega\subset \R^n$, $f\in C^2$ a function on $\Omega$. Let $x^*$ be a local minimizer of $f$ over $\Omega$, $d$ a feasible direction at $x^*$. If $d^\T \grad f(x^*)=0$, then
+		$$
+		d^\T \grad^2 f(x^*) d\geq 0
+		$$
+	\end{theorem}
+	\begin{proof}
+		The proof is similar to the first order necessary condition.
+	\end{proof}
+	
+	\begin{corollary}[Interior Case]
+		Let $x^*$ be a interior point of $\Omega\subset \R^n$. If $x^*$ is a local minimizer of $f:\Omega\to \R^n$, $f\in C^2$, then $\grad f(x^*)=0$ and $\grad^2 f(x)$ is positive semidefinite, i.e. $\grad^2 f(x)\succeq 0$.
+	\end{corollary}
+	
+	\begin{theorem}[Second Order Sufficient Condition (SOSC), Interior Case]
+		Let $\Omega\subset \R^n$, $f\in C^2$ a function on $\Omega$. Suppose that $\grad f(x^*)=0$, $\grad^2f(x^*)\succ 0$ and $x^*$ is an interior point. Then $x^*$ is a strict local minimizer of $f$.
+	\end{theorem}
+	Note that the condition is not necessary for strict local minimizer.
+	\begin{proof}
+		We have
+		$$
+		f(x^*+\alpha d)=f(x^*)+\frac{\alpha^2}{2}d^\T \grad^2 f(x^*)d+o(\alpha^2).
+		$$
+		Show that $\alpha^2/2 \cdot d^\T \grad^2 f(x^*)d+o(\alpha^2)>0$. This is true otherwise divided by $\alpha^2$ we would have $d^\T \grad^2 f(x^*)d\leq 0$, contradicts with the assumption that $\grad^2 f(x^*)\succ 0$.
+	\end{proof}
+
+
+
+
+
+
+	\section{Unconstrained Optimality Conditions}
+	\subsection{General Case}
 	\begin{theorem}[Necessary Optimality Conditions]
 		Let $x^*$ be an unconstrained local minimum of $f:\R^n \to \R$, and assume that $f$ is continuously differentiable in an open set $S$ containing $x^*$. Then we have the \emph{First Order Necessary Condition}:
 		\begin{equation}
@@ -327,6 +420,7 @@
 		Then let $\alpha\to 0$, we obtain $d^\T \grad^2 f(x^*) d\geq 0$, which means $\grad^2 f(x^*) \succeq 0$.
 	\end{proof}
 	
+	\subsection{Convex Case}
 	\begin{proposition}
 		If $X$ is a convex subset of $\R^n$ and $f:\R^n \to \R$ is convex over $X$, then a local minimum of $f$ is also a global minimum. If in addition $f$ is strictly convex over $X$, then $f$ has at most one global minimum over $X$. Moreover, if $f$ is strongly convex and $X$ is closed, then $f$ has a unique global minimum over $X$.
 	\end{proposition}
@@ -356,6 +450,7 @@
 	
 	A geometric illustration of $\grad f(x^*)^\T(x-x^*)$ is that: $\grad f(x^*)$ is the direction that $f$ increase the most, the condition means that the connection of $x^*$ and all feasible points $x$ in $X$ has angle less than $\frac{\pi}{2}$ with the gradient; in other words, all the direction makes $f$ increase.
 	
+	\subsection{Sufficient Conditions}
 	\begin{theorem}[Second Order Sufficient Optimality Conditions]
 		Let $f:\R^n \to \R$ be twice continuously differentiable over an open set $S$. Suppose that a vector $x^*\in S$ satisfies the conditions: (i) $\grad f(x^*)=0$ and (ii) $\grad^2 f(x^*)\succ 0$. Then $x^*$ is a strict unconstrained local minimum of $f$. In particular, there exists scalars $\gamma>0$ and $\epsilon>0$ such that
 		$$
