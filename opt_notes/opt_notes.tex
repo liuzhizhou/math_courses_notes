@@ -147,6 +147,8 @@
 \newcommand{\conv}{\operatorname{conv}}
 \newcommand{\cone}{\operatorname{cone}}
 \newcommand{\aff}{\operatorname{aff}}
+\newcommand{\rank}{\operatorname{rank}}
+\newcommand{\epi}{\operatorname{epi}}
 
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
@@ -154,7 +156,7 @@
 \begin{document}
 	{\sffamily \maketitle}
 	
-	\cite{Bertsekas/99} is brilliant textbook for optimization, which is also the main reference of this notes.
+	\cite{Bertsekas/99} is brilliant textbook for optimization, which is also the main reference of this notes. The structure of the this notes is 100\% from the lectures by Zhang Jin, in SUSTech.
 	
 	\tableofcontents
 	\chapter{Preliminaries}
@@ -221,6 +223,7 @@
 	
 	\chapter{Fundamental Concepts}
 	\section{Convexity}
+	\subsection{normal convexity}
 	\begin{definition}[convex set, convex function]
 		A subset $C$ of $\R^n$ is called \emph{convex} if 
 		$$
@@ -235,12 +238,12 @@
 	
 	An optimization problem is convex if both the objective function and feasible set are convex.
 
-
 	\begin{definition}[strictly convex]
 		The function $f$ is called \emph{strictly convex} if Eq.(\ref{eq:convex}) is strict for all $x\neq y$ and $\alpha\in(0,1)$.
 	\end{definition}
 
 	\begin{proposition}[First Derivative Characterizations]
+		\label{prop:First Derivative Characterizations}
 		Let $C$ be a convex subset of $\R^n$ and let $f:\R^n \to \R$ be differentiable over $\R^n$. Then
 		\begin{enumerate}
 			\item $f$ is convex over $C$ if and only if
@@ -252,9 +255,17 @@
 		\end{enumerate}
 	\end{proposition}
 
+	\begin{definition}[epigraph]
+		Assume $C$ is a convex subset of $\R^n$. The \emph{epigraph} of $f:C\to [-\infty,\infty]$ is the subset of $\R^{n+1}$ given by
+		$$
+		\epi(f)=\{(x,w): x\in C, w\in \R, f(x)\leq w\}.
+		$$
+	\end{definition}
+	By definition, it is easy to see that if $f$ is a convex function, then $\epi(f)$ is a convex set.
 	
-	\begin{definition}[strongly convex]
-		A function $f:\R^n \to \R$ is called \emph{strongly convex} if for some $\sigma>0$, we have
+	\subsection{strong convexity}
+	\begin{definition}[$\sigma$-strongly convex]
+		A function $f:\R^n \to \R$ is called \emph{$\sigma$-strongly convex} if for some $\sigma>0$, we have
 		\begin{equation}
 			f(y)\geq f(x)+\grad f(x)^\T (y-x)+\frac{\sigma}{2}\norm{x-y}^2
 		\end{equation}
@@ -314,7 +325,7 @@
 	\end{definition}
 	Note that $x+d$ is not necessarily in $\Omega$.
 	
-	\section{General Optimality Condition}
+	\section{General Optimality Condition}\label{sec:general optimality condition}
 	\begin{theorem}[First Order Necessary Condition]
 		Let $\Omega$ be a subset of $\R^n$ and $f\in C^1$ a real-valued function on $\Omega$. If $x^*$ is a local minimizer of $f$ over $\Omega$, then for any feasible direction $d$ at $x^*$, we have
 		$$
@@ -370,287 +381,1288 @@
 
 
 
-
-
-
-	\section{Unconstrained Optimality Conditions}
-	\subsection{General Case}
-	\begin{theorem}[Necessary Optimality Conditions]
-		Let $x^*$ be an unconstrained local minimum of $f:\R^n \to \R$, and assume that $f$ is continuously differentiable in an open set $S$ containing $x^*$. Then we have the \emph{First Order Necessary Condition}:
-		\begin{equation}
-			\grad f(x^*)=0.
-		\end{equation}
-		If in addition $f$ is twice continuously differentiable within $S$, then we have the \emph{Second Order Necessary Condition}:
-		\begin{equation}
-			\grad^2 f(x^*)\succeq 0.
-		\end{equation}
-	\end{theorem}
-	The intuition of this theorem is considering
-	$$
-	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x,
-	$$
-	and similarly for second order,
-	$$
-	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x +\frac{1}{2}\Delta x^\T \grad^2 f(x^*)\Delta x.
-	$$
-	Read rigorous proof to see the reason.
-	\begin{proof}
-		Fix some $d\in \R^n$. Consider $g(\alpha)\triangleq f(x^*+\alpha d)$. Then
-		$$
-		0\leq 
-		\lim_{\alpha\to 0}\frac{f(x^*+\alpha d)-f(x^*)}{\alpha} 
-		= \frac{\d g}{\d \alpha}(0)=d^\T \grad f(x^*).
-		$$
-		The "$\leq$" is because $x^*$ is the local minimum. Replace $d$ by $-d$, then it must be $\grad f(x^*)=0$.
-		
-		Assume $f$ is twice differentiable. Then the second order expansion of $g(\alpha)$ in $\alpha=0$ yields
-		$$
-		g(\alpha) = g(0) + \frac{\d g}{\d \alpha}(0)\alpha +
-		\frac{1}{2} \frac{\d^2 g}{\d \alpha^2}(0) \alpha^2 + o(\alpha^2).
-		$$
-		Equivalently,
-		$$
-		f(x^*+\alpha d) - f(x^*) = d^\T \grad f(x^*)\alpha + \frac{\alpha^2}{2} d^\T \grad^2 f(x^*) d + o(\alpha^2).
-		$$
-		Since $\grad f(x^*)=0$, for $\alpha$ positive and near 0, we have
-		$$
-		0\leq \frac{f(x^*+\alpha d)-f(x^*)}{\alpha^2}= 
-		\frac{1}{2} d^\T \grad^2 f(x^*) d + \frac{o(\alpha^2)}{\alpha^2}.
-		$$
-		Then let $\alpha\to 0$, we obtain $d^\T \grad^2 f(x^*) d\geq 0$, which means $\grad^2 f(x^*) \succeq 0$.
-	\end{proof}
-	
-	\subsection{Convex Case}
-	\begin{proposition}
-		If $X$ is a convex subset of $\R^n$ and $f:\R^n \to \R$ is convex over $X$, then a local minimum of $f$ is also a global minimum. If in addition $f$ is strictly convex over $X$, then $f$ has at most one global minimum over $X$. Moreover, if $f$ is strongly convex and $X$ is closed, then $f$ has a unique global minimum over $X$.
-	\end{proposition}
-	
-	\begin{theorem}[Convex Case - Necessary and Sufficient Conditions]
-		Let $X$ be a convex set and let $f:\R^n \to \R$ be a convex function over $X$. Then
-		\begin{enumerate}
-			\item If $f$ is continuously differentiable, then
-			$$
-			\grad f(x^*)^\T(x-x^*)\geq 0
-			$$
-			for all $x\in X$ is a necessary and sufficient condition for $x^*$ to be a global minimum of $f$ over $X$.
-			\item If $X$ is open and $f$ is continuously differentiable over $X$, then $\grad f(x^*)=0$ is a necessary and sufficient condition for $x^*$ to be a global minimum of $f$ over $X$.
-		\end{enumerate}
-	\end{theorem}
-	Note that in the second statement, we require $X$ to be open.
-
-	The intuition of this theorem is also
-	$$
-	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x.
-	$$
-	The proof of this need the first order characterization of convexity,
-	$$
-	f(x)\geq f(x^*) +\grad f(x^*)^\T (x-x^*)
-	$$
-	for all $x\in X$.
-	
-	A geometric illustration of $\grad f(x^*)^\T(x-x^*)$ is that: $\grad f(x^*)$ is the direction that $f$ increase the most, the condition means that the connection of $x^*$ and all feasible points $x$ in $X$ has angle less than $\frac{\pi}{2}$ with the gradient; in other words, all the direction makes $f$ increase.
-	
-	\subsection{Sufficient Conditions}
-	\begin{theorem}[Second Order Sufficient Optimality Conditions]
-		Let $f:\R^n \to \R$ be twice continuously differentiable over an open set $S$. Suppose that a vector $x^*\in S$ satisfies the conditions: (i) $\grad f(x^*)=0$ and (ii) $\grad^2 f(x^*)\succ 0$. Then $x^*$ is a strict unconstrained local minimum of $f$. In particular, there exists scalars $\gamma>0$ and $\epsilon>0$ such that
-		$$
-		f(x)\geq f(x^*)+\frac{\gamma}{2}\norm{x-x^*}^2
-		$$
-		for all $\norm{x-x^*}<\epsilon$.
-	\end{theorem}
-	\begin{proof}
-		Denote $\lambda$ the smallest eigenvalue of $\grad^2 f(x^*)$. Since $\grad^2 f(x^*)\succ 0$, $\lambda >0$. We have $d^\T \grad^2 f(x^*)d \geq \lambda \norm{d}^2$ for all $d\in \R^n$. By the second order Taylor expansion
-		\begin{align*}
-			f(x^*+d)-f(x^*)&=\grad f(x^*)^\T d + \frac{1}{2} d^\T \grad^2 f(x^*)d+o(\norm{d}^2)\\
-			&\geq \frac{\lambda}{2}\norm{d}^2+o(\norm{d}^2)\\
-			&=\left(\frac{\lambda}{2}+\frac{o(\norm{d}^2)}{\norm{d}^2}\right)\norm{d}^2.
-		\end{align*}
-		Then choose $\epsilon>0$ and $\gamma>0$ such that for $\norm{d}<\epsilon$,
-		$$
-		\frac{\lambda}{2}+\frac{o(\norm{d}^2)}{\norm{d}^2}\geq \frac{\gamma}{2}.
-		$$
-		Then the proof is complete.
-	\end{proof}
-
-
-
-	\section{Algorithms: Gradient Methods}
-	Optimality conditions often provide the basis for the development and the analysis of the algorithms. The idea of the algorithms rely on an important idea, called \emph{iterative descent}, i.e. $f(x^{k+1})<f(x^k)$. Gradient methods, also called gradient descent methods, implement the idea of iterative descent. The iteration is 
-	\begin{equation}
-		x^{k+1} = x^k + \alpha^k d^k,
-	\end{equation}
-	where $k=0,1,\dots$, $\grad f(x^k)^\T d^k<0$, $\alpha^k\in \R$ and $d^k\in \R^n$. There is a large variety of possibilities for choosing direction $d^k$ and stepsize $\alpha^k$.
-	
-	\subsection{Descent Direction}
-	To make sure $\grad f(x^k)^\T d^k<0$, most gradient methods take the form $d^k =-D^k \grad f(x^k)$, where $D^k$ is a positive definite symmetric matrix. The iteration becomes
-	\begin{equation}
-		x^{k+1} = x^k -\alpha^k D^k \grad f(x^k).
-	\end{equation}
-	Different choice of $D^k$ result in different methods, see Table \ref{table:descent direction}.
-	\begin{table}[]
-		\centering
-		\begin{tabular}{@{}cc@{}}
-			\toprule
-			Name of Method                     & Choice of $D^k$                                                                                                                                 \\ \midrule
-			Steepest Descent                   & $D^k = I$                                                                                                                                       \\
-			Newton's Methods                   & $D^k=\left(\grad^2 f(x^k)\right)^{-1}$                                                                                                          \\
-			Diagonally Scaled Steepest Descent & $D^k=\diag(d_1^k,\dots,d_n^k)$                                                                                                                  \\
-			Modified Newton's Method           & $D^k=\left(\grad^2 f(x^0)\right)^{-1}$                                                                                                          \\
-			Gauss Newton Method                & $D^k=(\grad g(x^k)\grad g(x^k)^\T)^{-1}$\\ \bottomrule
-		\end{tabular}
-	\caption{
-		Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \grad f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form 
-		$f(x)=\frac{1}{2}\norm{g(x)}^2=\frac{1}{2}\sum_{i=1}^m (g_i(x))^2,$
-		where $g=(g_1,\dots,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training.}
-	\label{table:descent direction}
-	\end{table}
-	
-	\subsection{Stepsize}
-	There are a number of rules for choosing the stepsize $\alpha^k$ in a gradient method. We give some that are used widely in practice in Table \ref{table:stepsize}.
-	% Please add the following required packages to your document preamble:
-	% \usepackage{booktabs}
-	\begin{table}[]
-		\centering
-		\begin{tabular}{@{}cc@{}}
-			\toprule
-			Name of Method            & Choice of $\alpha^k$                                       \\ \midrule
-			Minimization Rule         & $\alpha^k = \arg\min_{\alpha\geq 0} f(x^k+\alpha d^k)$     \\
-			Limited Minimization Rule & $\alpha^k = \arg\min_{\alpha\in [0,s]} f(x^k+\alpha d^k)$  \\
-			Armijo Rule               & $\alpha^k=\beta^{m_k}s$                                    \\
-			Constant Stepsize         & $\alpha^k =s$                                              \\
-			Diminishing Stepsize      & $\alpha^k\to 0$, where $\sum_{k=0}^\infty \alpha^k=\infty$ \\ \bottomrule
-		\end{tabular}
-	\caption{Various choice of stepsize $\alpha^k$. In Arimijo rule, first choose fix scalars $s,\beta$ and $\sigma$, with $0<\beta<1$ and $0<\sigma<1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta^m s d^k)\geq -\sigma \beta^m s \grad f(x^k)^\T d^k$. Note that here $\beta^m$ means $\beta$ to the $m$-th power. In diminishing method, we require $\sum_{k=0}^{\infty}\alpha^k=\infty$ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to\bar{x}$, then for large $m,n$, $x^m\approx x^n \approx \bar{x}$, also $x^m\approx x^n -(\sum_{k=n}^{m-1}\alpha^k)\grad f(\bar{x})$, which shows $\grad f(\bar{x})$ must be zero.}
-	\label{table:stepsize}
-	\end{table}
-	
-	
-	
-	\subsection{Mathematical Statements for Convergence Results}
-	There is a common line of proof for the convergence results. The main idea is that the cost function is improved at each iteration and the improvement is ``substantial'' near a non-stationary point, i.e. it is bounded away from zero. We then argue that the algorithm cannot approach a non-stationary point, since in this case the total cost improvement would accumulate to infinity.
-	
-	I use ``Proposition'' instead of ``Theorem'' for the convergence results because in my opinion they are just some theoretic backgrounds (results) we should know in applications of the algorithms.
-	
-	\begin{definition}[gradient related]
-		We say that the direction $\{d^k\}$ is \emph{gradient related} to $\{x^k\}$ if for any subsequence $\{x^k\}_{k\in \mathcal{K}}$ that converges to a non-stationary point, the corresponding subsequence $\{d^k\}_{k\in \mathcal{K}}$ is bounded and satisfies
-		\begin{equation}
-			\limsup_{k\to\infty,k\in \mathcal{K}}\grad f(x^k)^\T d^k<0.
-		\end{equation}
-	\end{definition}
-	
-	\begin{proposition}[Stationary of Limit Points]
-		Let $\{x_k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k + \alpha^k d^k$ and assume that $\{d^k\}$ is gradient related and $\alpha^k$ is chosen by the minimization rule, or the limited minimization rule, or the Armijo rule. Then every limit point of $\{x^k\}$ is a stationary point.
-	\end{proposition}
-	\begin{proof}
-		The key to prove this is noting that if $\{x^k\}$ converges to a non-stationary point, by the assumption of gradient related property of $\{d^k\}$, and by the definition of Armijo rule, we must have for some index $\bar{k}\geq 0$,
-		$$
-		f(x^k)-f(x^k+(\alpha^k/\beta)d^k)<-\sigma(\alpha^k/\beta)\grad f(x^k)^\T d^k,
-		$$
-		for all $k\in \mathcal{K}$ and $k\geq \bar{k}$; in other words, if $\alpha^k\to 0$ there would exist a slight larger $\alpha^k/\beta$ that does not make ``substantial'' movement, which will result in contradiction.
-	
-		For minimization rule, just note that
-		$$
-		f(x^k)-f(x^{k+1})\geq f(x^k)-f(\tilde{x}^{k+1})\geq -\sigma(\tilde{\alpha})\grad f(x^k)^\T d^k,
-		$$
-		where $\{\tilde{x}\}$ is the sequence generated via Armijo rule and $\{\tilde{\alpha}\}$ is the corresponding stepsize. Then repeat the method to reach contradiction.
-	\end{proof}
-
-	\begin{lemma}[Descent Lemma]
-		Let $f:\R^n \to \R$ be continuously differentiable, and let $x$ and $y$ be two vectors in $\R^n$. Suppose that
-		$$
-		\norm{\grad f(x+ty)-\grad f(x)}\leq L t \norm{y}
-		$$
-		for all $t\in [0,1]$, where $L$ is some scalar. Then
-		$$
-		f(x+ty)\leq f(x)+y^\T \grad f(x) +\frac{L}{2}\norm{y}^2.
-		$$
+	\chapter{Unconstrained Optimization Algorithms}
+	\section{Gradient Descent Method}
+	The \emph{level set} of $f$ at $c$, denoted $\mathcal{L}_f(c),$ is $\{x:f(x)=c\}$.
+	\begin{lemma}
+		The vector $\grad f(x_0)$ is orthogonal to the tangent vector to an arbitrary smooth curve passing through $x_0$ on the level set $\mathcal{L}_f(f(x_0))$.
 	\end{lemma}
-	We can interpret this lemma as: if $f$ is Lipschitz continuous then the variation of $f(x)$ is controlled by its slope plus $\frac{L}{2}\norm{y}^2$. In fact, Lipschitz condition requires roughly that the ``curvature'' of $f$ is no more than $L$ at all points and in all directions.
-	
-	\begin{proposition}[Constant Stepsize]
-		Let $\{x^k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$, where $\{d^k\}$ is gradient related. Assume that $f$ is $L$-Lipschitz continuous and that for all $k$ we have $d^k\neq 0$ and 
-		\begin{equation}
-			\epsilon \leq \alpha^k\leq (2-\epsilon)\bar{\alpha}^k, \label{eq:constant stepsize condition}
-		\end{equation}
-		where
-		$$
-		\bar{\alpha}^k =\frac{\abs{\grad f(x^k)^\T d^k}}{L\norm{d^k}^2},
-		$$
-		and $\epsilon\in(0,1]$ is a fixed scalar. Then every limit point of $\{x^k\}$ is a stationary point of $f$.
-	\end{proposition}
-	The intuition of the proof is that by descent lemma, $f(x^k)-f(x^k +\alpha^k d^k)$ is bounded by a quadratic overestimation.
 	\begin{proof}
-		By using descent lemma combined with the right hand side of Eq. (\ref{eq:constant stepsize condition}), we have
+		Suppose the curve $\gamma$ is parameterized y $g:\R\to\R^n$ and $g(t_0)=x_0$. Let $\grad g(t_0)^\T=v\neq 0$, so $v$ is the tangent vector to $\gamma$ at $x_0$. We should show $v^\T \grad f(x_0)=0$. Let $h(t)=f(g(t))$. Then $h(t)$ is constant since $g(t)$ lies on the level set of $f$. Then 
 		$$
-		f(x^k)-f(x^k +\alpha^k d^k) \geq \frac{1}{2}\epsilon^2 \abs{\grad f(x^k)^\T d^k}.
+		0=\frac{\d h(t)}{\d t}=\grad g(t)\grad f(g(t)).
 		$$
+		So that $v^\T\grad f(x_0)=0$.
 	\end{proof}
-	In the case of steepest descent, the condition on stepsize becomes
-	$$
-	\epsilon\leq \alpha^k \leq \frac{2-\epsilon}{L}.
-	$$
-	\begin{proposition}[Diminishing Stepsize]
-		Let $\{x^k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$. Assume that $f$ is $L$-Lipschitz continuous and there exist positive scalars $c_1,c_2$ such that for all $k$ we have
-		\begin{equation}
-			c_1 \norm{\grad f(x^k)}^2 \leq -\grad f(x^k)^\T d^k,\quad \norm{d^k}^2 \leq c_2 \norm{\grad f(x^k)}^2.
-		\end{equation}
-		Suppose also that
-		$$
-		\alpha^k\to 0, \quad \sum_{k=0}^\infty \alpha^k =\infty.
-		$$
-		Then either $f(x^k)\to -\infty$ or else $\{f(x^k)\}$ converges to a finite value and $\grad f(x^k)\to 0$. Furthermore, every limit point of $\{x^k\}$ is a stationary point of $f$.
-	\end{proposition}
-	\begin{proof}
-		Tedious. First use descent lemma to show $\liminf_{k\to\infty}\norm{\grad f(x^k)}=0$. Then separate the sequence into $\norm{\grad f(x^k)}>\epsilon/3$ and $\norm{\grad f(x^k)}\leq \epsilon/3$ to reach contradiction.
-	\end{proof}
-	
-	\begin{theorem}[Capture Theorem]
-		Let $f$ be continuously differentiable and let $\{x^k\}$ be a sequence satisfying $f(x^{k+1})\leq f(x^k)$ for all $k$ and generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$, which is convergent in the sense that every limit point of sequences that it generates is a stationary point of $f$. Assume that there exist scalars $s>0$ and $c>0$ such that for all $k$ there holds
-		$$
-		\alpha^k \leq s,\quad \norm{d^k}\leq c\norm{\grad f(x^k)}.
-		$$
-		Let $x^*$ be a local minimum of $f$, which is the only stationary point of $f$ within some open set. Then there exists an open set $S$ containing $x^*$ such that if $x^{\bar{k}}\in S$ for some $\bar{k}\geq 0$, then $x^k\in S$ for all $k\geq \bar{k}$ and $\lim_{k\to\infty}x^k=x^*$. Furthermore, given any scalar $\bar{\epsilon}>0$, the set $S$ can be chosen so that $\norm{x-x^*}<\bar{\epsilon}$ for all $x\in S$.
-	\end{theorem}
-	
-	\subsection{Rate of Convergence}
-	Rate of convergence is evaluated using an \emph{error function} $e: \R^n \to \R$ satisfying $e(x)\geq 0$ for all $x\in \R^n$ and $e(x^*)=0$. Typical choices are $e(x)=\norm{x-x^*}$ and $e(x)=\abs{f(x)-f(x^*)}$.
 
-	\begin{definition}[linear convergence]
-		We say that $\{e(x^k)\}$ converges \emph{linearly} if there exist $q>0$ and $\beta\in (0,1)$ such that for all $k$, $e(x^k)\leq q \beta^k$.
-	\end{definition}
+	The gradient descent algorithm is the following: given initial $x^{0}$. Generate $x^{k+1}$ from $x^k$ by 
+	$$
+	x^{k+1}=x^k - \alpha^k \grad f(x^k),
+	$$
+	where $\alpha_k$ is called the step size.
+	
+	The algorithm works: first order Taylor expansion of $f(x+\alpha d)$ at $\alpha=0$ is
+	$$
+	f(x+\alpha d)=f(x)+\alpha d^\T \grad f(x)+ o(\alpha).
+	$$
+	Let $d=-\grad f(x)$, then
+	$$
+	f(x-\alpha \grad f(x))-f(x)=-\alpha \norm{\grad f(x)}^2+o(\alpha).
+	$$
+	Then for sufficiently small $\alpha$, $f(x-\alpha \grad f(x))<f(x)$.
+	
+	Another interpretation of the algorithm is considered it as a consequence of optimization problem. Note that
+	$$
+	x^{k+1}=\arg\min_x \frac{1}{2\alpha^k}\norm{x-x^k +\alpha^k \grad f(x^k)}^2,
+	$$
+	and
+	$$
+	\frac{1}{2\alpha^k}\norm{x-x^k +\alpha^k \grad f(x^k)}^2
+	=
+	\frac{\alpha^k}{2} \norm{\grad f(x^k)} + \inner{\grad f(x^k), x-x^k}+\frac{1}{2\alpha^k}\norm{x-x^k}^2.
+	$$
+	So that $x^{k+1}$ is obtained by minimizing the linearization of $f$ at $x^k$ and a proximal term that keeps $x^{k+1}$ close to $x^k$.
+
+	\section{The Method of Steepest Descent}
+	The method of steepest descent is choosing $\alpha^k=\arg\min_{\alpha\geq 0} f(x^k-\alpha \grad f(x^k))$. It is used mostly for quadratic programs:
+	\begin{equation}
+			\min f(x)=x^\T Q x-b^\T x,
+	\end{equation}
+	where $Q$ is assumed to be symmetric.
+	Otherwise it is not worth the effort to solve the sub-problem exactly.
+	
+	\begin{proposition}
+		If $(x^k)$ is a steepest descent sequence for a given function $f:\R^n \to \R$, then for each $k$, $x^{k+1}-x^k$ is orthogonal to the vector $x^{k+2}-x^{k+1}$.
+	\end{proposition}
+	\begin{proof}
+		It suffices to show $\inner{\grad f(x^k),\grad f(x^{k+1})}=0$. Let $\phi_k(\alpha)=f(x^k-\alpha \grad f(x^k))$. Then $\phi_k'(\alpha^k)=0$. Note that 
+		$$
+		\frac{\d \phi_k}{\d \alpha}(\alpha^k)= - \grad f(x^k)^\T \grad f(x^k-\alpha^k \grad f(x^k))=\inner{\grad f(x^k),\grad f(x^{k+1})}.
+		$$
+	\end{proof}
+	
+	For $f(x)=x^\T Q x-b^\T x$, $\grad f(x)=Qx-b$. Then $\alpha^k=\arg\min_{\alpha\geq 0} f(x^k-\alpha\grad f(x^k))$. The solution to this using first order necessary condition is
+	$$
+	\alpha^k =\frac{\grad f(x^k)^\T \grad f(x^k)}{\grad f(x^k)^\T Q \grad f(x^k)}.
+	$$
+	
+	\section{Rate of Convergence}
+		\begin{definition}[linear convergence]
+				We say that $\{e(x^k)\}$ converges \emph{linearly} if there exist $q>0$ and $\beta\in (0,1)$ such that for all $k$, $e(x^k)\leq q \beta^k$.
+			\end{definition}
 	 It is possible to show that linear convergence is obtained if for some $\beta \in (0,1)$ we have
 	 $$
 	 \limsup_{k\to\infty}\frac{e(x^{k+1})}{e^{k}}\leq \beta.
 	 $$
 	 \begin{definition}[superlinear convergence]
-	 	If for every $\beta\in (0,1)$, there exists $q$ such that the condition $e(x^k)\leq q\beta^k$ holds for all $k$, we say that $\{e(x^k)\}$ converges \emph{superlinearly}.
+			 	If for every $\beta\in (0,1)$, there exists $q$ such that the condition $e(x^k)\leq q\beta^k$ holds for all $k$, we say that $\{e(x^k)\}$ converges \emph{superlinearly}.
 	 \end{definition}
-	This is true in particular, if 
+		This is true in particular, if 
+		$$
+		\lim_{k\to\infty}\frac{e(x^{k+1})}{e(x^k)}=0.
+		$$
+	
+	In summary, suppose
 	$$
-	\lim_{k\to\infty}\frac{e(x^{k+1})}{e(x^k)}=0.
+	\lim_{k\to\infty}\frac{e^{k+1}}{e^k}=\mu.
+	$$
+	\begin{enumerate}
+		\item if $\mu=1$, then $(x^k)$ converges sublinearly;
+		\item if $\mu\in (0,1)$, then $(x^k)$ converges linearly;
+		\item if $\mu=0$, then $(x^k)$ converges superlinearly.
+	\end{enumerate}
+	
+	Also, to distinguish superlinear rates of convergence, we check that
+	$$
+	\lim_{k\to\infty}\frac{e^{k+1}}{(e^k)^q}=\mu>0.
+	$$
+	\begin{enumerate}
+		\item if $q=2$, it is quadratic convergence;
+		\item if $q=3$, it is cubic convergence;
+		\item $q$ can be non-integer.
+	\end{enumerate}
+		
+		
+		
+	
+	\section{Convergence Rate of Steepest Descent}
+	Rate of convergence is evaluated using an \emph{error function} $e: \R^n \to \R$ satisfying $e(x)\geq 0$ for all $x\in \R^n$ and $e(x^*)=0$. Typical choices are $e(x)=\norm{x-x^*}$ and $e(x)=\abs{f(x)-f(x^*)}$.
+	
+	First that's see a special case: if $e^k=x^k-x^*$, where $x^*$ is the local minimizer. Note that $Qe^k=Qx^k-Qx^*=Qx^k-b=\grad f(x^k)$.
+	The special case is that $e^k$ is the eigenvalue of $Q$, then $Qe^k=\lambda e^k$. Then 
+	$$
+	e^{k+1}=e^k-\frac{\grad f(x^k)^\T \grad f(x^k)}{\grad f(x^k)^\T Q \grad f(x^k)} Q e^k=0.
+	$$
+	So $x^{k+1}=x^{*}$.
+	
+	For the general case, we would work with
+	\begin{equation}
+		V(x)=f(x)+\frac{1}{2}{x^*}^\T Qx^*=\frac{1}{2}(x-x^*)^\T Q (x-x^*).
+	\end{equation}
+	The solution point $x^*$ is obtained by solving $Qx=b$, $x^*=Q^{-1}b$. We now investigate the convergence result of minimizing $V(x)$.
+	
+	Investigate
+	$$
+	\frac{V(x^k)-V(x^{k+1})}{V(x^k)}.
+	$$
+	Plug in $V(x)$. Note that formally $x^\T Q y=\inner{x,y}_Q$ which I mean is bilinear. Then
+	\begin{align*}
+		&\inner{x^{k+1}-x^*, x^{k+1}-x^*}_Q=\inner{x^{k}-\alpha^k\grad f(x^k)-x^*,x^{k}-\alpha^k\grad f(x^k)-x^*}_Q\\
+		&=\inner{x^{k+1}-x^*, x^{k+1}-x^*}_Q -2\alpha^k\inner{x^k-x^*, \grad f(x^k)}_Q + (\alpha^k)^2\inner{\grad f(x^k),\grad f(x^k)}_Q.
+	\end{align*}
+	So
+	\begin{align*}
+		&V(x^k)-V(x^{k+1})=2\alpha^k\inner{x^k-x^*, \grad f(x^k)}_Q - (\alpha^k)^2\inner{\grad f(x^k),\grad f(x^k)}_Q\\
+		&=2\alpha^k(x^k-x^*)^\T Q \grad f(x^k)-(\alpha^k)^2\grad f(x^k)^\T Q \grad f(x^k)\\
+		&=2\alpha^k(e^k)^\T Q \grad f(x^k)-(\alpha^k)^2\grad f(x^k)^\T Q \grad f(x^k).
+	\end{align*}
+	Plug in 
+	$$
+	\alpha^k=\frac{\grad f(x^k)^\T \grad f(x^k)}{\grad f(x^k)^\T Q \grad f(x^k)},
+	$$
+	and $e^k=Q^{-1}\grad f(x^k)$, we would have
+	$$
+	\frac{V(x^k)-V(x^{k+1})}{V(x^k)}=\frac{(\grad f(x^k)^\T \grad f(x^k))^2}{[\grad f(x^k)^\T Q \grad f(x^k)][\grad f(x^k)^\T Q^{-1} \grad f(x^k)]}
+	$$
+	Therefore,
+	$$
+	V(x^{k+1})=\left\{1-\frac{(\grad f(x^k)^\T \grad f(x^k))^2}{[\grad f(x^k)^\T Q \grad f(x^k)][\grad f(x^k)^\T Q^{-1} \grad f(x^k)]}  \right\}V(x^k).
+	$$
+
+	\begin{lemma}[Kantorovich Inequality]
+		Assume $Q\succ 0$. For any $x\in \R^n$,
+		$$
+		\frac{(x^\T x)^2}{(x^\T Q x)(x^\T Q^{-1}x)}\geq \frac{4\lambda_{\min}\lambda_{\max}}{(\lambda_{\min}+\lambda_{\max})^2},
+		$$
+		where $\lambda_{\min},\lambda_{\max}$ is the smallest and biggest eigenvalue respectively.
+	\end{lemma}
+
+	Using this lemma, 
+	\begin{align*}
+		V(x^{k+1})&\leq \left\{1-\frac{4\lambda_{\min}\lambda_{\max}}{(\lambda_{\min}+\lambda_{\max})^2}\right\} V(x^k)\\
+		&=\left(\frac{\lambda_{\max}-\lambda_{\min}}{\lambda_{\max}+\lambda_{\min}}\right)^2 V(x^k).
+	\end{align*}
+	Let $\norm{e}_Q=\sqrt{e^\T Q e}$ and $\kappa=\lambda_{\max}/\lambda_{\min}$, then
+	\begin{equation}
+		\norm{e^k}_Q\leq \left(\frac{\kappa-1}{\kappa+1}\right)^k \norm{e^0}_Q.
+	\end{equation}
+	Therefore, the convergence rate is linear.
+	
+	
+	\section{Convergence Rate of Fixed Stepsize Gradient Descent}
+	Observe that 
+	\begin{align*}
+		&\norm{x^{k+1}-x^*}^2=\norm{x^{k}-x^*-\alpha \grad f(x^k)}\\
+		&=\norm{x^{k}-x^*}^2-2\alpha\inner{\grad f(x^k), x^k-x^*}+\alpha^2\norm{\grad f(x^k)}^2.
+	\end{align*}
+	In order to have $\norm{x^{k+1}-x^*}\leq \norm{x^{k}-x^*}$, we must have
+	$$
+	\frac{\alpha}{2}\norm{\grad f(x^k)}^2\leq \inner{\grad f(x^k), x^k-x^*},
+	$$
+	which is equivalent to
+	\begin{equation}
+		\frac{\alpha}{2}\norm{\grad f(x^k)-\grad f(x^*)}^2\leq \inner{\grad f(x^k)-\grad f(x^*), x^k-x^*}.
+	\end{equation}
+
+	\subsection{when $f$ is convex}
+	\begin{theorem}[Baillon-Haddad Theorem]\label{thm:Baillon-Haddad}
+		If $f\in C^1$ is a convex function, then $L$-Lipschitz differentiable if and only if
+		$$
+		\norm{\grad f(x)-\grad f(y)}^2\leq L\inner{\grad f(x)-\grad f(y),x-y},
+		$$
+		for any $x,y\in \R^n$.
+	\end{theorem}
+
+	\begin{proposition}
+		Let $f\in C^1$ be a convex function and $L$-Lipschitz differentiable. If $0<\alpha\leq 2/L$, then
+		$$
+		\frac{\alpha}{2}\norm{\grad f(x^k)-\grad f(x^*)}^2\leq \inner{\grad f(x^k)-\grad f(x^*), x^k-x^*}.
+		$$
+		Consequently, $\norm{x^{k+1}-x^*}\leq \norm{x^k-x^*}$ for $k\in\N$.
+	\end{proposition}
+	\begin{proof}
+		Directly from Theorem \ref{thm:Baillon-Haddad} and observations above. 
+	\end{proof}
+	This proposition tells us the appropriate stepsize, which is $\alpha\in [0,2/L]$ when $f$ is convex and $L$-Lipschitz differentiable.
+	
+	\begin{lemma}[Fundamental Gradient Inequality]
+		Assume $f$ is convex. If there exists $L>0$ for any $y\in \R^n$,
+		$$
+		f(T_L(y))\leq f(y)+\inner{\grad f(y),T_L(y)-y}+\frac{L}{2}\norm{T_L(y)-y}^2,
+		$$
+		it holds that
+		\begin{equation}
+			f(x)-f(T_L(y))\geq \frac{L}{2}\norm{x-T_L(y)}^2-\frac{L}{2}\norm{x-y}^2+L_f(x,y),\label{eq:fundamental gradient}
+		\end{equation}
+		where $T_L(y)=y-\grad f(y)/L$ and $L_f(x,y)=f(x)-f(y)-\inner{\grad f(y),x-y}$.
+	\end{lemma}
+	\begin{proof}
+		Consider 
+		$$\phi(u)=f(y)+\inner{\grad f(y),u-y}+\frac{L}{2}\norm{u-y}^2.$$ 
+		Set $\grad \phi(u)=0$, then
+		we find that $T_L(y)=\arg\min_u \phi(u)$.
+		Then
+		\begin{align*}
+			&\phi(x)-\phi(T_L(y))\\
+			&=\inner{\grad f(y),x-y}+\frac{L}{2}\norm{x-y}^2-\inner{\grad f(y),-\frac{\grad f(y)}{L}}-\frac{L}{2}\norm{-\frac{\grad f(y)}{L}}^2\\
+			&=\inner{\grad f(y),x-y}+\frac{L}{2}\norm{x-y}^2+\frac{\norm{\grad f(y)}^2}{2L}\\
+			&=\frac{L}{2}\norm{x-T_L(y)}^2.
+		\end{align*}
+		Note that the condition implies $\phi(T_L(y))\geq f(T_L(y))$. Thus, 
+		$$\phi(x)-f(T_L(y))\geq \phi(x)-\phi(T_L(y))=\frac{L}{2}\norm{x-T_L(y)}^2.$$
+		The result follows as plugging in $\phi(x)$.
+	\end{proof}
+
+	\begin{corollary}
+		Assume $f$ is convex and $L$-Lipschitz differentiable, then
+		\begin{equation*}
+			f(x)-f(T_L(y))\geq \frac{L}{2}\norm{x-T_L(y)}^2-\frac{L}{2}\norm{x-y}^2+L_f(x,y),
+		\end{equation*}
+		where $T_L(y)=y-\grad f(y)/L$ and $L_f(x,y)=f(x)-f(y)-\inner{\grad f(y),x-y}$.
+	\end{corollary}
+	\begin{proof}
+		Use Descent Lemma \ref{lem:descent lemma}.
+	\end{proof}
+	
+	
+	Let $x=x^*$, $y=x^k$ in Eq. (\ref{eq:fundamental gradient}), then 
+	\begin{equation}\label{eq:fundamental gradient plug in}
+		\begin{split}
+			&f(x^*)-f(x^{k+1})\geq \frac{L}{2}\norm{x^*-x^{k+1}}^2-\frac{L}{2}\norm{x^*-x^k}^2+L_f(x^*,x^k)\\
+			&\geq \frac{L}{2}(\norm{x^*-x^{k+1}}^2-\norm{x^*-x^k}^2),
+		\end{split}
+	\end{equation}
+	where we use $L_f(x^*,x^k)\geq 0$ since $f$ is convex. Now summing together,
+	$$
+	\sum_{i=0}^{k}(f(x^{i+1}-f(x^*)))\leq \frac{L}{2}(\norm{x^*-x^0}^2-\norm{x^*-x^k}^2)\leq \frac{L}{2}\norm{x^*-x^0}^2.
+	$$
+	Since actually we choose $\alpha=1/L\leq 2/L$, $f(x^n)$ is decreasing, then
+	$$
+	f(x^k)-f(x^*)\leq \frac{L}{2k}\norm{x^k-x^0}^2.
+	$$
+	Therefore, the convergence rate of constant stepsize gradient method is $O(1/k)$ when $f$ is convex and Lipschitz differentiable.
+	
+	\subsection{when $f$ is not necessarily convex}
+	\begin{lemma}[Descent Lemma]\label{lem:descent lemma}
+			Let $f:\R^n \to \R$ be continuously differentiable, and let $x$ and $d$ be two vectors in $\R^n$. Suppose that
+			$$
+			\norm{\grad f(x+\alpha d)-\grad f(x)}\leq L \alpha \norm{d}
+			$$
+			for all $\alpha\in [0,1]$, where $L$ is some scalar. Then
+			$$
+			f(x+d)\leq f(x)+ d^\T \grad f(x) +\frac{L}{2}\norm{d}^2.
+			$$
+		\end{lemma}
+	We can interpret this lemma as: if $f$ is Lipschitz differentiable around $x$ then the variation of $f(x)$ is controlled by its slope plus $\frac{L}{2}\norm{d}^2$. In fact, Lipschitz condition requires roughly that the ``curvature'' of $f$ is no more than $L$ at all points and in all directions.
+	
+	\begin{lemma}[sufficient decrease]\label{lem:sufficient decrease}
+		Suppose $f$ is $L_0$-Lipschitz differentiable. Let $L >L_0/2$ and $\alpha=1/L$ be the stepsize. Then
+		$$
+		f(x)-f(T_L(x))\geq \frac{L-L_0/2}{L^2}\norm{\grad f(x)}^2,
+		$$
+		where $T_L(x)=x- \grad f(x)/L$.
+	\end{lemma}
+	\begin{proof}
+		By descent lemma, 
+		\begin{align*}
+			&f(T_L(x))\leq f(x)-\alpha \grad f(x)^\T \grad f(x)+\frac{L_0\alpha^2}{2}\norm{\grad f(x)}^2\\
+			&=f(x)-\frac{1}{L} \norm{\grad f(x)}^2+\frac{L_0/2}{L^2}\norm{\grad f(x)}^2.
+		\end{align*}
+	The result follows.
+	\end{proof}
+
+	Therefore, if we take $\alpha=1/L$, where $L>L_0/2$, then $f(x^{k+1})<f(x^k)$ if and only if $x^k$ is not a stationary point, i.e. $\grad f(x^k)\neq 0$. Since we assume the minimizer exists $f$ is bounded below, so that $\lim_{n\to\infty}f(x^n)$ exists. Thus $(f(x_n))$ is Cauchy so that $f(x^k)-f(x^{k+1})\to 0$, which implies $\grad f(x^k)\to 0$.
+	
+	Let 
+	$$
+	M=\frac{L-L_0/2}{L^2}.
+	$$
+	Using $f(x^k)-f(x^{k+1})\geq M\norm{\grad f(x^k)}^2$, we could obtain
+	$$
+	f(x^0)-f(x^{k+1})\geq M\sum_{i=0}^k \norm{\grad f(x^k)}^2\geq M(k+1)\min_{i=0,\dots,k}\norm{\grad f(x^i)}^2.
+	$$
+	Therefore,
+	$$
+	\min_{i=0,\dots,k}\norm{\grad f(x^i)} \leq \frac{\sqrt{f(x^0)-f(x^*)}}{\sqrt{M(k+1)}},
+	$$
+	where we used $f(x^{k+1})\geq f(x^*)$.
+	
+	\begin{proposition}
+		Assume the objective function $f$ is Lipschitz differentiable. Suppose $(x^k)$ is the sequence generated by constant stepsize gradient descent method. All limiting points of $(x^k)$ are stationary points.
+	\end{proposition}
+	\begin{proof}
+		Observe that
+		$$
+		\norm{\grad f(\bar{x})}\leq \norm{\grad f(\bar{x})-\grad f(x^{k_j})}+\norm{\grad f(x^{k_j})}.
+		$$
+		The first term converges to zero by the Lipschitz differentiable condition; the second term is illustrated in above paragraphs.
+	\end{proof}
+
+
+	\section{Convergence of $(x^k)$ Generated by Gradient Descent}
+	\begin{definition}[Fej\'{e}r monotone]
+		A sequence $(x^k)\in \R^n$ is called \emph{Fej\'{e}r monotone} with respect to a set $S\subseteq \R^n$ if 
+		$$
+		\norm{x^{k+1}-y}\leq \norm{x^k-y}
+		$$
+		for every $k\geq 0$ and $y\in S$.
+	\end{definition}
+	
+	\begin{lemma}
+		Let $(x^k)\in \R^n$. Let $S$  be a set satisfying $D\subset S$, where $D$ is the set consists of all the limit points of $(x^k)$. If $(x^k)$ is Fej\'{e}r monotone with respect to $S$, then it converges to a point in $D$.
+	\end{lemma}
+	This lemma tells us that if $(x^k)$ is Fej\'{e}r monotone, then it can only has one limit, i.e. it converges.
+	\begin{proof}
+		Since $(x^k)$ is Fej\'{e}r monotone with respect to $S$, then $x^k$ is bounded. Then every limit point of $(x^k)$ belongs to $D\subseteq S$. For $\bar{x}\in D$, we have
+		$$
+		\norm{x^{k+1}-\bar{x}}\leq \norm{x^k-\bar{x}}
+		$$
+		for all $k\in \N$. The sequence $(\norm{x^k-\bar{x}})$ is bounded below and decreasing thus convergent. Note that $\bar{x}$ is a limit point of $(x^k)$, we must have $x^k\to \bar{x}$.
+	\end{proof}
+	
+	\begin{proposition}
+		Suppose $f:\R^n\to R$ is $L$-Lipschitz differentiable and convex. $(x^k)$ is a sequence generated by constant stepsize, $x^{k+1}=T_L(x^k)$, gradient descent. Then for any $x^*\in X$, where $X$ is the solution set, 
+		\begin{enumerate}
+			\item $\norm{x^{k+1}-x^*}\leq \norm{x^k-x^*}$;
+			\item $(x^k)$ converges to an optimal solution. 
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		Substitute $x=x^*$, $y=x^k$ into the fundamental inequality, we get Eq. (\ref{eq:fundamental gradient plug in}). Since the left hand side is less than zero, we obtain item 1.
+		
+		Then $(x^k)$ is Fej\'{e}r monotone with respect to $X$, thus converges to a point in $X$.
+	\end{proof}
+	
+	
+	\section{The Method of Backtracking Line Search}
+	
+	\subsection{when $f$ is not necessarily convex}
+	Assume $f$ is $L$-Lipschitz differentiable.
+	
+	Backtracking line search procedure (also known as Armijo Rule) is a method of choosing the stepsize $\alpha_k=1/L_k$. There are three parameters in this method, $(s,\gamma,\eta)$, where $s,\gamma\in (0,1)$ and $\eta>1$. The choice of $L_k$ is:
+	\begin{enumerate}
+		\item $L_k=s$ initially, so $s$ is the initial guess;
+		\item while
+		$$
+		f(x^k)-f(T_{L_k}(x^k))<\frac{\gamma}{L_k}\norm{\grad f(x^k)}^2,
+		$$
+		we set multiply $L_k$ by $\eta$, where $\eta>1$. In other words, $L_k$ is finally chosen as $s\eta^{i_k}$, where $i_k$ is the smallest non-negative integer for which
+		\begin{equation}\label{eq:satisfy backtracking}
+			f(x^k)-f(T_{s\eta^{i_k}}(x^k))\geq \frac{\gamma}{s\eta^{i_k}}\norm{\grad f(x^k)}^2
+		\end{equation}
+		is satisfied.
+	\end{enumerate}
+	Note that such $i_k$ must exist, because we have Lemma \ref{lem:sufficient decrease} that
+	$$
+	f(x^k)-f(T_{L_k}(x^k))\geq \frac{L_k-L}{L_k^2}\norm{\grad f(x^k)}^2.
+	$$
+	If $L_k\geq L/[2(1-\gamma)]$, then $(L_k-L/2)/L\geq \gamma$ and then Eq. (\ref{eq:satisfy backtracking}) is satisfied. Therefore, either $L_k=s$ or the backtracking is invoked so that $L_k/\eta<L/[2(1-\gamma)]$. We can summarize this observation as
+	$$
+	L_k\leq \max\{s,\frac{\eta L}{2(1-\gamma)}\}.
+	$$
+	Then
+	$$
+	f(x^k)-f(x^{k+1})\geq \frac{\gamma}{\max\{s,\frac{\eta L}{2(1-\gamma)}\}}\norm{\grad f(x^k)}^2.
 	$$
 	
-	Consider 
-	$$f(x)=\frac{1}{2}x^\T Q x,$$ where $Q$ is positive definite and symmetric. Let $m$, $M$ be the smallest and biggest eigenvalue of $Q$, respectively.
+	\subsection{when $f$ is convex}
+	In convex case, we have two parameters $(s,\eta)$, where $s>0,\eta>1$. Then the stepsize $L_k$ is defined as
+	\begin{enumerate}
+		\item $L_k$ is set to be $L_{k-1}$, where $L_{-1}=s$. (Compared with the case that $f$ is not necessary convex, we can inherited the $L_k$ when iteration.)
+		\item Choose $L_k$ to be $L_{k-1}\eta^{i_k}$, where $i_k$ is the smallest non-negative integer for which
+		$$
+		f(T_L(x^k))\leq f(x^k)+\inner{\grad f(x^k),T_{L_{k-1}\eta^{i_k}}(x^k) - x^k }+\frac{L_k}{2}\norm{T_{L_{k-1}\eta^{i_k}}(x^k) - x^k}^2.
+		$$
+	\end{enumerate}
+	Recall that when the stepsize is $1/L$, where $L$ is the Lipschitz constant of $f$, then the inequality is satisfied. And $L_k/
+	\eta$ makes the inequality not satisfied. So we must have $L_k/\eta<L$, $L_k<\eta L$. Then
+	$$
+	s\leq L_k \leq \max\{s,\eta L\}.
+	$$
 	\begin{proposition}
-		Suppose we use the method of the steepest descent 
-		$$
-		x^{k+1}=x^k -\alpha^k \grad f(x^k),
-		$$
-		where the stepsize $\alpha^k$ is chosen to be constant, i.e. $\alpha^k \triangleq \alpha$. Then
-		$$
-		\frac{\norm{x^{k+1}}}{\norm{x^k}}\leq \frac{M-m}{M+m}.
-		$$
-		
-		If the stepsize $\alpha^k$ is chosen according to the minimization rule
-		$$
-		\alpha^k=\arg\min_{\alpha\geq 0}f(x^k-\alpha \grad f(x^k)).
-		$$
-		Then, for all $k$,
-		$$
-		f(x^{k+1})\leq \left(\frac{M-m}{M+m}\right)^2 f(x^k).
-		$$
+		Assume $(x^k)$ is the sequence generated by either constant stepsize or backtracking procedure. Then
+		\begin{enumerate}
+			\item $(f(x^k))$ is non-increasing.
+			\item $(\norm{x^k-x^*})$ is non-increasing for any $x^*\in X$.
+			\item $f(x^k)-f(x^*)\leq \frac{\alpha L\norm{x^0-x^*}^2}{2k}$ for any $k\in \N$ and $x^*\in X$.
+			\item $\{x^k\}$ converges to some optimal solution as $k\to\infty$.
+			\item for any $k\in \N$ and $x^*\in X$, we have
+			$$
+			\min_{i=0,\dots,k}\norm{\grad f(x^i)}\leq \frac{2\alpha^{1.5}L\norm{x^0-x^*}}{\sqrt{\beta}k}.
+			$$
+		\end{enumerate}
 	\end{proposition}
+
+	\subsection{when $f$ is strongly convex}
+	\begin{proposition}
+		Suppose $f$ is $L$-Lipschitz differentiable and $\sigma$-strongly convex. $(x^k)$ is generated by either constant stepsize or backtracking procedure. Let
+		$$
+		\alpha=
+		\begin{cases}
+			1, & \quad \text{constant stepsize}\\
+			\max\{\eta,s/L\}, &\quad \text{backtracking procedure}.
+		\end{cases}
+		$$
+		Then
+		\begin{enumerate}
+			\item $\norm{x^{k+1}-x^*}^2\leq (1-\frac{\sigma}{\alpha L})\norm{x^k-x^*}^2$;
+			\item $\norm{x^{k+1}-x^*}^2\leq(1-\frac{\sigma}{\alpha L})^k\norm{x^0-x^*}^2$;
+			\item $f(x^k)-f(x^*)\leq \frac{\alpha L}{2}(1-\frac{\sigma}{\alpha L})^{k}\cdot \norm{x^0-x^*}^2$.
+		\end{enumerate}
+	\end{proposition}
+	\begin{proof}
+		Use Eq. (\ref{eq:fundamental gradient plug in}) and $f$ is $\sigma$-strongly convex.
+	\end{proof}
+	
+	
+	\section{Newton's Method}
+	Assume $f\in C^2$.
+	
+	The idea of Newton's Method is to use local quadratic function to get $f(x^{k+1})<f(x^k)$. Using Taylor's expansion, the approximation quadratic function of $f(x)$ at $x^k$ is
+	$$
+	q(x)=f(x^k)+\grad f(x^k)^\T (x-x^k)+\frac{1}{2} (x-x^k)^\T \grad^2 f(x^k)(x-x^k).
+	$$
+	The minimizer of $q(x)$ is
+	$$
+	x^{k+1} = x^k- (\grad^2 f(x^k))^{-1} \grad f(x^k)
+	$$
+	by setting $\grad q(x)=0$.
+	
+	However, note that even if $\grad^2 f(x^k)\succ 0$, objective descent is not guaranteed. Instead, we have the following result.
+	\begin{lemma}
+		If the Hessian $\grad^2 f(x^k)\succ 0$ and $\grad f(x^k)\neq 0$, then the search direction
+		$$
+		d^k=-(\grad^2 f(x^k))^{-1}\grad f(x^k)
+		$$
+		is a descent direction, that is, there exists $\overline{\alpha}>0$ such that
+		$$
+		f(x^{k}_\alpha d^k)<f(x^k)
+		$$
+		for all $\alpha\in (0,\overline{\alpha})$.
+	\end{lemma}
+	The appearance of searching direction would result in more general descent algorithms.
+	
+	\begin{example}[quadratic function minimization]
+		The objective function is 
+		$$
+		f(x)=\frac{1}{2}x^\T Q x-b^\T x.
+		$$
+		Assume that $Q$ is symmetric and invertible. Then $\grad f(x)=Qx-b$, $\grad^2f(x)=Q$. Then solve $\grad f(x)=0$, $x^*=Q^{-1}b$. By Newton's Method,
+		$$
+		x^1=x^0-(\grad^2 f(x^0))^{-1}\grad f(x^0)=x^0-Q^{-1}(Qx^0-b)=Q^{-1}b=x^*.
+		$$
+		The solution is obtained in one step.
+	\end{example}
+	
+	There are some issues in Newton's method:
+	\begin{enumerate}
+		\item when the dimension $n$ is large, obtain $\grad^2 f(x^k)$ can be computationally expensive;
+		\item when Hessian is not positive definite, the direction is not necessarily descending.
+	\end{enumerate}
+	
+	\section{Convergence Rate of Newton's Method}
+	Let $e^k=x^k-x^*$.
+	\begin{proposition}
+		Suppose $f\in C^2$, $F$ is Lipschitz continuous near $x^*$ and $\grad f(x^*)=0$. If $x^k$ is sufficiently close to $x^*$ and $\grad^2 f(x)\succ 0$, then there exists $C>0$ such that
+		\begin{equation*}
+			\norm{e^{j+1}}\leq C\norm{e^j},
+		\end{equation*}
+		for $j=k,k+1,\dots$.
+	\end{proposition}
+
+
+
+
+
+	\section{Modified Newton's Method}
+	In this section, we introduce several modified Newton's methods. There are Greenstadt Method, Levenberg-Marquardt Method and modified Choleky/ Gill-Murray Method.
+	
+	
+	
+	\section{Gauss-Newton Method}
+	The Gauss-Newton Method solves a particular class of problems: the non-linear least squares: given functions $r_i:\R^n\to \R$, $i=1,\dots,m$,
+	\begin{equation}
+		\min_x \frac{1}{2} \sum_{i=1}^m (r_i(x))^2.
+	\end{equation}
+	If we define $r=(r_1,\dots,r_m)^\T$. Then the problem becomes
+	\begin{equation}
+		\min_x f(x)\triangleq \frac{1}{2} r(x)^\T r(x).
+	\end{equation}
+	The gradient $\grad f(x)$ is formed by components
+	$$
+	(\grad f(x))_j = \frac{\partial f}{\partial x_j}(x)=\sum_{i=1}^m r_i(x)\frac{\partial r_i}{\partial x_j}(x).
+	$$
+	Define the Jocobian of $r$,
+	$$
+	J(x)=\left(\frac{\partial r_i}{x_j}(x)\right)_{1\leq i\leq m, 1\leq j\leq n}.
+	$$
+	Then we have 
+	\begin{equation}
+		\grad f(x)=J(x)^\T r(x).
+	\end{equation}
+	Now calculate $\grad^2f(x)$. We have
+	\begin{equation}
+		\begin{split}
+			\frac{\partial^2 f}{\partial x_k\partial x_j}
+			&=\frac{\partial }{\partial x_k}\left(\sum_{i=1}^m r_i(x)\frac{\partial r_i}{\partial x_j}(x)\right)\\
+			&=\sum_{i=1}^m \left(\frac{\partial r_i}{\partial x_k}(x)\frac{\partial r_i}{\partial x_j}(x)+
+			r_i(x)\frac{\partial^2 r_i}{\partial x_k\partial x_j}(x)\right).
+		\end{split}
+	\end{equation}
+	Compare this with $J(x)$, let
+	$$
+	(S(x))_{k,j}=r_i(x)r_i(x)\frac{\partial^2 r_i}{\partial x_k\partial x_j}(x).
+	$$
+	Then
+	\begin{equation}
+		\grad^2 f(x)=J(x)^\T J(x)+S(x).
+	\end{equation}
+	Therefore, if we use the Newton's Method, then
+	\begin{equation}\label{eq:Newton least square}
+		x^{k+1}=x^k-(J(x)^\T J(x)+S(x))^{-1}J(x)^\T r(x).
+	\end{equation}
+	Guass-Newton just ignored $S(x)$ in Eq. (\ref{eq:Newton least square}) to save computation, so it is
+	\begin{equation}
+		x^{k+1}=x^k-(J(x)^\T J(x))^{-1}J(x)^\T r(x).
+	\end{equation}
+	
+	The class of problems formed like non-linear least square appears when data-fitting.
+	\begin{example}[non-linear data-fitting]
+		Given a model 
+		$$
+		y=A\sin(\omega t+\phi).
+		$$
+		Determine $A,\omega,\phi$ by observations $(t_i,y_i)_{i=1}^n$. Then the optimization problem should be
+		$$
+		\min_{A,\omega,\phi}\sum_{i=1}^n (y_i-A\sin(\omega t_i+\phi))^2.
+		$$
+		The $r_i(x)$ is $y_i-A\sin(\omega t_i+\phi)$ here.
+	\end{example}
+	
+	
+	
+	\chapter{Linear Programming}
+	\section{Geometric Concepts}
+	Consider in $\R^n$, $\{x:a^\T x=b\}$ is called a \emph{hyperplane}. $\{x:a\T x\geq b\}$ is called a \emph{halfspace}. The intersection of finitely many halfspaces is called a \emph{polyhedron}.
+	
+	\begin{definition}[extreme points]
+		Consider the polyhedron $P=\{x:Ax\geq b\}\subseteq \R^n$. $x\in P$ is an \emph{extreme point} of $P$ if there is no $y,z\in P$ that not equals to $x$ such that $x=\lambda y+(1-\lambda )z$ for $0<\lambda <1$.
+	\end{definition}
+	 In other words, an extreme point is not strictly within the line segment connecting two other points in $P$.
+	 
+	 \begin{definition}[vertex]
+	 	Still in $P$. $x\in P$ is a \emph{vertex} of $P$ if there exists $c\in \R^n$ such that $c^\T x<c^\T z$ for all $z\in P-\{x\}$. 
+	 \end{definition}
+	In other words, a vertex is the unique minimizer of some linear function over $P$.
+	
+	\begin{lemma}\label{lem:n constraint}
+		A vertex or extreme point has $n$ linearly independent active constraints.
+	\end{lemma}
+	\begin{proof}
+		If not, then the point will lie in a line, which contradicts the fact that there is no line connecting it for extreme points and the minimizer is unique for vertex.
+	\end{proof}
+	
+	\section{Standard Form of Linear Programming}
+	A standard linear programming problem consists of the following:
+	\begin{enumerate}
+		\item a variable $x\in \R^n$;
+		\item a cost vector $c\in \R^n$;
+		\item a right hand side vector $b\in \R^m$;
+		\item coefficient matrix $A\in \mathbb{M}_{m\times n}(\R)$.
+	\end{enumerate}
+	The standard form is 
+	\begin{equation}\label{eq:LP standard}
+		\begin{split}
+			&\min c^\T x\\
+			&\text{subject to }Ax=b, x\geq0
+		\end{split}.
+	\end{equation}
+	Any non-standard form can be reformulated to the standard form. We have the following methods:
+	\begin{enumerate}
+		\item ``maximum'' objective function: turn to minimize its negative;
+		\item $\leq $ constraint: add non-negative slack variable;
+		\item $\geq $ constraint: subtract non-negative slack variable;
+		\item $x_i\leq 0$: substitute $x_i$ by $-x_i$ throughout;
+		\item free $x_i$: introduce $u_i,v_i\geq 0$ and substitute $u_i-v_i$ throughout;
+		\item constraint $\abs{x_i}\leq b_i$: replace by $x_i\leq b_i$ and $-x_i\leq b_i$ then substitute $x_i$ by $u_i-v_i$;
+		\item objective function contains $|x_i|$: introduce $u_i,v_i\geq 0$ and substitute $x_i$ by $u_i-v_i$, $|x_i|$ by $u_i+v_i$.
+	\end{enumerate}
+
+	\section{Assumptions in Linear Programming}
+	Now assume we have a linear programming problem with standard form (\ref{eq:LP standard}), with $\rank(A)=m$, i.e. it is full rank on rows, the constraints are linearly independent. Further assume that $m<n$ since if $m\geq n$, then $Ax=b$ would have only one or no solution. We can also assume $b\geq 0$ (means every component greater than zero), since we can force the corresponding rows of $A$ to change sign. 
+	
+	For convenience, we often reorder the columns of $A$ so that the columns we are interested in appear first. Specifically, let $B$ be a matrix whose columns are $m$ linearly independent of $A$. We would often reorder the columns of $A$ so that the columns in $B$ appears first: $A=[B,D]$, where $B\in \mathbb{M}_{m\times m}(\R)$ is full rank and $D\in \mathbb{M}_{m\times (n-m)}$. 
+	
+	Therefore, $Bx_B=b$ is solvable with $x_B=B^{-1}b$. Note that $x=[x_B^\T,0^\T]^\T$ is a solution to $Ax=b$ since 
+	$$
+	\begin{bmatrix}
+		B & D
+	\end{bmatrix}
+	\begin{bmatrix}
+		x_B\\
+		0
+	\end{bmatrix}
+	=B x_B=b.
+	$$
+	\begin{definition}
+		\begin{enumerate}
+			\item We call $[x_B^\T,0^\T]^\T$ a \emph{basic solution} to $Ax=b$ with respect to $B$. We refer to the components of the vector $x_B$ as \emph{basic variables} and the columns of $B$ as basic columns.
+			\item If some of the basic variables in $x_B$ are zero, then the basic solution is said to be a \emph{degenerate basic solution}.
+			\item A vector $x$ satisfying $Ax=b$, $x\geq 0$ is said to be a \emph{feasible solution}.
+			\item A feasible solution that is also basic is called a \emph{basic feasible solution}.
+			\item If the basic feasible solution is a degenerate basic solution, then it is called a \emph{degenerate basic feasible solution}.
+		\end{enumerate}
+	\end{definition}
+	
+	In the proceeding sections, we would use the above assumptions and terminologies.
+	
+	\section{Properties of Basic Solution}
+	Recall Lemma \ref{lem:n constraint} that any extreme point of $P$ is given by $n$ equality constraints. We have already have $m$ in $Ax=b$, so we should select $(n-m)$ constraints from $x_1\geq0,\dots,x_n\geq 0$.
+	
+	Note that if $A=[B,D]$ and $B$ is of full rank $m$, then 
+	$$
+	\rank \begin{bmatrix}
+		B & D\\
+		0 & I
+	\end{bmatrix}
+	=\rank \begin{bmatrix}
+		B & 0\\
+		0 & I
+	\end{bmatrix}=n.
+	$$
+	Therefore, setting $(n-m)$ components to zero would uniquely determine a feasible point in $\R^n$.
+	
+	Conversely, in order to select an extreme point $x$ of $P$, we should find $B$ with rank $m$ and compute $x=[x_B^\T,0^\T]^\T$ and check if $x_B\geq 0$. If yes, then it should be an extreme point of $P$ (we haven't prove this, see Theorem \ref{thm:extreme point and bfs}).
+	
+	\begin{definition}[optimal feasible solution]
+		Any vector $x$ that yields the minimum value of the function $c^\T x$ over the set of all feasible vectors is said to be an \emph{optimal feasible solution}.
+	\end{definition}
+	An optimal feasible solution that is basic is said to be an \emph{optimal basic feasible solution}.
+	
+	\begin{theorem}[The Fundamental Theorem of Linear Programming]
+		\label{thm:Fundamental Theorem of Linear Programming}
+		Consider a linear program in standard form satisfied our assumptions.
+		\begin{enumerate}
+			\item If there exists a feasible solution, then there exists a basic feasible solution.
+			\item If there exists an optimal feasible solution, then thre exists a optimal basic feasible solution.
+		\end{enumerate}
+	\end{theorem}
+	\begin{proof}
+		Consider two cases. Let $A=[a_1,\dots,a_p,\dots,a_n]$, where $p$ is the number of positive components of the given solution. Note that the order of the columns is reordered correspond to $x=[x_1,\dots,x_p,\dots,x_n]^\T$. Then 
+		$$
+		x_1a_1+x_2a_2+\dots x_pa_p=b.
+		$$
+		Case 1 for $a_1,\dots,a_p$ linearly independent, which is an easy case. Case 2 for linearly dependent. Try eliminate $p$ to $p-1$ repeatly. Note that linear depending means that there exists a non-zero solution $y=[y_1,\dots,y_p,0,\dots,0]$ such that
+		$$
+		y_1a_1+y_2a_2+\dots+y_pa_p=0.
+		$$
+		Then the solution $x-\epsilon y$ would still satisfy $A[x-\epsilon y]=b$, which makes $x$ not basic since it is not an extreme point
+		\footnote{
+		Actually the proof does not need to $x$ is not basic. Instead, it needs eliminating components to make it to be basic. The illustrating here just help understand the process of the proof. For the reason, see preceding sections.
+		}.
+	\end{proof}
+	Due to item 2, in order to find optimal feasible solution, we only need to find optimal basic solution.
+	
+	\section{Connecting Basic Feasible Solutions and Extreme Points}
+	\begin{theorem}\label{thm:extreme point and bfs}
+		Let $\Omega$ be the convex set consisting of all feasible solutions. Then $x$ is an extreme point of $\Omega$ if and only if $x$ is a basic feasible solution to $Ax=b$.
+	\end{theorem}
+	\begin{proof}
+		Suppose $x$ is an extreme point, then
+		$$
+		z_1=[x_1+\epsilon y_1,x_2+\epsilon y_2,\dots,x_p+\epsilon y_2,0,\dots,0],
+		$$
+		and 
+		$$
+		z_2=[x_1-\epsilon y_1,x_2-\epsilon y_2,\dots,x_p-\epsilon y_2,0,\dots,0],
+		$$
+		where $x_i,y_i$ is the same in the proof of Theorem \ref{thm:Fundamental Theorem of Linear Programming}. Note that for small $\epsilon$, $z_1,z_2$ are both feasible. Then $x=1/2(z_1+z_2)$ is also feasible. Since $x$ is an extreme point, $z_1=z_2$ so that $y_i=0$. Then $a_1,\dots,a_p$ are linearly independent.
+		
+		On the other side, assume $x\in \Omega$ a basic feasible solution. Let $y,z\in \Omega$ such that $x=\alpha y+(1-\alpha)z$ for some $\alpha\in (0,1)$. We need to show $y=z$. Since the last $n-m$ components of $x$ are zero, the last $n-m$ components of $y,z$ are zero as well since $y,z\geq 0$. And note that
+		$$
+		(y_1-z_1)a_1+\dots (y_m-z_m)a_m=0.
+		$$
+		We have $y_i=z_i$, $i=1,\dots,m$.
+	\end{proof}
+	
+	Combined with Theorem \ref{thm:Fundamental Theorem of Linear Programming} and Theorem \ref{thm:extreme point and bfs}, we can see that in solving linear programming problems, we need only examine the extreme points of the constraint set.
+	
+	\section{Simplex Method}
+	In the remainder of this section, we assume that every basic feasible solution of the linear programming problem is a non-degenerated basic feasible solution. We make this assumption primarily for convenience -- all arguments can be extended to include degeneracy.
+	
+	The essence of the simplex method is to move from one basic feasible solution to another until an optimal basic feasible solution is found.
+	
+	An edge in $\R^n$ is obtained from an basic feasible solution by removing one equation from the $n$ linearly independent equations that define it. More precisely, consider the basic feasible solution $x=[x_B^\T,0^\T]^\T$ with $A=[B,D]$. Denotes the index sets $I_B=\{1,\dots,m\}$ and $I_D=\{m+1,\dots,n\}$. Then $x$ is in fact controlled by
+	$$
+	\{x\}=\{x: Ax=b, x_i=0, \forall i\in I_D\}.
+	$$
+	Then pick $j\in I_D$, the edge connected to $x$ is then
+	$$
+	\{x\geq 0: Ax=b,x_i=0,\forall i\in I_D-\{j\}\}.
+	$$
+	The edge direction for the basic feasible point $x$ corresponding to $x_j$ is
+	$$
+	\delta^j =
+	\begin{bmatrix}
+		-B^{-1}a_j\\
+		0\\
+		\vdots\\
+		1\\
+		\vdots\\
+		0
+	\end{bmatrix},
+	$$
+	where $a_j$ is the $j$-th column of $A$ and $a_j=B \mathbb{M}_B(a_j)$. So that $B^{-1} a_j$ can be understood as the representation of $a_j$ under basis $B$. Note that $A\delta^j=0$. Therefore,
+	\begin{equation}\label{eq:feasible direction}
+		\{x\geq 0: Ax=b,x_i=0,\forall i\in I_D-\{j\}\}=\{y\geq 0:y=x+\epsilon \delta^j,\epsilon\geq 0\}.
+	\end{equation}
+	The unit change in $c^\T x$ along $\delta^j$ is 
+	$$
+	\bar{c}_j = c^\T \delta^j=c_j-c_B^\T B^{-1}a_j.
+	$$
+	If $\bar{c}_j<0$, then the direction will decrease the objective function.
+	
+	The \emph{reduced cost vector} is defined as
+	$$
+	\bar{c}^\T \triangleq c^T - c_B^\T B^{-1} A,
+	$$
+	which is also $\bar{c} = [\bar{c}_1,\dots,\bar{c}_n]^\T$. Note that in basic part $\bar{c}_B^\T = c_B^T - c_B^\T B^{-1} B=0$.
+	
+	\begin{theorem}
+		Let $A=[B,D]$, where $\rank(B)=m$. Suppose that $x=[x_B^\T,0^\T]^\T$ is a basic feasible solution. Then $x$ is optimal if and only if 
+		$$\bar{c}^\T = c^\T - c_B^\T B^{-1}A\geq 0^\T.$$
+	\end{theorem}
+	The theorem states that if all the direction of reduced cost cannot decrease the objective function, then the basic feasible solution is the optimal.
+	\begin{proof}
+		A Rigorous proof need more tedious matrix algebra, see Chapter 16 in \cite{chong2004introduction}.
+	\end{proof}
+	
+	At this point we have all the necessary steps for the simplex algorithm.
+	\begin{enumerate}
+		\item Select linearly independent columns in $A$ to form $B$;
+		\item Calculate the corresponding basic feasible solution $x$;
+		\item check if $\bar{c}^\T\geq 0^\T$. If yes, then return $x$ as the optimal basic feasible solution. If not:
+		\begin{enumerate}
+			\item choose $j$ such that $\bar{c}_j<0$ and then move along $\delta^j$ to get a new basic feasible solution $x'$;
+			\item update basis $B'$ corresponding to $x'$;
+			\item Return to step 3.
+		\end{enumerate}
+	\end{enumerate}
+	Note that in Step 3(c) there might be a case that $\delta^j_B=-B^{-1}a_j\geq 0$, then for any $\alpha\geq0$, $x+\alpha \delta^j\geq0$ and it is feasible, the problem is thus unbounded since $c^\T (x+\alpha \delta^j)$ is unbounded.
+	
+	For step 3(a), recall that the feasible direction is (\ref{eq:feasible direction}). To arrive at another basic feasible solution, let
+	$$
+	\epsilon_{\min} = \min \left\{\frac{x_i}{-\delta_i^j}:i\in I_B,\delta^j_i<0\right\}.
+	$$
+	In other words, $\epsilon_{\min}$ is the smallest scalar such that for some index $i$ in $I_B$, $x_i+\alpha \epsilon=0$ and $x_j+\alpha \epsilon\geq 0$ for all $j\in I_B$.
+	
+	In step 1, a question is how to select linearly independent columns. An easy case is when the original constraint looks look $Ax\leq b$ and $x\geq 0$. Then adding slack variable, we would have
+	$$
+	[A,I]
+	\begin{bmatrix}
+		x\\
+		s
+	\end{bmatrix}=b.
+	$$
+	Then an obvious basis is $I$. And the corresponding basic feasible solution is $x_B=b$. For general case, we do not have any quick methods other than checking the rank of trials.
+	
+	A final question is: why we assume in the beginning of the section that $x$ is non-degenerate? What would happen if the case occurs? The issue happens in step 3(a), that $\epsilon_{\min}$ might be zero so that the basic feasible solution remains unchanged.
+	
+	
+	
+	
+	
+	\chapter{Optimization Problem with Simple Constraints}
+	\section{Optimality Conditions}
+	We now consider function $f:C\to \R$, where $C$ is a convex closed set of $\R^n$ and $f$ is a differentiable function (not necessarily continuous differentiable as compared with the conditions in Section \ref{sec:general optimality condition}). 
+	
+	\begin{theorem}[First Order Necessary Condition]
+		Let $f:\R^n\to \R$ be a differentiable function and $C$ is a convex closed set of $\R^n$. Then
+		\begin{enumerate}
+			\item if $x^*$ is a local minimizer of $f$ over $C\subset \R^n$, then
+			$$
+			\grad f(x^*)^\T (x-x^*)\geq 0
+			$$
+			for all $x\in C$.
+			\item Moreover, suppose that $f$ is a convex function on $C$. Then $x^*$ is a global minimum of $f$ over $C$ if and only if
+			$$
+			\grad f(x^*)^\T (x-x^*)\geq 0
+			$$
+			for all $x\in C$.
+		\end{enumerate}
+	\end{theorem}
+	Rather than the Taylor's expansion treatment in the proofs of Section \ref{sec:general optimality condition}, we would make full use of the convex property of $C$.
+	\begin{proof}
+		To prove item 1, let $x\in C$. Since $C$ is a convex set and $x,x^*$ are both in $C$, for all $\alpha\in [0,1]$, $\alpha x+(1-\alpha)x^*=x^*+\alpha(x-x^*)\in C$. Therefore,
+		$$
+		f(x^*+\alpha(x-x^*))-f(x^*)\geq 0,
+		$$
+		for all $\alpha\in [0,1]$. Dividing the above inequality by $\alpha$ and let $t\to 0$, the result follows as the definition of derivative. More precisely, let $\phi(\alpha)=f(x^*+\alpha(x-x^*))$. Then $\phi'(\alpha)=\grad f(x^*+\alpha (x-x^*))^\T (x-x^*)$, so that $\phi'(0)=\grad f(x^*)^\T (x-x^*)$.
+		
+		To prove item 2, the necessity follows from item 1. Assume that $\grad f(x^*)^\T (x-x^*)\geq 0$ for all $x\in C$. Then by the characterization of convex function, Proposition \ref{prop:First Derivative Characterizations},
+		$$
+		f(x)-f(x^*)\geq \grad f(x^*)^\T (x-x^*)\geq 0,
+		$$
+		for all $x\in C$.
+	\end{proof}
+	
+	\begin{definition}[normal cone]
+		Let $C\subset \R^n$ be a convex set and $x^*\in C$. We say $\eta$ is a \emph{normal vector} to $C$ at $x^*$ if 
+		$$
+		\eta^\T (x-x^*)\leq 0
+		$$
+		for all $x\in C$. The set of normal vectors to $C$ at $x^*$ is called the \emph{normal cone} of $C$ at $x^*$ and is denoted by
+		$$
+		N_C(x^*)=\{\eta\in \R^n:\eta^\T (x-x^*)\leq 0,\forall x\in C \}.
+		$$
+	\end{definition}
+	The geometric meaning of normal cone at $x^*$ is the direction that is ``outside'' the tangent of $x$. Therefore if $x^*$ is an interior point, then $N_C(x^*)=\{0\}$.
+	\begin{corollary}
+		Let $f:\R^n \to \R$ be a differentiable function and $C$ is a convex closed set of $\R^n$. Then
+		\begin{enumerate}
+			\item if $x^*$ is local minimizer of $f$ over $C$, then
+			$$
+			0\in \grad f(x^*)+N_C(x^*).
+			$$
+			\item Moreover, suppose that $f$ is a convex function on $C$. Then $x^*$ is a global minimum of $f$ over $C$ if and only if
+			$$
+			0\in \grad f(x^*)+N_C(x^*).
+			$$
+		\end{enumerate}
+	\end{corollary}
+	\begin{proof}
+		Just note that $0\in \grad f(x^*)+N_C(x^*)$ if and only if $-\grad f(x^*)\in N_C(x^*)$ if and only if $\grad f(x^*)^\T (x-x^*)\geq 0$.
+	\end{proof}
+	
+	
+	
+	\section{Functions on Convex Set}
+	\begin{theorem}
+		Suppose that $f$ is a convex function on a bounded closed convex set $C$. Further assume that $f$ has a global maximum on $C$. Then one can find a global maximum which lies at the boundary point of $C$.
+	\end{theorem}
+	\begin{proof}
+		If not, then a line through $x$ intersects the boundary will leads to a contradiction.
+	\end{proof}
+	
+	Recall that the propositions and theorems in Hilbert space of closest points, see my notes on Analysis in the part of Hilbert space, functional analysis. It is easy to state the following theorems and propositions.
+	\begin{theorem}[The Closest Point Theorem]
+		Let $C$ be a closed convex set in $\R^n$ and $y\notin C$. Then there exists a unique $x^*\in C$ that is the closest point in $C$ to $y$. And for every $x\in C$,
+		$$
+		\inner{y-x^*,x-x^*}\leq 0.
+		$$
+	\end{theorem}
+	\begin{corollary}[Basic Separation]
+		Suppose that $C$ is a closed convex set in $\R^n$ and $y\notin C$. Then there exists $0\neq a\in \R^n$ and $\alpha\in \R$ such that
+		$$
+		\inner{a,x}\leq \alpha <\inner{a,y}.
+		$$
+	\end{corollary}
+	This theorem means that there exists a linear function such that $f(x)<f(y)$ for all $x\in C$, i.e. a separation function.
+	
+	\begin{lemma}[Support Lemma]
+		Suppose that $C$ is a non-empty convex set in $\R^n$ and $z$ is a boundary point of $C$. Then there exists $0\neq a\in \R^n$ such that 
+		$$
+		\inner{a,x}\leq \inner{a,z},
+		$$
+		for all $x\in C$.
+	\end{lemma}
+	\begin{proof}
+		Use the basic separation to construct a sequence and consider $\overline{C}$.
+	\end{proof}
+	This lemma shows that there exists a linear function that ``supports'' the convex set, i.e. $f(x)\leq f(z)$ for all $x\in C$ and $z\in \partial C$.
+	
+	
+	\section{Subgradient}
+	\begin{lemma}[Existence of Subgradient]\label{lem:Existence of Subgradient}
+		Suppose that $C$ is a non-empty convex set and $f:C\to \R$ is convex. If $x^*\in C^\circ$, then there is a vector $d\in \R^n$ such that
+		$$
+		f(x)\geq f(x^*)+d^\T (x-x^*)
+		$$
+		for all $x\in C$.
+	\end{lemma}
+	\begin{proof}
+		Since $f$ is convex, the epigraph of $g$ is a convex set. It is obvious that $(x^*,f(x^*))\in \epi(f)$ and hence $\epi(f)$ is non-empty convex set. Note that $(x^*,f(x^*))$ lies on the boundary of $\epi(f)$. By the Support Lemma, there exists $(b,c)\in \R^n \times \R$ such that
+		$$
+		b^\T x+cr\leq b^\T x^* + cf(x^*),
+		$$
+		for any $(x,r)\in \epi(f)$, which implies that
+		\begin{equation}\label{eq:pf in subgradient}
+			b^\T (x-x^*)\leq c(f(x^*)-r)
+		\end{equation}
+		for all $r\geq f(x)$. Since $r$ can go to $\infty$, $c\leq 0$.
+		
+		We now show that $c<0$. If $c=0$, then $b^\T (x-x^*)\leq 0$ for all $x\in C$. However, this is not possible since $x^*\in C^\circ$. Hence $c<0$. Then let $r=f(x)$ and set $d^\T=-b^\T/c$ in Eq. (\ref{eq:pf in subgradient}), the result follows.
+	\end{proof}
+	
+	\begin{definition}[subgradient]
+		Let $C\subseteq \R^n$ be a convex set and $f$ be a convex function defined on $C$. A vector $d\in \R^n$ satisfying
+		$$
+		f(x)\geq f(x^*)+d^\T (x-x^*)
+		$$
+		for all $x\in C$ is called a \emph{subgradient} of $f$ at $x^*$. We denote the set of all subgradients at $x$ by
+		$$
+		\partial f(x^*)\triangleq \{d\in \R^n: f(x)\geq f(x^*)+d^\T(x-x^*),\forall x\in C\}.
+		$$
+	\end{definition}
+	Lemma \ref{lem:Existence of Subgradient} guarantees that if $x^*\in C^\circ$ and $f$ is a convex function, then the subgradient exists.
+	
+	In the case when $f$ is convex and differentiable at $x^*$, $$\partial f(x^*)=\{\grad f(x^*)\}=\grad f(x^*).$$
+
+	The following is a trivial but important fact.
+	\begin{theorem}
+		Let $C\subseteq \R^n$ be an open convex set and $f:\R^n\to \R$ be a convex function. Then $x^*$ is a global minimizer of $f$ on $C$ if and only if $0\in \partial f(x^*)$.
+	\end{theorem}
+	\begin{proof}
+		Note that $f(x)\geq f(x^*)$ if and only if $f(x)\geq f(x^*)+0^\T (x-x^*)$.
+	\end{proof}
+
+	
+	
+	
+	\section{Value Functions and Envelop Theorems}
+	Suppose the objective function $f$ is of the form
+	$$
+	f(x,\alpha)=f(x_1,\dots,x_n,\alpha_1,\dots,\alpha_k),
+	$$
+	where $x\in S\subseteq \R^n$ and $\alpha\in \R^k$. Assume that we have found the minimum of $f(x,\alpha)$ for each fixed $\alpha$. We denote this value by $V(\alpha)$ and call it the \emph{value function}, i.e.
+	$$
+	V(\alpha)=\min_{x\in S} f(x,\alpha).
+	$$
+	If we denote $x^*(\alpha)$ the minimizer of $f(x,\alpha)$ for fixed $\alpha$, then $V(\alpha)=f(x^*(\alpha),\alpha)$. Note that the minimizer might not be unique and $x^*(\alpha)$ just denotes one of them.
+	
+	Envelope theorem illustrates the ``sensitivity'' of the minimal, i.e. the change of $V(\alpha)$. For example,
+	\begin{align*}
+		&\frac{\partial V}{\partial \alpha_i}(\alpha)=\frac{\partial }{\partial \alpha_i}f(x^*(\alpha),\alpha)
+		=\sum_{i=1}^n \frac{\partial f}{\partial x_i}(x^*(\alpha),\alpha)\frac{\d x_i^*}{\d \alpha_i}(\alpha)
+		+
+		\frac{\partial f}{\partial \alpha_i}(x^*(\alpha),\alpha)\\
+		&=\frac{\partial f}{\partial \alpha_i}(x^*(\alpha),\alpha),
+	\end{align*}
+	where we use $\partial f(x^*(\alpha),\alpha)/\partial x_i=0$ since $x=x^*(\alpha)$ minimizes $f(x,\alpha).$ The result of $\grad V(\alpha)=\grad_\alpha f(x^*(\alpha),\alpha)$ is also deserved. We summarize it in the following theorems with different conditions.
+	\begin{theorem}[Envelop Theorem A]
+		Let $f(x,\alpha): \R^n\times \R^k\to \R$. Let $S\subseteq \R^n$. Consider the problem $\min_{x\in S}f(x,\alpha)$. Suppose that $x^*(\alpha)$ is a solution of this problem for every $\alpha$ in some open ball $B(\bar{\alpha},\delta)$ with $\delta>0$. Furthermore, assume the map $\alpha\mapsto f(x^*(\bar{\alpha}),\alpha)$ (with $\bar{\alpha}$ fixed!) and the value function $V(\alpha)$ are both differentiable at $\bar{\alpha}$. Then 
+		$$
+		\grad V(\bar{\alpha})=\grad_\alpha f(x^*(\bar{\alpha}),\bar{\alpha}).
+		$$
+	\end{theorem} 
+	\begin{proof}
+		Consider the function $\phi(\alpha)=f(x^*(\bar{\alpha}),\alpha)-V(\alpha)$. Show that $\bar{\alpha}$ is the minimizer of $\phi$.
+	\end{proof}
+	
+	\begin{corollary}[Envelop Theorem B]
+		Let $f(x,\alpha)$ be a $C^2$ function for all $x$ in an open convex set $S\subseteq \R^n$ and for each $\alpha$ in an open ball $B(\bar{\alpha},\delta)\subset \R^k$, the function $x\mapsto f(x,\alpha)$ is convex, and when $\alpha=\bar{\alpha}$, the Hessian matrix of $f$ respect to $x$ is positive definite. Moreover, assume that $x^*$ is a minimum for $x\mapsto f(x,\bar{x})$ in $S$. Then $V(\alpha)=\min_{x\in S}f(x,\alpha)$ is defined for all $a\in B(\bar{\alpha},\delta) $. Moreover, the value function is continuously differentiable at $\bar{\alpha}$ and
+		$$
+		\grad V(\bar{\alpha})=\grad_\alpha f(x^*,\bar{\alpha}).
+		$$
+	\end{corollary}
+	\begin{proof}
+		Consider $\grad_x f(x,\alpha)=0$. By the implicit function theorem, $x(\alpha)$ is a $C^1$ function for $\alpha\in B(\bar{\alpha},\epsilon)$. And $x(\alpha)$ is the minimum of $f(x,\alpha)$ for fixed $\alpha$. Since $x(\alpha)$ is differentiable at $\bar{\alpha}$ so is $V(\alpha)=f(x(\alpha),\alpha)$ since $f\in C^2$. Then apply previous Envelop Theorem.
+	\end{proof}
+
+	\begin{corollary}[Envelop Theorem C]
+		Suppose that $V(\alpha)=\inf_{x\in S}f(x,\alpha)$ is finite and convex in $\alpha\in A$, where $A$ is an open convex set in $\R^k$, and $S\subseteq \R^n$. Assume that the point $(x^*,\bar{\alpha})\in S\times A$ satisfies $f(x^*,\bar{\alpha})=V(\bar{\alpha})$ and the gradient vector $\grad_\alpha f$ exists at $(x^*,\bar{\alpha})$. Then the value function $V(\alpha)$ is differentiable at $\bar{\alpha}$ and 
+		$$
+		\grad V(\bar{\alpha})=\grad_\alpha f(x^*,\bar{\alpha}).
+		$$
+	\end{corollary}
+	\begin{proof}
+		Since $A$ is convex and $V(\alpha)$ is a convex function, there exists $\xi\in \partial V(\bar{\alpha})$ such that
+		$$
+		f(x^*,\alpha)-f(x^*,\bar{\alpha})\geq V(\alpha)-V(\bar{\alpha})\geq \xi^\T (\alpha-\bar{\alpha}).
+		$$
+		This means that $\alpha\mapsto f(x^*,\alpha)$ has a subgradient $\xi$ at $\bar{\alpha}$. But by assumption, it is differentiable at $(x^*,\bar{\alpha})$. Therefore, $\xi=\grad_\alpha f(x^*,\bar{\alpha})$, i.e.
+		$$
+		\grad V(\bar{\alpha})=\grad_\alpha f(x^*,\bar{\alpha}).
+		$$
+	\end{proof}
+
+
+
+
+
+
+
+
+
+
+%	\section{Unconstrained Optimality Conditions}
+%	\subsection{General Case}
+%	\begin{theorem}[Necessary Optimality Conditions]
+%		Let $x^*$ be an unconstrained local minimum of $f:\R^n \to \R$, and assume that $f$ is continuously differentiable in an open set $S$ containing $x^*$. Then we have the \emph{First Order Necessary Condition}:
+%		\begin{equation}
+%			\grad f(x^*)=0.
+%		\end{equation}
+%		If in addition $f$ is twice continuously differentiable within $S$, then we have the \emph{Second Order Necessary Condition}:
+%		\begin{equation}
+%			\grad^2 f(x^*)\succeq 0.
+%		\end{equation}
+%	\end{theorem}
+%	The intuition of this theorem is considering
+%	$$
+%	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x,
+%	$$
+%	and similarly for second order,
+%	$$
+%	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x +\frac{1}{2}\Delta x^\T \grad^2 f(x^*)\Delta x.
+%	$$
+%	Read rigorous proof to see the reason.
+%	\begin{proof}
+%		Fix some $d\in \R^n$. Consider $g(\alpha)\triangleq f(x^*+\alpha d)$. Then
+%		$$
+%		0\leq 
+%		\lim_{\alpha\to 0}\frac{f(x^*+\alpha d)-f(x^*)}{\alpha} 
+%		= \frac{\d g}{\d \alpha}(0)=d^\T \grad f(x^*).
+%		$$
+%		The "$\leq$" is because $x^*$ is the local minimum. Replace $d$ by $-d$, then it must be $\grad f(x^*)=0$.
+%		
+%		Assume $f$ is twice differentiable. Then the second order expansion of $g(\alpha)$ in $\alpha=0$ yields
+%		$$
+%		g(\alpha) = g(0) + \frac{\d g}{\d \alpha}(0)\alpha +
+%		\frac{1}{2} \frac{\d^2 g}{\d \alpha^2}(0) \alpha^2 + o(\alpha^2).
+%		$$
+%		Equivalently,
+%		$$
+%		f(x^*+\alpha d) - f(x^*) = d^\T \grad f(x^*)\alpha + \frac{\alpha^2}{2} d^\T \grad^2 f(x^*) d + o(\alpha^2).
+%		$$
+%		Since $\grad f(x^*)=0$, for $\alpha$ positive and near 0, we have
+%		$$
+%		0\leq \frac{f(x^*+\alpha d)-f(x^*)}{\alpha^2}= 
+%		\frac{1}{2} d^\T \grad^2 f(x^*) d + \frac{o(\alpha^2)}{\alpha^2}.
+%		$$
+%		Then let $\alpha\to 0$, we obtain $d^\T \grad^2 f(x^*) d\geq 0$, which means $\grad^2 f(x^*) \succeq 0$.
+%	\end{proof}
+%	
+%	\subsection{Convex Case}
+%	\begin{proposition}
+%		If $X$ is a convex subset of $\R^n$ and $f:\R^n \to \R$ is convex over $X$, then a local minimum of $f$ is also a global minimum. If in addition $f$ is strictly convex over $X$, then $f$ has at most one global minimum over $X$. Moreover, if $f$ is strongly convex and $X$ is closed, then $f$ has a unique global minimum over $X$.
+%	\end{proposition}
+%	
+%	\begin{theorem}[Convex Case - Necessary and Sufficient Conditions]
+%		Let $X$ be a convex set and let $f:\R^n \to \R$ be a convex function over $X$. Then
+%		\begin{enumerate}
+%			\item If $f$ is continuously differentiable, then
+%			$$
+%			\grad f(x^*)^\T(x-x^*)\geq 0
+%			$$
+%			for all $x\in X$ is a necessary and sufficient condition for $x^*$ to be a global minimum of $f$ over $X$.
+%			\item If $X$ is open and $f$ is continuously differentiable over $X$, then $\grad f(x^*)=0$ is a necessary and sufficient condition for $x^*$ to be a global minimum of $f$ over $X$.
+%		\end{enumerate}
+%	\end{theorem}
+%	Note that in the second statement, we require $X$ to be open.
+%
+%	The intuition of this theorem is also
+%	$$
+%	f(x^*+\Delta x)-f(x^*)\approx \grad f(x^*)^\T \Delta x.
+%	$$
+%	The proof of this need the first order characterization of convexity,
+%	$$
+%	f(x)\geq f(x^*) +\grad f(x^*)^\T (x-x^*)
+%	$$
+%	for all $x\in X$.
+%	
+%	A geometric illustration of $\grad f(x^*)^\T(x-x^*)$ is that: $\grad f(x^*)$ is the direction that $f$ increase the most, the condition means that the connection of $x^*$ and all feasible points $x$ in $X$ has angle less than $\frac{\pi}{2}$ with the gradient; in other words, all the direction makes $f$ increase.
+%	
+%	\subsection{Sufficient Conditions}
+%	\begin{theorem}[Second Order Sufficient Optimality Conditions]
+%		Let $f:\R^n \to \R$ be twice continuously differentiable over an open set $S$. Suppose that a vector $x^*\in S$ satisfies the conditions: (i) $\grad f(x^*)=0$ and (ii) $\grad^2 f(x^*)\succ 0$. Then $x^*$ is a strict unconstrained local minimum of $f$. In particular, there exists scalars $\gamma>0$ and $\epsilon>0$ such that
+%		$$
+%		f(x)\geq f(x^*)+\frac{\gamma}{2}\norm{x-x^*}^2
+%		$$
+%		for all $\norm{x-x^*}<\epsilon$.
+%	\end{theorem}
+%	\begin{proof}
+%		Denote $\lambda$ the smallest eigenvalue of $\grad^2 f(x^*)$. Since $\grad^2 f(x^*)\succ 0$, $\lambda >0$. We have $d^\T \grad^2 f(x^*)d \geq \lambda \norm{d}^2$ for all $d\in \R^n$. By the second order Taylor expansion
+%		\begin{align*}
+%			f(x^*+d)-f(x^*)&=\grad f(x^*)^\T d + \frac{1}{2} d^\T \grad^2 f(x^*)d+o(\norm{d}^2)\\
+%			&\geq \frac{\lambda}{2}\norm{d}^2+o(\norm{d}^2)\\
+%			&=\left(\frac{\lambda}{2}+\frac{o(\norm{d}^2)}{\norm{d}^2}\right)\norm{d}^2.
+%		\end{align*}
+%		Then choose $\epsilon>0$ and $\gamma>0$ such that for $\norm{d}<\epsilon$,
+%		$$
+%		\frac{\lambda}{2}+\frac{o(\norm{d}^2)}{\norm{d}^2}\geq \frac{\gamma}{2}.
+%		$$
+%		Then the proof is complete.
+%	\end{proof}
+%
+%
+%
+%	\section{Algorithms: Gradient Methods}
+%	Optimality conditions often provide the basis for the development and the analysis of the algorithms. The idea of the algorithms rely on an important idea, called \emph{iterative descent}, i.e. $f(x^{k+1})<f(x^k)$. Gradient methods, also called gradient descent methods, implement the idea of iterative descent. The iteration is 
+%	\begin{equation}
+%		x^{k+1} = x^k + \alpha^k d^k,
+%	\end{equation}
+%	where $k=0,1,\dots$, $\grad f(x^k)^\T d^k<0$, $\alpha^k\in \R$ and $d^k\in \R^n$. There is a large variety of possibilities for choosing direction $d^k$ and stepsize $\alpha^k$.
+%	
+%	\subsection{Descent Direction}
+%	To make sure $\grad f(x^k)^\T d^k<0$, most gradient methods take the form $d^k =-D^k \grad f(x^k)$, where $D^k$ is a positive definite symmetric matrix. The iteration becomes
+%	\begin{equation}
+%		x^{k+1} = x^k -\alpha^k D^k \grad f(x^k).
+%	\end{equation}
+%	Different choice of $D^k$ result in different methods, see Table \ref{table:descent direction}.
+%	\begin{table}[]
+%		\centering
+%		\begin{tabular}{@{}cc@{}}
+%			\toprule
+%			Name of Method                     & Choice of $D^k$                                                                                                                                 \\ \midrule
+%			Steepest Descent                   & $D^k = I$                                                                                                                                       \\
+%			Newton's Methods                   & $D^k=\left(\grad^2 f(x^k)\right)^{-1}$                                                                                                          \\
+%			Diagonally Scaled Steepest Descent & $D^k=\diag(d_1^k,\dots,d_n^k)$                                                                                                                  \\
+%			Modified Newton's Method           & $D^k=\left(\grad^2 f(x^0)\right)^{-1}$                                                                                                          \\
+%			Gauss Newton Method                & $D^k=(\grad g(x^k)\grad g(x^k)^\T)^{-1}$\\ \bottomrule
+%		\end{tabular}
+%	\caption{
+%		Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \grad f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form 
+%		$f(x)=\frac{1}{2}\norm{g(x)}^2=\frac{1}{2}\sum_{i=1}^m (g_i(x))^2,$
+%		where $g=(g_1,\dots,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training.}
+%	\label{table:descent direction}
+%	\end{table}
+%	
+%	\subsection{Stepsize}
+%	There are a number of rules for choosing the stepsize $\alpha^k$ in a gradient method. We give some that are used widely in practice in Table \ref{table:stepsize}.
+%	% Please add the following required packages to your document preamble:
+%	% \usepackage{booktabs}
+%	\begin{table}[]
+%		\centering
+%		\begin{tabular}{@{}cc@{}}
+%			\toprule
+%			Name of Method            & Choice of $\alpha^k$                                       \\ \midrule
+%			Minimization Rule         & $\alpha^k = \arg\min_{\alpha\geq 0} f(x^k+\alpha d^k)$     \\
+%			Limited Minimization Rule & $\alpha^k = \arg\min_{\alpha\in [0,s]} f(x^k+\alpha d^k)$  \\
+%			Armijo Rule               & $\alpha^k=\beta^{m_k}s$                                    \\
+%			Constant Stepsize         & $\alpha^k =s$                                              \\
+%			Diminishing Stepsize      & $\alpha^k\to 0$, where $\sum_{k=0}^\infty \alpha^k=\infty$ \\ \bottomrule
+%		\end{tabular}
+%	\caption{Various choice of stepsize $\alpha^k$. In Arimijo rule, first choose fix scalars $s,\beta$ and $\sigma$, with $0<\beta<1$ and $0<\sigma<1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta^m s d^k)\geq -\sigma \beta^m s \grad f(x^k)^\T d^k$. Note that here $\beta^m$ means $\beta$ to the $m$-th power. In diminishing method, we require $\sum_{k=0}^{\infty}\alpha^k=\infty$ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to\bar{x}$, then for large $m,n$, $x^m\approx x^n \approx \bar{x}$, also $x^m\approx x^n -(\sum_{k=n}^{m-1}\alpha^k)\grad f(\bar{x})$, which shows $\grad f(\bar{x})$ must be zero.}
+%	\label{table:stepsize}
+%	\end{table}
+%	
+%	
+%	
+%	\subsection{Mathematical Statements for Convergence Results}
+%	There is a common line of proof for the convergence results. The main idea is that the cost function is improved at each iteration and the improvement is ``substantial'' near a non-stationary point, i.e. it is bounded away from zero. We then argue that the algorithm cannot approach a non-stationary point, since in this case the total cost improvement would accumulate to infinity.
+%	
+%	I use ``Proposition'' instead of ``Theorem'' for the convergence results because in my opinion they are just some theoretic backgrounds (results) we should know in applications of the algorithms.
+%	
+%	\begin{definition}[gradient related]
+%		We say that the direction $\{d^k\}$ is \emph{gradient related} to $\{x^k\}$ if for any subsequence $\{x^k\}_{k\in \mathcal{K}}$ that converges to a non-stationary point, the corresponding subsequence $\{d^k\}_{k\in \mathcal{K}}$ is bounded and satisfies
+%		\begin{equation}
+%			\limsup_{k\to\infty,k\in \mathcal{K}}\grad f(x^k)^\T d^k<0.
+%		\end{equation}
+%	\end{definition}
+%	
+%	\begin{proposition}[Stationary of Limit Points]
+%		Let $\{x_k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k + \alpha^k d^k$ and assume that $\{d^k\}$ is gradient related and $\alpha^k$ is chosen by the minimization rule, or the limited minimization rule, or the Armijo rule. Then every limit point of $\{x^k\}$ is a stationary point.
+%	\end{proposition}
+%	\begin{proof}
+%		The key to prove this is noting that if $\{x^k\}$ converges to a non-stationary point, by the assumption of gradient related property of $\{d^k\}$, and by the definition of Armijo rule, we must have for some index $\bar{k}\geq 0$,
+%		$$
+%		f(x^k)-f(x^k+(\alpha^k/\beta)d^k)<-\sigma(\alpha^k/\beta)\grad f(x^k)^\T d^k,
+%		$$
+%		for all $k\in \mathcal{K}$ and $k\geq \bar{k}$; in other words, if $\alpha^k\to 0$ there would exist a slight larger $\alpha^k/\beta$ that does not make ``substantial'' movement, which will result in contradiction.
+%	
+%		For minimization rule, just note that
+%		$$
+%		f(x^k)-f(x^{k+1})\geq f(x^k)-f(\tilde{x}^{k+1})\geq -\sigma(\tilde{\alpha})\grad f(x^k)^\T d^k,
+%		$$
+%		where $\{\tilde{x}\}$ is the sequence generated via Armijo rule and $\{\tilde{\alpha}\}$ is the corresponding stepsize. Then repeat the method to reach contradiction.
+%	\end{proof}
+%
+%	\begin{lemma}[Descent Lemma]
+%		Let $f:\R^n \to \R$ be continuously differentiable, and let $x$ and $y$ be two vectors in $\R^n$. Suppose that
+%		$$
+%		\norm{\grad f(x+ty)-\grad f(x)}\leq L t \norm{y}
+%		$$
+%		for all $t\in [0,1]$, where $L$ is some scalar. Then
+%		$$
+%		f(x+ty)\leq f(x)+y^\T \grad f(x) +\frac{L}{2}\norm{y}^2.
+%		$$
+%	\end{lemma}
+%	We can interpret this lemma as: if $f$ is Lipschitz continuous then the variation of $f(x)$ is controlled by its slope plus $\frac{L}{2}\norm{y}^2$. In fact, Lipschitz condition requires roughly that the ``curvature'' of $f$ is no more than $L$ at all points and in all directions.
+%	
+%	\begin{proposition}[Constant Stepsize]
+%		Let $\{x^k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$, where $\{d^k\}$ is gradient related. Assume that $f$ is $L$-Lipschitz continuous and that for all $k$ we have $d^k\neq 0$ and 
+%		\begin{equation}
+%			\epsilon \leq \alpha^k\leq (2-\epsilon)\bar{\alpha}^k, \label{eq:constant stepsize condition}
+%		\end{equation}
+%		where
+%		$$
+%		\bar{\alpha}^k =\frac{\abs{\grad f(x^k)^\T d^k}}{L\norm{d^k}^2},
+%		$$
+%		and $\epsilon\in(0,1]$ is a fixed scalar. Then every limit point of $\{x^k\}$ is a stationary point of $f$.
+%	\end{proposition}
+%	The intuition of the proof is that by descent lemma, $f(x^k)-f(x^k +\alpha^k d^k)$ is bounded by a quadratic overestimation.
+%	\begin{proof}
+%		By using descent lemma combined with the right hand side of Eq. (\ref{eq:constant stepsize condition}), we have
+%		$$
+%		f(x^k)-f(x^k +\alpha^k d^k) \geq \frac{1}{2}\epsilon^2 \abs{\grad f(x^k)^\T d^k}.
+%		$$
+%	\end{proof}
+%	In the case of steepest descent, the condition on stepsize becomes
+%	$$
+%	\epsilon\leq \alpha^k \leq \frac{2-\epsilon}{L}.
+%	$$
+%	\begin{proposition}[Diminishing Stepsize]
+%		Let $\{x^k\}$ be a sequence generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$. Assume that $f$ is $L$-Lipschitz continuous and there exist positive scalars $c_1,c_2$ such that for all $k$ we have
+%		\begin{equation}
+%			c_1 \norm{\grad f(x^k)}^2 \leq -\grad f(x^k)^\T d^k,\quad \norm{d^k}^2 \leq c_2 \norm{\grad f(x^k)}^2.
+%		\end{equation}
+%		Suppose also that
+%		$$
+%		\alpha^k\to 0, \quad \sum_{k=0}^\infty \alpha^k =\infty.
+%		$$
+%		Then either $f(x^k)\to -\infty$ or else $\{f(x^k)\}$ converges to a finite value and $\grad f(x^k)\to 0$. Furthermore, every limit point of $\{x^k\}$ is a stationary point of $f$.
+%	\end{proposition}
+%	\begin{proof}
+%		Tedious. First use descent lemma to show $\liminf_{k\to\infty}\norm{\grad f(x^k)}=0$. Then separate the sequence into $\norm{\grad f(x^k)}>\epsilon/3$ and $\norm{\grad f(x^k)}\leq \epsilon/3$ to reach contradiction.
+%	\end{proof}
+%	
+%	\begin{theorem}[Capture Theorem]
+%		Let $f$ be continuously differentiable and let $\{x^k\}$ be a sequence satisfying $f(x^{k+1})\leq f(x^k)$ for all $k$ and generated by a gradient method $x^{k+1}=x^k +\alpha^k d^k$, which is convergent in the sense that every limit point of sequences that it generates is a stationary point of $f$. Assume that there exist scalars $s>0$ and $c>0$ such that for all $k$ there holds
+%		$$
+%		\alpha^k \leq s,\quad \norm{d^k}\leq c\norm{\grad f(x^k)}.
+%		$$
+%		Let $x^*$ be a local minimum of $f$, which is the only stationary point of $f$ within some open set. Then there exists an open set $S$ containing $x^*$ such that if $x^{\bar{k}}\in S$ for some $\bar{k}\geq 0$, then $x^k\in S$ for all $k\geq \bar{k}$ and $\lim_{k\to\infty}x^k=x^*$. Furthermore, given any scalar $\bar{\epsilon}>0$, the set $S$ can be chosen so that $\norm{x-x^*}<\bar{\epsilon}$ for all $x\in S$.
+%	\end{theorem}
+%	
+%	\subsection{Rate of Convergence}
+%	Rate of convergence is evaluated using an \emph{error function} $e: \R^n \to \R$ satisfying $e(x)\geq 0$ for all $x\in \R^n$ and $e(x^*)=0$. Typical choices are $e(x)=\norm{x-x^*}$ and $e(x)=\abs{f(x)-f(x^*)}$.
+%
+%	\begin{definition}[linear convergence]
+%		We say that $\{e(x^k)\}$ converges \emph{linearly} if there exist $q>0$ and $\beta\in (0,1)$ such that for all $k$, $e(x^k)\leq q \beta^k$.
+%	\end{definition}
+%	 It is possible to show that linear convergence is obtained if for some $\beta \in (0,1)$ we have
+%	 $$
+%	 \limsup_{k\to\infty}\frac{e(x^{k+1})}{e^{k}}\leq \beta.
+%	 $$
+%	 \begin{definition}[superlinear convergence]
+%	 	If for every $\beta\in (0,1)$, there exists $q$ such that the condition $e(x^k)\leq q\beta^k$ holds for all $k$, we say that $\{e(x^k)\}$ converges \emph{superlinearly}.
+%	 \end{definition}
+%	This is true in particular, if 
+%	$$
+%	\lim_{k\to\infty}\frac{e(x^{k+1})}{e(x^k)}=0.
+%	$$
+%	
+%	Consider 
+%	$$f(x)=\frac{1}{2}x^\T Q x,$$ where $Q$ is positive definite and symmetric. Let $m$, $M$ be the smallest and biggest eigenvalue of $Q$, respectively.
+%	\begin{proposition}
+%		Suppose we use the method of the steepest descent 
+%		$$
+%		x^{k+1}=x^k -\alpha^k \grad f(x^k),
+%		$$
+%		where the stepsize $\alpha^k$ is chosen to be constant, i.e. $\alpha^k \triangleq \alpha$. Then
+%		$$
+%		\frac{\norm{x^{k+1}}}{\norm{x^k}}\leq \frac{M-m}{M+m}.
+%		$$
+%		
+%		If the stepsize $\alpha^k$ is chosen according to the minimization rule
+%		$$
+%		\alpha^k=\arg\min_{\alpha\geq 0}f(x^k-\alpha \grad f(x^k)).
+%		$$
+%		Then, for all $k$,
+%		$$
+%		f(x^{k+1})\leq \left(\frac{M-m}{M+m}\right)^2 f(x^k).
+%		$$
+%	\end{proposition}
 	\appendix
 	\bibliographystyle{alpha}
 	\bibliography{opt_bib.bib} 

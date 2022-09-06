@@ -20,33 +20,74 @@
 \providecommand\HyField@AuxAddToCoFields[2]{}
 \babel@aux{english}{}
 \citation{Bertsekas/99}
-\@writefile{toc}{\contentsline {chapter}{\numberline {1}Preliminaries}{3}{chapter.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Preliminaries}{4}{chapter.1}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {1.1}Derivatives}{3}{section.1.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}Fundamental Concepts}{5}{chapter.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}Derivatives}{4}{section.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}Fundamental Concepts}{6}{chapter.2}\protected@file@percent }
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Convexity}{5}{section.2.1}\protected@file@percent }
-\newlabel{eq:convex}{{2.1.1}{5}{convex set, convex function}{equation.2.1.1}{}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Convex Hull and Affine Hull}{6}{section.2.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Fundamental Terminologies}{6}{section.2.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}General Optimality Condition}{7}{section.2.4}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Unconstrained Optimality Conditions}{8}{section.2.5}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.1}General Case}{8}{subsection.2.5.1}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.2}Convex Case}{9}{subsection.2.5.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.5.3}Sufficient Conditions}{10}{subsection.2.5.3}\protected@file@percent }
-\@writefile{toc}{\contentsline {section}{\numberline {2.6}Algorithms: Gradient Methods}{10}{section.2.6}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.1}Descent Direction}{10}{subsection.2.6.1}\protected@file@percent }
-\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces  Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \nabla f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form $f(x)=\frac  {1}{2}\left \lVert g(x) \right \rVert ^2=\frac  {1}{2}\DOTSB \sum@ \slimits@ _{i=1}^m (g_i(x))^2,$ where $g=(g_1,\dots  ,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training.}}{11}{table.2.1}\protected@file@percent }
-\newlabel{table:descent direction}{{2.1}{11}{Various choice of the positive definite matrix $D^k$, where $d^k=-D^k \grad f(x^k)$. Gauss Newton Method is widely used when the cost function $f(x)$ is of the form $f(x)=\frac {1}{2}\norm {g(x)}^2=\frac {1}{2}\sum _{i=1}^m (g_i(x))^2,$ where $g=(g_1,\dots ,g_m)$, which is a problem often encountered in statistical data analysis and in the context of neural network training}{table.2.1}{}}
-\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Various choice of stepsize $\alpha ^k$. In Arimijo rule, first choose fix scalars $s,\beta $ and $\sigma $, with $0<\beta <1$ and $0<\sigma <1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta ^m s d^k)\geq -\sigma \beta ^m s \nabla f(x^k)^\top d^k$. Note that here $\beta ^m$ means $\beta $ to the $m$-th power. In diminishing method, we require $\DOTSB \sum@ \slimits@ _{k=0}^{\infty }\alpha ^k=\infty $ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to \bar  {x}$, then for large $m,n$, $x^m\approx x^n \approx \bar  {x}$, also $x^m\approx x^n -(\DOTSB \sum@ \slimits@ _{k=n}^{m-1}\alpha ^k)\nabla f(\bar  {x})$, which shows $\nabla f(\bar  {x})$ must be zero.}}{11}{table.2.2}\protected@file@percent }
-\newlabel{table:stepsize}{{2.2}{11}{Various choice of stepsize $\alpha ^k$. In Arimijo rule, first choose fix scalars $s,\beta $ and $\sigma $, with $0<\beta <1$ and $0<\sigma <1$, let $m_k$ be the first non-negative integer $m$ such that $f(x^k)-f(x^k+\beta ^m s d^k)\geq -\sigma \beta ^m s \grad f(x^k)^\T d^k$. Note that here $\beta ^m$ means $\beta $ to the $m$-th power. In diminishing method, we require $\sum _{k=0}^{\infty }\alpha ^k=\infty $ to guarantees that $\{x^k\}$ does not converge to a non-stationary point. Indeed, if $x^k\to \bar {x}$, then for large $m,n$, $x^m\approx x^n \approx \bar {x}$, also $x^m\approx x^n -(\sum _{k=n}^{m-1}\alpha ^k)\grad f(\bar {x})$, which shows $\grad f(\bar {x})$ must be zero}{table.2.2}{}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.2}Stepsize}{11}{subsection.2.6.2}\protected@file@percent }
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.3}Mathematical Statements for Convergence Results}{11}{subsection.2.6.3}\protected@file@percent }
-\newlabel{eq:constant stepsize condition}{{2.6.4}{12}{Constant Stepsize}{equation.2.6.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Convexity}{6}{section.2.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.1}normal convexity}{6}{subsection.2.1.1}\protected@file@percent }
+\newlabel{eq:convex}{{2.1.1}{6}{convex set, convex function}{equation.2.1.1}{}}
+\newlabel{prop:First Derivative Characterizations}{{2.1.3}{6}{First Derivative Characterizations}{definition.2.1.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.1.2}strong convexity}{7}{subsection.2.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Convex Hull and Affine Hull}{7}{section.2.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Fundamental Terminologies}{7}{section.2.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}General Optimality Condition}{8}{section.2.4}\protected@file@percent }
+\newlabel{sec:general optimality condition}{{2.4}{8}{General Optimality Condition}{section.2.4}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}Unconstrained Optimization Algorithms}{10}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {3.1}Gradient Descent Method}{10}{section.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.2}The Method of Steepest Descent}{11}{section.3.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.3}Rate of Convergence}{11}{section.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.4}Convergence Rate of Steepest Descent}{12}{section.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.5}Convergence Rate of Fixed Stepsize Gradient Descent}{13}{section.3.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.1}when $f$ is convex}{14}{subsection.3.5.1}\protected@file@percent }
+\newlabel{thm:Baillon-Haddad}{{3.5.1}{14}{Baillon-Haddad Theorem}{definition.3.5.1}{}}
+\newlabel{eq:fundamental gradient}{{3.5.2}{14}{Fundamental Gradient Inequality}{equation.3.5.2}{}}
+\newlabel{eq:fundamental gradient plug in}{{3.5.3}{15}{when $f$ is convex}{equation.3.5.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.5.2}when $f$ is not necessarily convex}{15}{subsection.3.5.2}\protected@file@percent }
+\newlabel{lem:descent lemma}{{3.5.5}{15}{Descent Lemma}{definition.3.5.5}{}}
+\newlabel{lem:sufficient decrease}{{3.5.6}{16}{sufficient decrease}{definition.3.5.6}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {3.6}Convergence of $(x^k)$ Generated by Gradient Descent}{17}{section.3.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.7}The Method of Backtracking Line Search}{17}{section.3.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.1}when $f$ is not necessarily convex}{17}{subsection.3.7.1}\protected@file@percent }
+\newlabel{eq:satisfy backtracking}{{3.7.1}{18}{when $f$ is not necessarily convex}{equation.3.7.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.2}when $f$ is convex}{18}{subsection.3.7.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.7.3}when $f$ is strongly convex}{19}{subsection.3.7.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.8}Newton's Method}{19}{section.3.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.9}Convergence Rate of Newton's Method}{20}{section.3.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.10}Modified Newton's Method}{20}{section.3.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {3.11}Gauss-Newton Method}{20}{section.3.11}\protected@file@percent }
+\newlabel{eq:Newton least square}{{3.11.6}{21}{Gauss-Newton Method}{equation.3.11.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}Linear Programming}{23}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}Geometric Concepts}{23}{section.4.1}\protected@file@percent }
+\newlabel{lem:n constraint}{{4.1.3}{23}{}{definition.4.1.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}Standard Form of Linear Programming}{23}{section.4.2}\protected@file@percent }
+\newlabel{eq:LP standard}{{4.2.1}{23}{Standard Form of Linear Programming}{equation.4.2.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.3}Assumptions in Linear Programming}{24}{section.4.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.4}Properties of Basic Solution}{25}{section.4.4}\protected@file@percent }
+\newlabel{thm:Fundamental Theorem of Linear Programming}{{4.4.2}{25}{The Fundamental Theorem of Linear Programming}{definition.4.4.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.5}Connecting Basic Feasible Solutions and Extreme Points}{26}{section.4.5}\protected@file@percent }
+\newlabel{thm:extreme point and bfs}{{4.5.1}{26}{}{definition.4.5.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.6}Simplex Method}{26}{section.4.6}\protected@file@percent }
+\citation{chong2004introduction}
+\newlabel{eq:feasible direction}{{4.6.1}{27}{Simplex Method}{equation.4.6.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}Optimization Problem with Simple Constraints}{29}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Optimality Conditions}{29}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Functions on Convex Set}{30}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Subgradient}{31}{section.5.3}\protected@file@percent }
+\newlabel{lem:Existence of Subgradient}{{5.3.1}{31}{Existence of Subgradient}{definition.5.3.1}{}}
+\newlabel{eq:pf in subgradient}{{5.3.1}{31}{Subgradient}{equation.5.3.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}Value Functions and Envelop Theorems}{32}{section.5.4}\protected@file@percent }
 \bibstyle{alpha}
 \bibdata{opt_bib.bib}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.6.4}Rate of Convergence}{14}{subsection.2.6.4}\protected@file@percent }
 \bibcite{Bertsekas/99}{Ber99}
-\gdef \@abspage@last{16}
+\bibcite{chong2004introduction}{CZ04}
+\gdef \@abspage@last{35}

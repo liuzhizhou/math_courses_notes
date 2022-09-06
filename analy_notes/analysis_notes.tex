@@ -136,6 +136,8 @@
 \renewcommand{\d}{\mathrm{d}}
 \renewcommand{\i}{\mathbf{\mathrm{i}}}
 
+\newcommand{\grad}{\nabla}
+
 \newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
 \newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
 \newcommand{\inner}[1]{\left\langle #1 \right\rangle}
@@ -224,7 +226,24 @@
 	\end{align}
 	
 	
+	\chapter{Multivariate Analysis}
+	\section{Lipschitz Differentiable}
+	\begin{definition}[$L$-Lipschitz differentiable]
+		A function $f$ is $L$-Lipschitz differentiable, $L\geq 0$ if $f\in C^1$ and
+		$$
+		\norm{\grad f(x)-\grad f(y)}\leq L\norm{x-y}
+		$$
+		for any $x,y\in \R^n$.
+	\end{definition}
+	It means that the maximum rate of change of $\grad f$ is $L$.
 	
+	\begin{theorem}[Baillon-Haddad Theorem]
+		If $f\in C^1$ is a convex function, then $L$-Lipschitz differentiable if and only if
+		$$
+		\norm{\grad f(x)-\grad f(y)}\leq L\inner{\grad f(x)-\grad f(y),x-y},
+		$$
+		for any $x,y\in \R^n$.
+	\end{theorem}
 	
 	
 	
@@ -1663,6 +1682,20 @@
 		\norm{x-k}=\dist(x,K).
 		$$
 	\end{lemma}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

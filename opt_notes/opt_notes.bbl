@@ -5,4 +5,9 @@ D.P. Bertsekas.
 \newblock {\em Nonlinear Programming}.
 \newblock Athena Scientific, 1999.
 
+\bibitem[CZ04]{chong2004introduction}
+Edwin~KP Chong and Stanislaw~H Zak.
+\newblock {\em An introduction to optimization}.
+\newblock John Wiley \& Sons, 2004.
+
 \end{thebibliography}

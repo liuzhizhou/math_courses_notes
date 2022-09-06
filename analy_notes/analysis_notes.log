@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  3 SEP 2022 13:47
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2021) (preloaded format=pdflatex 2021.8.25)  6 SEP 2022 13:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -766,24 +766,24 @@ File: l3backend-pdftex.def 2021-03-18 L3 backend support: PDF output (pdfTeX)
 (./analysis_notes.aux)
 \openout1 = `analysis_notes.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 156.
-LaTeX Font Info:    ... okay on input line 156.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 158.
+LaTeX Font Info:    ... okay on input line 158.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -849,7 +849,7 @@ Package: lscape 2020/05/28 v3.02 Landscape Pages (DPC)
 )
 Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
 )
-Package hyperref Info: Link coloring ON on input line 156.
+Package hyperref Info: Link coloring ON on input line 158.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
@@ -863,27 +863,27 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 )
 \c@section@level=\count321
 )
-LaTeX Info: Redefining \ref on input line 156.
-LaTeX Info: Redefining \pageref on input line 156.
-LaTeX Info: Redefining \nameref on input line 156.
+LaTeX Info: Redefining \ref on input line 158.
+LaTeX Info: Redefining \pageref on input line 158.
+LaTeX Info: Redefining \nameref on input line 158.
  (./analysis_notes.out) (./analysis_notes.out)
 \@outlinefile=\write6
 \openout6 = `analysis_notes.out'.
 
-LaTeX Font Info:    Trying to load font information for U+msa on input line 157
+LaTeX Font Info:    Trying to load font information for U+msa on input line 159
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 157
+LaTeX Font Info:    Trying to load font information for U+msb on input line 159
 .
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Trying to load font information for U+rsfs on input line 15
-7.
+9.
 
 (/usr/local/texlive/2021/texmf-dist/tex/latex/jknapltx/ursfs.fd
 File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
@@ -894,7 +894,7 @@ File: ursfs.fd 1998/03/24 rsfs font definition file (jk)
 r (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.35 ...4}Sublinear and Seminorm}{30}{section.4.4}
+l.33 ...umberline {5}Banach Spaces}{30}{chapter.5}
                                                   % [1
 
 ])
@@ -907,129 +907,133 @@ l.35 ...4}Sublinear and Seminorm}{30}{section.4.4}
 Chapter 1.
 [4
 
-] [5] [6] [7
-
-] [8]
+] [5] [6]
 Chapter 2.
-[9
+[7
 
-] [10]
+] [8
 
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathop' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathgroup' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\symoperators' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\nmlimits@' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathop' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\mathgroup' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\symoperators' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\nmlimits@' on input line 335.
-
-
-Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 335.
-
-[11] [12] [13] [14]
+] [9]
 Chapter 3.
-[15
+[10
 
-] [16] [17] [18] [19]
-Overfull \hbox (20.62985pt too wide) in paragraph at lines 711--713
+] [11]
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathop' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathgroup' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\symoperators' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\nmlimits@' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathop' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\mathgroup' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\symoperators' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `\nmlimits@' on input line 354.
+
+
+Package hyperref Warning: Token not allowed in a PDF string (Unicode):
+(hyperref)                removing `math shift' on input line 354.
+
+[12] [13] [14] [15]
+Chapter 4.
+[16
+
+] [17] [18] [19] [20]
+Overfull \hbox (20.62985pt too wide) in paragraph at lines 730--732
 \OT1/cmr/m/n/12 One can show that it is a bounded lin-ear map. How-ever, $\OML/
 cmm/m/it/12 y[] \OT1/cmr/m/n/12 = (1\OML/cmm/m/it/12 ; []; []; [] ; []; [] ; \O
 T1/cmr/m/n/12 0\OML/cmm/m/it/12 ; [] \OT1/cmr/m/n/12 ) \OMS/cmsy/m/n/12 2
  []
 
-[20] [21] [22] [23] [24] [25] [26] [27] [28]
-Chapter 4.
-[29
+[21] [22] [23] [24] [25] [26] [27] [28] [29]
+Chapter 5.
+[30
 
 ]
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1093.
+(hyperref)                removing `math shift' on input line 1112.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 1093.
+(hyperref)                removing `superscript' on input line 1112.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1093.
+(hyperref)                removing `math shift' on input line 1112.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1119.
+(hyperref)                removing `math shift' on input line 1138.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `superscript' on input line 1119.
+(hyperref)                removing `superscript' on input line 1138.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `\Omega' on input line 1119.
+(hyperref)                removing `\Omega' on input line 1138.
 
 
 Package hyperref Warning: Token not allowed in a PDF string (Unicode):
-(hyperref)                removing `math shift' on input line 1119.
+(hyperref)                removing `math shift' on input line 1138.
 
-[30] [31]
-Overfull \hbox (11.84442pt too wide) in paragraph at lines 1205--1205
+[31] [32]
+Overfull \hbox (11.84442pt too wide) in paragraph at lines 1224--1224
 []\OT1/cmr/bx/n/17.28 Adjoint of Lin-ear Maps be-tween Ba-nach Spaces 
  []
 
-[32]
-Underfull \hbox (badness 1142) in paragraph at lines 1274--1275
-[][]\OT1/cmss/m/n/12 Definition 4.10.1 (hy-per-plane). []\OT1/cmr/m/n/12 A \OT1
+[33]
+Underfull \hbox (badness 1142) in paragraph at lines 1293--1294
+[][]\OT1/cmss/m/n/12 Definition 5.10.1 (hy-per-plane). []\OT1/cmr/m/n/12 A \OT1
 /cmr/m/it/12 hy-per-plane $\OML/cmm/m/it/12 U$ \OT1/cmr/m/n/12 in a vec-tor spa
 ce $\OML/cmm/m/it/12 X$ \OT1/cmr/m/n/12 is a
  []
 
-[33] [34] [35] [36] [37] [38] [39] [40] [41] (./analysis_notes.bbl [42])
-[43
+[34] [35] [36] [37] [38] [39] [40] [41] [42] (./analysis_notes.bbl [43])
+[44
 
 ] (./analysis_notes.aux)
 Package rerunfilecheck Info: File `analysis_notes.out' has not changed.
-(rerunfilecheck)             Checksum: E9273607735E1A48EC0159B2BBA1C305;9178.
+(rerunfilecheck)             Checksum: E51F8A06E728F2A18B3FA57BB6F1B2AC;9514.
  ) 
 Here is how much of TeX's memory you used:
- 27150 strings out of 478994
- 523947 string characters out of 5858184
- 870855 words of memory out of 5000000
- 43850 multiletter control sequences out of 15000+600000
+ 27160 strings out of 478994
+ 524068 string characters out of 5858184
+ 871861 words of memory out of 5000000
+ 43855 multiletter control sequences out of 15000+600000
  419573 words of font info for 90 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  112i,11n,116p,844b,1113s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1059,10 +1063,10 @@ fonts/type1/public/amsfonts/cm/cmti8.pfb></usr/local/texlive/2021/texmf-dist/fo
 nts/type1/public/amsfonts/symbols/msam10.pfb></usr/local/texlive/2021/texmf-dis
 t/fonts/type1/public/amsfonts/symbols/msbm10.pfb></usr/local/texlive/2021/texmf
 -dist/fonts/type1/public/rsfs/rsfs10.pfb>
-Output written on analysis_notes.pdf (44 pages, 437023 bytes).
+Output written on analysis_notes.pdf (45 pages, 439641 bytes).
 PDF statistics:
- 875 PDF objects out of 1000 (max. 8388607)
- 795 compressed objects within 8 object streams
- 318 named destinations out of 1000 (max. 500000)
- 405 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 893 PDF objects out of 1000 (max. 8388607)
+ 811 compressed objects within 9 object streams
+ 323 named destinations out of 1000 (max. 500000)
+ 421 words of extra memory for PDF output out of 10000 (max. 10000000)
 
